@@ -1,7 +1,7 @@
 {
   "experiences": [
     {
-      "companyLogo": "https://image-service.leadiq.com/companylogo?linkedinId=3801155",
+      "companyLogo": "/companies/madkudu.jpg",
       "companyName": "MadKudu",
       "period": "Jul 2022 - Present",
       "role": "Fullstack Engineer",
@@ -25,7 +25,7 @@
       ]
     },
     {
-      "companyLogo": "https://media.licdn.com/dms/image/v2/D4E0BAQFHqlGSOTY-jg/company-logo_100_100/company-logo_100_100/0/1707485513293/magic_bazar_logo?e=1747872000&v=beta&t=MjN1R2sZE2oqSoXc6AOUmWzVB6W8Vij8emy42Ny5yIQ",
+      "companyLogo": "/companies/playin.jpg",
       "companyName": "Playin by Magic Bazar",
       "period": "Apr 2022 - Jun 2022",
       "role": "Frontend Developer",
@@ -33,7 +33,7 @@
       "technologies": ["React", "TypeScript", "styled-components"]
     },
     {
-      "companyLogo": "https://media.licdn.com/dms/image/v2/C4D0BAQEFDeNqpquZiA/company-logo_100_100/company-logo_100_100/0/1630542454327/ineat_conseil_logo?e=1747872000&v=beta&t=JXcG2EoY-8UFXCA7gvjDiLaBRfOWBTJNtQbKe0R9t7Y",
+      "companyLogo": "/companies/ineat.jpg",
       "companyName": "INEAT",
       "period": "Sep 2019 - Mar 2022",
       "role": "Technical Consultant",
@@ -44,7 +44,7 @@
           "role": "Fullstack Engineer",
           "period": "Feb 2022 - Mar 2022",
           "companyName": "RMC BFM",
-          "companyLogo": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fupload.wikimedia.org%2Fwikipedia%2Fcommons%2Fb%2Fb6%2FLogo_BFM_TV_(2019).png&f=1&nofb=1&ipt=bcceab679dcf848bc2f28ac2b22c85e50827c376b7f754ccdbc1e04ae75bb784&ipo=images",
+          "companyLogo": "/companies/bfmtv.png",
           "description": "Actively worked for RMC BFM on the migration of CI/CD pipelines to Github Actions, including end-to-end tests based on Selenium.",
           "technologies": ["Next.js", "React", "Selenium", "TypeScript", "CI/CD"]
         },
@@ -52,7 +52,7 @@
           "role": "Frontend Engineer",
           "period": "Apr 2021 - Jan 2022",
           "companyName": "Groupe ADP",
-          "companyLogo": "https://media.licdn.com/dms/image/v2/D4D0BAQFjLKlZ1jC6ww/company-logo_200_200/company-logo_200_200/0/1738255304858/groupe_adp_logo?e=1747872000&v=beta&t=vePPV4iM7t5c0KrE1hXuD-YCvVKN7SmDXErqwafFd2s",
+          "companyLogo": "/companies/groupe-adp.jpg",
           "description": "Designing and implementing an application for managing air freights for Groupe ADP (formerly Aéroports de Paris) while collaborating with C#/.NET backend developers.",
           "technologies": ["React", "TypeScript", "Redux", "Tailwind CSS"]
         },
@@ -60,14 +60,14 @@
           "role": "Fullstack Engineer",
           "period": "Sep 2019 - Mar 2021",
           "companyName": "SNCF",
-          "companyLogo": "https://media.licdn.com/dms/image/v2/D4E0BAQFlGBqf1ohy3Q/company-logo_200_200/company-logo_200_200/0/1738319971919/sncf_logo?e=1747872000&v=beta&t=54NaOuHSQ5xqRuqgkCDW7zMGkyAvXv7hIkmX14FwGoQ",
+          "companyLogo": "/companies/sncf.jpg",
           "description": "Designing and implementing a map service to help SNCF engineers manage and find tools marked with QR codes, and plan their itinerary inside the technical center of Les Ardoines, reducing a lot of back and forth.",
           "technologies": ["React", "TypeScript", "Node.js", "MongoDB", "Leaflet", "GraphQL"]
         }
       ]
     },
     {
-      "companyLogo": "https://media.licdn.com/dms/image/v2/D4E0BAQHpmcMsQ36k7Q/company-logo_100_100/company-logo_100_100/0/1704275700193/agence_arep_logo?e=1747872000&v=beta&t=wrZVwJ05mV1ToJYWj5STUNEs0u7EcUVw-TPesNg2h6w",
+      "companyLogo": "/companies/arep.jpg",
       "companyName": "AREP-Exigences",
       "period": "Sep 2017 - Sep 2019",
       "role": "Fullstack Engineer",
@@ -75,7 +75,7 @@
       "technologies": ["AngularJS", "Vue.js", "PHP", "MySQL", "Sass"]
     },
     {
-      "companyLogo": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fd1guu6n8gz71j.cloudfront.net%2Fsystem%2Fasset%2Flogos%2F1617%2Flogo.png%3F1519813134&f=1&nofb=1&ipt=6118609cf09c0908d5c4fb296d1e5d9dda1a0b1438f07241fc9662334f46cd5b&ipo=images",
+      "companyLogo": "/companies/societe-generale.png",
       "companyName": "Société Générale",
       "period": "May 2017 - Aug 2017",
       "role": "Java Developer",

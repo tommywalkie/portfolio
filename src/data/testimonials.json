@@ -1,22 +1,25 @@
 {
   "testimonials": [
     {
-      "avatarUrl": "https://media.licdn.com/dms/image/v2/D4E03AQFJiENhxKg33w/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1702403026065?e=1745452800&v=beta&t=vHHvR0wM8oenBA2sDb-gjoE68UZUIGezj2TedTYyr7g",
+      "avatarUrl": "/profiles/maxime-gaudin.jpg",
       "name": "Maxime Gaudin",
       "title": "CTO @ MadKudu",
-      "content": "I had the pleasure of working with Tom at MadKudu when he was a fullstack engineer, and I really enjoyed collaborating with him. He is kind, dedicated, and a true team player. Tom worked hard to contribute to key products at MadKudu and always strived to have a meaningful impact. His commitment and willingness to put in the effort made him a valuable member of the team!"
+      "content": "I had the pleasure of working with Tom at MadKudu when he was a fullstack engineer, and I really enjoyed collaborating with him. He is kind, dedicated, and a true team player. Tom worked hard to contribute to key products at MadKudu and always strived to have a meaningful impact. His commitment and willingness to put in the effort made him a valuable member of the team!",
+      "linkedIn": "https://www.linkedin.com/in/maxime-gaudin/"
     },
     {
-      "avatarUrl": "https://media.licdn.com/dms/image/v2/D4E35AQFhf31jQB96hw/profile-framedphoto-shrink_400_400/profile-framedphoto-shrink_400_400/0/1739352450558?e=1740427200&v=beta&t=A2QjsgnOz0mZNEVU3PRZFTQRhijQf126xiEFEZXn5DA",
+      "avatarUrl": "/profiles/adrien-kerros.jpg",
       "name": "Adrien Kerros",
       "title": "Web Developer",
-      "content": "I had the opportunity to work with Tom at AREP-Exigences. He is a serious and dedicated colleague, always looking for the best solution. He is highly responsive and never hesitates to offer suggestions. He is someone you can always rely on."
+      "content": "I had the opportunity to work with Tom at AREP-Exigences. He is a serious and dedicated colleague, always looking for the best solution. He is highly responsive and never hesitates to offer suggestions. He is someone you can always rely on.",
+      "linkedIn": "https://www.linkedin.com/in/adrien-kerros/"
     },
     {
-      "avatarUrl": "https://media.licdn.com/dms/image/v2/D4E03AQE-RrJWObSN6g/profile-displayphoto-shrink_100_100/profile-displayphoto-shrink_100_100/0/1714387403605?e=1745452800&v=beta&t=Dvvyvnz4px1JqZlLdItMtuxE_jWsA_DoHRbYRVPidkU",
+      "avatarUrl": "/profiles/ghassen-rjab.jpg",
       "name": "Ghassen Rjab",
       "title": "Fullstack Developer",
-      "content": "I had the pleasure of working with Tom for two years at MadKudu. He's an exceptionally talented and pragmatic web developer, equally skilled in backend and frontend development. Tom is always on the lookout for the latest tools and libraries that can genuinely improve the stack. Thanks to him, we integrated TanStack React Query and TypeORM, which significantly boosted our efficiency and developer experience.\nBeyond work, what consistently amazed me was Tom's dedication to side projects with his friends. His passion for building things never fades, and he's always pushing boundaries and exploring new ideas.\nI wholeheartedly recommend Tom. Any team would be lucky to have him!"
+      "content": "I had the pleasure of working with Tom for two years at MadKudu. He's an exceptionally talented and pragmatic web developer, equally skilled in backend and frontend development. Tom is always on the lookout for the latest tools and libraries that can genuinely improve the stack. Thanks to him, we integrated TanStack React Query and TypeORM, which significantly boosted our efficiency and developer experience.\nBeyond work, what consistently amazed me was Tom's dedication to side projects with his friends. His passion for building things never fades, and he's always pushing boundaries and exploring new ideas.\nI wholeheartedly recommend Tom. Any team would be lucky to have him!",
+      "linkedIn": "https://www.linkedin.com/in/ghassenrjab/"
     }
   ]
-} 
+}

@@ -1,13 +1,15 @@
 import { Squircle } from './Squircle'
+import { LinkedInButton } from './LinkedInButton'
 
 interface TestimonialProps {
   avatarUrl: string
   name: string
   title: string
   content: string
+  linkedIn?: string
 }
 
-export function Testimonial({ avatarUrl, name, title, content }: TestimonialProps) {
+export function Testimonial({ avatarUrl, name, title, content, linkedIn }: TestimonialProps) {
   const lines = content.split('\n')
 
   return (
@@ -17,15 +19,17 @@ export function Testimonial({ avatarUrl, name, title, content }: TestimonialProp
       </Squircle>
       <div className="my-auto space-y-2">
         <div>
-          <div className="font-bold text-xl">{name}</div>
+          <div className="flex items-center gap-2">
+            <div className="font-bold text-xl">{name}</div>
+            {linkedIn && <LinkedInButton href={linkedIn} className="translate-y-[1px] w-5 h-5" />}
+          </div>
           <div className="text-md text-tertiary-600 dark:text-tertiary">{title}</div>
         </div>
         <div className="text-primary-900 dark:text-primary-100 font-light text-lg">
           {lines.map((line, index) => (
-            <div key={index}>
+            <span key={index} className={index < lines.length - 1 ? 'block mb-2' : 'block'}>
               {line}
-              {index < lines.length - 1 && <br />}
-            </div>
+            </span>
           ))}
         </div>
       </div>

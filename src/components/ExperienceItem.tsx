@@ -1,4 +1,5 @@
-import { Squircle } from "./Squircle"
+import { Fragment } from 'react'
+import { Squircle } from './Squircle'
 
 interface SubExperience {
   role: string
@@ -34,11 +35,7 @@ export function ExperienceItem({
     <div className="p-6 w-full bg-primary-50 dark:bg-primary-900 rounded-lg space-y-4">
       <div className="flex gap-4">
         <Squircle width={64} height={64} className="shrink-0">
-          <img 
-            src={companyLogo} 
-            alt={companyName} 
-            className="w-16 h-16"
-          />
+          <img src={companyLogo} alt={companyName} className="w-16 h-16" />
         </Squircle>
         <div className="space-y-1">
           <div className="font-bold text-xl">{companyName}</div>
@@ -49,20 +46,17 @@ export function ExperienceItem({
 
       <div className="text-primary-900 dark:text-primary-100 font-light">
         {lines.map((line, index) => (
-          <div key={index}>
+          <Fragment key={index}>
             {line}
             {index < lines.length - 1 && <br />}
-          </div>
+          </Fragment>
         ))}
       </div>
 
       {technologies.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {technologies.map((tech) => (
-            <span
-              key={tech}
-              className="px-3 py-1 text-sm bg-primary-100 dark:bg-primary-800 rounded-full"
-            >
+            <span key={tech} className="px-3 py-1 text-sm bg-primary-100 dark:bg-primary-800 rounded-full">
               {tech}
             </span>
           ))}
@@ -76,19 +70,13 @@ export function ExperienceItem({
               <div className="flex gap-4">
                 {subExp.companyLogo && (
                   <Squircle width={48} height={48} className="shrink-0 mt-1.5">
-                    <img 
-                      src={subExp.companyLogo} 
-                      alt={subExp.companyName || ''} 
-                      className="w-12 h-12"
-                    />
+                    <img src={subExp.companyLogo} alt={subExp.companyName || ''} className="w-12 h-12" />
                   </Squircle>
                 )}
                 <div className="">
                   <div className="font-semibold text-lg">{subExp.role}</div>
                   {subExp.companyName && (
-                    <div className="text-primary-700 dark:text-primary-300">
-                      {subExp.companyName}
-                    </div>
+                    <div className="text-primary-700 dark:text-primary-300">{subExp.companyName}</div>
                   )}
                   <div className="text-sm text-tertiary-600 dark:text-tertiary">{subExp.period}</div>
                 </div>
@@ -104,10 +92,7 @@ export function ExperienceItem({
               {subExp.technologies && subExp.technologies.length > 0 && (
                 <div className="flex flex-wrap gap-2">
                   {subExp.technologies.map((tech) => (
-                    <span
-                      key={tech}
-                      className="px-3 py-1 text-sm bg-primary-100 dark:bg-primary-800 rounded-full"
-                    >
+                    <span key={tech} className="px-3 py-1 text-sm bg-primary-100 dark:bg-primary-800 rounded-full">
                       {tech}
                     </span>
                   ))}
@@ -119,4 +104,4 @@ export function ExperienceItem({
       )}
     </div>
   )
-} 
+}
