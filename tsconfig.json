@@ -18,7 +18,8 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "esModuleInterop": true
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

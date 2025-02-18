@@ -11,16 +11,16 @@ export function Testimonial({ avatarUrl, name, title, content }: TestimonialProp
   const lines = content.split('\n')
 
   return (
-    <div className="p-4 flex gap-4 w-full max-w-2xl bg-gray-50 dark:bg-gray-800 rounded-lg">
+    <div className="p-4 flex gap-4 w-full max-w-2xl bg-primary-50 dark:bg-primary-900 rounded-lg">
       <Squircle width={64} height={64} className="shrink-0">
         <img src={avatarUrl} alt={name} className="w-16 h-16" />
       </Squircle>
       <div className="my-auto space-y-2">
         <div>
-          <div className="font-bold">{name}</div>
-          <div className="text-sm text-gray-600 dark:text-gray-400">{title}</div>
+          <div className="font-bold text-xl">{name}</div>
+          <div className="text-md text-tertiary-600 dark:text-tertiary">{title}</div>
         </div>
-        <div className="text-gray-700 dark:text-gray-300 font-light">
+        <div className="text-primary-900 dark:text-primary-100 font-light text-lg">
           {lines.map((line, index) => (
             <div key={index}>
               {line}

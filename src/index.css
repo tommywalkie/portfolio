@@ -1,16 +1,101 @@
 @import url('https://fontlay.com/css2?family=Outfit:wght@100..900&display=swap');
 
 @import 'tailwindcss';
+
 @custom-variant dark (&:where(.dark, .dark *));
 
-html.dark {
-  background-color: var(--background);
-  color: var(--foreground);
+:root {
+  --background-dark: #152418;
+  --color-dark: #FAF3CA;
 }
 
-.mask-squircle {
-  -webkit-mask-image: url("data:image/svg+xml,%3csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M100 0C20 0 0 20 0 100s20 100 100 100 100-20 100-100S180 0 100 0Z'/%3e%3c/svg%3e");
-  mask-image: url("data:image/svg+xml,%3csvg width='200' height='200' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M100 0C20 0 0 20 0 100s20 100 100 100 100-20 100-100S180 0 100 0Z'/%3e%3c/svg%3e");
+@theme {
+  --color-hunter-green-50: #f2f7f2;
+  --color-hunter-green-100: #e1ebe0;
+  --color-hunter-green-200: #c2d8c2;
+  --color-hunter-green-300: #99bc9a;
+  --color-hunter-green-400: #6d9a71;
+  --color-hunter-green-500: #4c7d51;
+  --color-hunter-green-600: #39623e;
+  --color-hunter-green-700: #2d4f32;
+  --color-hunter-green-800: #263f2a;
+  --color-hunter-green-900: #203424;
+  --color-hunter-green-950: #152418;
+
+  --color-screamin-green-50: #eefff0;
+  --color-screamin-green-100: #d7ffdd;
+  --color-screamin-green-200: #b2ffbe;
+  --color-screamin-green-300: #53ff70;
+  --color-screamin-green-400: #33f554;
+  --color-screamin-green-500: #09de2e;
+  --color-screamin-green-600: #01b821;
+  --color-screamin-green-700: #05901e;
+  --color-screamin-green-800: #0a711d;
+  --color-screamin-green-900: #0a5d1b;
+  --color-screamin-green-950: #00340b;
+
+  --color-geraldine-50: #fef2f2;
+    --color-geraldine-100: #fde3e3;
+    --color-geraldine-200: #fdcbcb;
+    --color-geraldine-300: #faa8a7;
+    --color-geraldine-400: #f67e7d;
+    --color-geraldine-500: #ec4847;
+    --color-geraldine-600: #d82b2a;
+    --color-geraldine-700: #b6201f;
+    --color-geraldine-800: #971e1d;
+    --color-geraldine-900: #7d201f;
+    --color-geraldine-950: #440b0b;
+  
+    --color-primary: var(--color-hunter-green-500);
+    --color-primary-50: var(--color-hunter-green-50);
+    --color-primary-100: var(--color-hunter-green-100);
+    --color-primary-200: var(--color-hunter-green-200);
+    --color-primary-300: var(--color-hunter-green-300);
+    --color-primary-400: var(--color-hunter-green-400);
+    --color-primary-500: var(--color-hunter-green-500);
+    --color-primary-600: var(--color-hunter-green-600);
+    --color-primary-700: var(--color-hunter-green-700);
+    --color-primary-800: var(--color-hunter-green-800);
+    --color-primary-900: var(--color-hunter-green-900);
+    --color-primary-950: var(--color-hunter-green-950);
+  
+    --color-secondary: var(--color-geraldine-500);
+    --color-secondary-50: var(--color-geraldine-50);
+    --color-secondary-100: var(--color-geraldine-100);
+    --color-secondary-200: var(--color-geraldine-200);
+    --color-secondary-300: var(--color-geraldine-300);
+    --color-secondary-400: var(--color-geraldine-400);
+    --color-secondary-500: var(--color-geraldine-500);
+    --color-secondary-600: var(--color-geraldine-600);
+    --color-secondary-700: var(--color-geraldine-700);
+    --color-secondary-800: var(--color-geraldine-800);
+    --color-secondary-900: var(--color-geraldine-900);
+    --color-secondary-950: var(--color-geraldine-950);
+
+  --color-tertiary: var(--color-screamin-green-500);
+  --color-tertiary-50: var(--color-screamin-green-50);
+  --color-tertiary-100: var(--color-screamin-green-100);
+  --color-tertiary-200: var(--color-screamin-green-200);
+  --color-tertiary-300: var(--color-screamin-green-300);
+  --color-tertiary-400: var(--color-screamin-green-400);
+  --color-tertiary-500: var(--color-screamin-green-500);
+  --color-tertiary-600: var(--color-screamin-green-600);
+  --color-tertiary-700: var(--color-screamin-green-700);
+  --color-tertiary-800: var(--color-screamin-green-800);
+  --color-tertiary-900: var(--color-screamin-green-900);
+  --color-tertiary-950: var(--color-screamin-green-950);
+}
+
+html {
+  background-color: white;
+  color: var(--color-primary-950);
+  transition: background-color, color 0.3s ease;
+}
+
+html.dark {
+  background-color: var(--color-primary-950);
+  color: var(--color-primary-200);
+  transition: background-color, color 0.3s ease;
 }
 
 body {
