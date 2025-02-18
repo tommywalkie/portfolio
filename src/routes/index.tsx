@@ -39,11 +39,6 @@ function Index() {
       </div>
 
       <div className="p-4 mb-12">
-        <h2 className="text-3xl font-bold mb-8 text-center">Experience</h2>
-        <ExperienceList experiences={experienceData.experiences} />
-      </div>
-
-      <div className="p-4">
         <h2 className="text-3xl font-bold mb-8 text-center">Testimonials</h2>
         <div className="flex flex-col gap-4 w-full items-center">
           {testimonialData.testimonials.map((testimonial) => (
@@ -51,6 +46,13 @@ function Index() {
           ))}
         </div>
       </div>
+
+      <div className="p-4 mb-12">
+        <h2 className="text-3xl font-bold mb-8 text-center">Experience</h2>
+        <ExperienceList experiences={experienceData.experiences} />
+      </div>
+
+      
     </div>
   )
 }

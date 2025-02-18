@@ -10,7 +10,7 @@ export function TextSlider({ words }: TextSliderProps) {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentIndex((current) => (current + 1) % words.length)
-    }, 5000)
+    }, 3000)
 
     return () => clearInterval(interval)
   }, [words.length])
