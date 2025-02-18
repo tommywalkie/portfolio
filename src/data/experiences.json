@@ -1,12 +1,28 @@
 {
   "experiences": [
     {
-      "companyLogo": "https://media.licdn.com/dms/image/v2/D4E0BAQEGm1G41aCSgQ/company-logo_100_100/company-logo_100_100/0/1713794957406/madkudu_logo?e=1747872000&v=beta&t=2SKF1nR0wI3aJWfJ1uw7GLM-GRpkKjxsgRcXy-ejuIA",
+      "companyLogo": "https://image-service.leadiq.com/companylogo?linkedinId=3801155",
       "companyName": "MadKudu",
       "period": "Jul 2022 - Present",
       "role": "Fullstack Engineer",
       "description": "• Co-designing the Sales Copilot application, leading to the acquisition of new customers and the pivot to Signal Based Selling.\n• Implementing the Chrome extension version of our Sales Copilot application, including embedding it into Gong.\n• Actively participate in the setup of Github Actions for CI/CD, and migrating pipelines from CircleCI.\n• Co-create the product roadmap in collaboration with PMs.\n• Occasionally collaborate with data engineers on services based on Airflow and Python.",
-      "technologies": ["NestJS", "React", "TypeScript", "AWS", "Node.js", "Terraform", "Tailwind CSS", "Chakra UI", "Docker", "Redis", "Playwright", "PostgreSQL", "Vite", "CI/CD", "Python"]
+      "technologies": [
+        "NestJS",
+        "React",
+        "TypeScript",
+        "AWS",
+        "Node.js",
+        "Terraform",
+        "Tailwind CSS",
+        "Chakra UI",
+        "Docker",
+        "Redis",
+        "Playwright",
+        "PostgreSQL",
+        "Vite",
+        "CI/CD",
+        "Python"
+      ]
     },
     {
       "companyLogo": "https://media.licdn.com/dms/image/v2/D4E0BAQFHqlGSOTY-jg/company-logo_100_100/company-logo_100_100/0/1707485513293/magic_bazar_logo?e=1747872000&v=beta&t=MjN1R2sZE2oqSoXc6AOUmWzVB6W8Vij8emy42Ny5yIQ",
@@ -67,4 +83,4 @@
       "technologies": ["Java", "Jenkins"]
     }
   ]
-} 
+}

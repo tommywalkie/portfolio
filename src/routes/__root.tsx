@@ -7,7 +7,7 @@ function Root() {
     <div className="min-h-screen">
       <Header />
       <Outlet />
-      <TanStackRouterDevtools />
+      {import.meta.env.DEV && <TanStackRouterDevtools />}
     </div>
   )
 }

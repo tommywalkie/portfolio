@@ -13,7 +13,7 @@ export const Route = createFileRoute('/')({
 })
 
 function Index() {
-  const mainSkills = ['React', 'TypeScript', 'Node.js', 'NestJS', 'TailwindCSS', 'PHP']
+  const mainSkills = ['React', 'TypeScript', 'Node.js', 'NestJS', 'Tailwind CSS', 'PHP']
 
   return (
     <div>
@@ -51,8 +51,6 @@ function Index() {
         <h2 className="text-3xl font-bold mb-8 text-center">Experience</h2>
         <ExperienceList experiences={experienceData.experiences} />
       </div>
-
-      
     </div>
   )
 }
