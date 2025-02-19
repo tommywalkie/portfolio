@@ -1,5 +1,5 @@
 import { GithubButton } from './GithubButton'
-import { LinkIcon } from 'lucide-react'
+import { SquareArrowOutUpRightIcon } from 'lucide-react'
 import type { Project } from '../types'
 import { Squircle } from './Squircle'
 
@@ -28,10 +28,10 @@ export function ProjectItem({ name, description, technologies, url, githubUrl, i
         <div className="flex gap-2 shrink-0">
           {url && (
             <a href={url} target="_blank" rel="noopener noreferrer" aria-label="Visit project">
-              <LinkIcon className="w-5 h-5 text-primary-300 hover:text-primary dark:text-primary dark:hover:text-primary-300" />
+              <SquareArrowOutUpRightIcon className="w-6 h-6 text-primary-300 hover:text-primary dark:text-primary dark:hover:text-primary-300" />
             </a>
           )}
-          {githubUrl && <GithubButton href={githubUrl} className="w-5 h-5" />}
+          {githubUrl && <GithubButton href={githubUrl} className="w-6 h-6" />}
         </div>
       </div>
       <div className="flex flex-wrap gap-2">

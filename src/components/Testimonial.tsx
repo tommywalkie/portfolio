@@ -21,13 +21,13 @@ export function Testimonial({ avatarUrl, name, title, content, linkedIn }: Testi
         <div>
           <div className="flex items-center gap-2 justify-between">
             <div className="font-bold text-xl text-primary-700 dark:text-primary-100">{name}</div>
-            {linkedIn && <LinkedInButton href={linkedIn} className="translate-y-[1px] w-5 h-5 ml-auto" />}
+            {linkedIn && <LinkedInButton href={linkedIn} className="translate-y-[1px] w-6 h-6 ml-auto" />}
           </div>
           <div className="text-md text-secondary-600 dark:text-secondary-500">{title}</div>
         </div>
         <div className="text-primary-900 dark:text-primary-100 font-light text-lg">
           {lines.map((line, index) => (
-            <span key={index} className={index < lines.length - 1 ? 'block mb-2' : 'block'}>
+            <span key={index} className={index < lines.length - 1 ? 'block mb-4' : 'block'}>
               {line}
             </span>
           ))}

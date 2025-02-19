@@ -6,7 +6,7 @@ export function Header() {
   const { isDark, toggleDarkMode } = useDarkMode()
 
   return (
-    <header className="sticky top-0 z-10 w-full bg-white/90 dark:bg-primary-950/90 transition-colors">
+    <header className="sticky top-0 z-10 w-full bg-white/90 dark:bg-primary-950/90">
       <div className="max-w-7xl mx-auto flex justify-between py-2">
         <Link to="/" className="my-auto ml-4">
           <Logo className="w-6 h-6" />

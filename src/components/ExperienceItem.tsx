@@ -3,7 +3,7 @@ import { Squircle } from './Squircle'
 import { formatDateRange } from '../utils/dates'
 import type { Experience } from '../types'
 import { LinkedInButton } from './LinkedInButton'
-import { LinkIcon } from 'lucide-react'
+import { SquareArrowOutUpRightIcon } from 'lucide-react'
 
 // Shared components
 function DateDisplay({ startDate, endDate }: { startDate: string; endDate: string | null }) {
@@ -50,10 +50,10 @@ function CompanyLinks({ url, linkedIn }: { url?: string; linkedIn?: string }) {
     <div className="inline-flex gap-2 ml-auto pl-3">
       {url && (
         <a href={url} target="_blank" rel="noopener noreferrer" aria-label="Company website">
-          <LinkIcon className="w-5 h-5 text-primary-300 hover:text-primary dark:text-primary dark:hover:text-primary-300" />
+          <SquareArrowOutUpRightIcon className="w-6 h-6 text-primary-300 hover:text-primary dark:text-primary dark:hover:text-primary-300" />
         </a>
       )}
-      {linkedIn && <LinkedInButton href={linkedIn} className="w-5 h-5" />}
+      {linkedIn && <LinkedInButton href={linkedIn} className="w-6 h-6" />}
     </div>
   )
 }
