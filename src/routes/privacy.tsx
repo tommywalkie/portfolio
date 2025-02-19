@@ -1,4 +1,5 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute, Link } from '@tanstack/react-router'
+import { ArrowLeftIcon } from 'lucide-react'
 
 export const Route = createFileRoute('/privacy')({
   component: Privacy,
@@ -7,6 +8,16 @@ export const Route = createFileRoute('/privacy')({
 function Privacy() {
   return (
     <div className="max-w-3xl mx-auto px-4 py-8 text-left text-primary-900 dark:text-primary-100">
+      <div>
+        <Link
+          to="/"
+          className="text-primary-600 dark:text-primary-300 flex items-center gap-2 mb-5 bg-primary-50 dark:bg-primary-900 px-4 py-2 rounded-md hover:bg-primary-100 dark:hover:bg-primary-800"
+        >
+          <ArrowLeftIcon className="w-4 h-4" />
+          Back to home
+        </Link>
+      </div>
+
       <h1 className="text-2xl font-bold mb-6 mt-4">Privacy Policy</h1>
 
       <section className="mb-8">

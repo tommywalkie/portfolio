@@ -1,19 +1,5 @@
 import { ExperienceItem } from './ExperienceItem'
-
-interface Experience {
-  companyLogo: string
-  companyName: string
-  period: string
-  role: string
-  description: string
-  technologies?: string[]
-  subExperiences?: Array<{
-    role: string
-    period: string
-    description: string
-    technologies?: string[]
-  }>
-}
+import type { Experience } from '../types'
 
 interface ExperienceListProps {
   experiences: Experience[]
@@ -27,4 +13,4 @@ export function ExperienceList({ experiences }: ExperienceListProps) {
       ))}
     </div>
   )
-} 
+}

@@ -18,7 +18,7 @@ export function Logo({ className = '' }: LogoProps) {
           />
           <path
             d=" M 396.875 419.091 C 396.875 389.253 421.1 365.028 450.938 365.028 C 480.776 365.028 505 389.253 505 419.091 C 505 448.929 480.776 473.153 450.938 473.153 C 421.1 473.153 396.875 448.929 396.875 419.091 Z "
-            className="fill-tertiary-600 dark:fill-tertiary-500"
+            className="fill-secondary-600 dark:fill-secondary-500"
           />
         </g>
       </g>

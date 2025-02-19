@@ -3,9 +3,12 @@
     {
       "companyLogo": "/companies/madkudu.jpg",
       "companyName": "MadKudu",
-      "period": "Jul 2022 - Present",
+      "companyUrl": "https://www.madkudu.com",
+      "companyLinkedIn": "https://www.linkedin.com/company/madkudu",
+      "startDate": "2022-07",
+      "endDate": null,
       "role": "Fullstack Engineer",
-      "description": "• Co-designing the Sales Copilot application, leading to the acquisition of new customers and the pivot to Signal Based Selling.\n• Implementing the Chrome extension version of our Sales Copilot application, including embedding it into Gong.\n• Actively participate in the setup of Github Actions for CI/CD, and migrating pipelines from CircleCI.\n• Co-create the product roadmap in collaboration with PMs.\n• Occasionally collaborate with data engineers on services based on Airflow and Python.",
+      "description": "- Co-designing the Sales Copilot application, leading to the acquisition of new customers and the pivot to Signal Based Selling.\n- Implementing the Chrome extension version of our Sales Copilot application, including embedding it into Gong.\n- Actively participate in the setup of Github Actions for CI/CD, and migrating pipelines from CircleCI.\n- Co-create the product roadmap in collaboration with PMs.\n- Occasionally collaborate with data engineers on services based on Airflow and Python.",
       "technologies": [
         "NestJS",
         "React",
@@ -27,7 +30,10 @@
     {
       "companyLogo": "/companies/playin.jpg",
       "companyName": "Playin by Magic Bazar",
-      "period": "Apr 2022 - Jun 2022",
+      "companyUrl": "https://www.play-in.com",
+      "companyLinkedIn": "https://www.linkedin.com/company/magic-bazar",
+      "startDate": "2022-04",
+      "endDate": "2022-06",
       "role": "Frontend Developer",
       "description": "Migrating order management system to React, with the use of CSS-in-JS and Bitbucket Pipelines",
       "technologies": ["React", "TypeScript", "styled-components"]
@@ -35,32 +41,44 @@
     {
       "companyLogo": "/companies/ineat.jpg",
       "companyName": "INEAT",
-      "period": "Sep 2019 - Mar 2022",
+      "companyUrl": "https://astekgroup.fr/",
+      "companyLinkedIn": "https://www.linkedin.com/company/ineat-conseil/",
+      "startDate": "2019-09",
+      "endDate": "2022-03",
       "role": "Technical Consultant",
       "description": "Worked as a technical consultant for various clients, delivering high-quality solutions.",
       "technologies": [],
       "subExperiences": [
         {
           "role": "Fullstack Engineer",
-          "period": "Feb 2022 - Mar 2022",
+          "startDate": "2022-02",
+          "endDate": "2022-03",
           "companyName": "RMC BFM",
           "companyLogo": "/companies/bfmtv.png",
+          "companyUrl": "https://www.bfmtv.com/",
+          "companyLinkedIn": "https://www.linkedin.com/company/bfmtv",
           "description": "Actively worked for RMC BFM on the migration of CI/CD pipelines to Github Actions, including end-to-end tests based on Selenium.",
           "technologies": ["Next.js", "React", "Selenium", "TypeScript", "CI/CD"]
         },
         {
           "role": "Frontend Engineer",
-          "period": "Apr 2021 - Jan 2022",
+          "startDate": "2021-04",
+          "endDate": "2022-01",
           "companyName": "Groupe ADP",
           "companyLogo": "/companies/groupe-adp.jpg",
+          "companyUrl": "http://www.groupe-adp.com",
+          "companyLinkedIn": "https://www.linkedin.com/company/groupe-adp",
           "description": "Designing and implementing an application for managing air freights for Groupe ADP (formerly Aéroports de Paris) while collaborating with C#/.NET backend developers.",
           "technologies": ["React", "TypeScript", "Redux", "Tailwind CSS"]
         },
         {
           "role": "Fullstack Engineer",
-          "period": "Sep 2019 - Mar 2021",
+          "startDate": "2019-09",
+          "endDate": "2021-03",
           "companyName": "SNCF",
           "companyLogo": "/companies/sncf.jpg",
+          "companyUrl": "https://www.sncf.com/",
+          "companyLinkedIn": "https://www.linkedin.com/company/sncf",
           "description": "Designing and implementing a map service to help SNCF engineers manage and find tools marked with QR codes, and plan their itinerary inside the technical center of Les Ardoines, reducing a lot of back and forth.",
           "technologies": ["React", "TypeScript", "Node.js", "MongoDB", "Leaflet", "GraphQL"]
         }
@@ -69,15 +87,21 @@
     {
       "companyLogo": "/companies/arep.jpg",
       "companyName": "AREP-Exigences",
-      "period": "Sep 2017 - Sep 2019",
+      "startDate": "2017-09",
+      "endDate": "2019-09",
+      "companyUrl": "https://www.agence-arep.com/",
+      "companyLinkedIn": "https://www.linkedin.com/company/agence-arep",
       "role": "Fullstack Engineer",
-      "description": "• Designing and implementing a check-in PWA application for event hosts\n• Actively participate in technological watch and security talks, leading the company to be able to sell more web-based products and acquiring new customers",
+      "description": "- Designing and implementing a check-in PWA application for event hosts\n- Actively participate in technological watch and security talks, leading the company to be able to sell more web-based products and acquiring new customers",
       "technologies": ["AngularJS", "Vue.js", "PHP", "MySQL", "Sass"]
     },
     {
       "companyLogo": "/companies/societe-generale.png",
       "companyName": "Société Générale",
-      "period": "May 2017 - Aug 2017",
+      "startDate": "2017-05",
+      "endDate": "2017-08",
+      "companyUrl": "https://www.societegenerale.com/",
+      "companyLinkedIn": "https://www.linkedin.com/company/societe-generale",
       "role": "Java Developer",
       "description": "Internship as Java Developer",
       "technologies": ["Java", "Jenkins"]

@@ -21,7 +21,7 @@ export function TextSlider({ words }: TextSliderProps) {
       {words.map((word, index) => (
         <span
           key={word}
-          className={`absolute left-0 transition-all duration-500 ease-in-out font-semibold text-tertiary-600 dark:text-tertiary ${
+          className={`absolute left-0 transition-all duration-500 ease-in-out font-semibold text-secondary-600 dark:text-secondary-500 ${
             index === currentIndex
               ? 'translate-y-0 opacity-100'
               : index < currentIndex

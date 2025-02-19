@@ -1,20 +1,20 @@
 import { useDarkMode } from '../hooks/useDarkMode'
 import { Moon, Sun } from 'lucide-react'
 import { Link } from '@tanstack/react-router'
-import { Logo } from './Logo'
+import { Logo } from '../components/Logo'
 export function Header() {
   const { isDark, toggleDarkMode } = useDarkMode()
 
   return (
     <header className="sticky top-0 z-10 w-full bg-white/90 dark:bg-primary-950/90 transition-colors">
-      <div className="max-w-7xl mx-auto flex justify-between px-4 py-1">
-        <Link to="/" className="my-auto">
+      <div className="max-w-7xl mx-auto flex justify-between py-2">
+        <Link to="/" className="my-auto ml-4">
           <Logo className="w-6 h-6" />
         </Link>
         <nav className="flex gap-2 my-auto"></nav>
         <button
           onClick={toggleDarkMode}
-          className="px-2 my-auto h-8 rounded-lg hover:bg-primary-100 transition-colors dark:hover:text-white dark:hover:bg-primary-700 cursor-pointer ring-none focus:ring-none"
+          className="mr-2 px-2 my-auto h-8 rounded-lg hover:bg-primary-100 transition-colors dark:hover:text-white dark:hover:bg-primary-700 cursor-pointer ring-none focus:ring-none"
           aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
         >
           {isDark ? (
