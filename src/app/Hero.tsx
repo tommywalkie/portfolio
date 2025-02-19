@@ -46,7 +46,7 @@ export function Hero() {
             <LinkedInButton href="https://www.linkedin.com/in/tom-bazarnik-a4364010b/" />
             <GithubButton href="https://github.com/tommywalkie" />
           </div>
-          <ul className="flex items-center gap-4 text-lg list-none" aria-label="Main navigation">
+          <ul className="flex items-center gap-4 text-md md:text-lg list-none" aria-label="Main navigation">
             {sections.map((section, index) => (
               <React.Fragment key={section.id}>
                 <li>
@@ -58,7 +58,10 @@ export function Hero() {
                   </button>
                 </li>
                 {index < sections.length - 1 && (
-                  <li className="w-2 h-2 rounded-full bg-secondary-600 dark:bg-secondary-500" aria-hidden="true" />
+                  <li
+                    className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-secondary-600 dark:bg-secondary-500"
+                    aria-hidden="true"
+                  />
                 )}
               </React.Fragment>
             ))}

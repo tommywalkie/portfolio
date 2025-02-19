@@ -73,7 +73,7 @@ export function ExperienceItem({
   subExperiences = [],
 }: ExperienceItemProps) {
   return (
-    <div className="p-6 w-full bg-primary-50 dark:bg-primary-900 rounded-lg space-y-4">
+    <div className="p-4 md:p-6 w-full bg-primary-50 dark:bg-primary-900 rounded-lg space-y-4">
       <div className="flex gap-4">
         <Squircle width={64} height={64} className="shrink-0">
           <img src={companyLogo} alt={companyName} className="w-16 h-16" />
@@ -92,7 +92,7 @@ export function ExperienceItem({
       <TechnologyList technologies={technologies} />
 
       {subExperiences.length > 0 && (
-        <div className="mt-6 space-y-4 pl-6 border-l-2 border-primary-200 dark:border-primary-700">
+        <div className="mt-6 space-y-4 pl-4 md:pl-6 border-l-2 border-primary-200 dark:border-primary-700">
           {subExperiences.map((subExp, index) => (
             <div key={index} className="space-y-2">
               <div className="flex gap-4">
@@ -103,11 +103,13 @@ export function ExperienceItem({
                 )}
                 <div className="flex-grow">
                   <div className="flex items-center">
-                    <div className="font-semibold text-lg">{subExp.role}</div>
+                    <div className="font-semibold text-lg text-primary-900 dark:text-primary-100">
+                      {subExp.companyName}
+                    </div>
                     <CompanyLinks url={subExp.companyUrl} linkedIn={subExp.companyLinkedIn} />
                   </div>
                   {subExp.companyName && (
-                    <div className="text-primary-700 dark:text-primary-300">{subExp.companyName}</div>
+                    <div className="text-primary-700 dark:text-primary-300 font-semibold">{subExp.role}</div>
                   )}
                   <DateDisplay startDate={subExp.startDate} endDate={subExp.endDate} />
                 </div>

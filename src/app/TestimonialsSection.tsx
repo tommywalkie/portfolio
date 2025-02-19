@@ -14,15 +14,15 @@ export function TestimonialsSection() {
           </div>
         ))}
       </div>
-      <div className="flex justify-center hidden">
+      <div className="flex justify-center">
         <a
-          href="https://www.linkedin.com/in/tom-bazarnik-a4364010b/recommendation-add-edit/WRITE_RECOMMENDATION"
+          href="https://www.linkedin.com/in/tom-bazarnik-a4364010b/edit/forms/recommendation/write/?profileUrn=urn%3Ali%3Afsd_profile%3AACoAABuuQdMB0y66BCNammBKG2dsPmr41tCjXWQ"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Submit a LinkedIn recommendation"
         >
-          <button className="bg-primary-500 text-white px-4 py-2 rounded-md hover:bg-primary-600 dark:bg-primary-900 dark:text-primary-100 dark:hover:bg-primary-800 cursor-pointer flex items-center">
-            <LinkedInIcon className="fill-primary-300 dark:fill-primary-100 w-4 h-4 mr-2" aria-hidden="true" />
+          <button className="bg-primary-500 hover:bg-primary-600 dark:bg-primary-500 dark:text-primary-100 dark:hover:bg-primary-600 text-white px-4 py-2 rounded-md cursor-pointer flex items-center">
+            <LinkedInIcon className="fill-primary-200 dark:fill-primary-100 w-4 h-4 mr-2" aria-hidden="true" />
             Submit a recommendation for me
           </button>
         </a>

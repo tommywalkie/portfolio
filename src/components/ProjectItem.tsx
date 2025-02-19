@@ -5,33 +5,37 @@ import { Squircle } from './Squircle'
 
 export function ProjectItem({ name, description, technologies, url, githubUrl, isCurrentSite, logo }: Project) {
   return (
-    <div className="p-6 w-full bg-primary-50 dark:bg-primary-900 rounded-lg space-y-4">
-      <div className="flex items-start justify-between gap-4">
-        <div className="flex gap-4 items-start">
+    <div className="p-4 md:p-6 w-full bg-primary-50 dark:bg-primary-900 rounded-lg space-y-4">
+      <div className="flex items-start justify-between gap-4 w-full">
+        <div className="flex gap-4 items-start w-full">
           {logo && (
             <Squircle width={48} height={48} className="shrink-0">
               <img src={logo} alt={`${name} logo`} className="w-12 h-12" />
             </Squircle>
           )}
-          <div>
-            <div className="font-bold text-xl text-primary-700 dark:text-primary-100">
-              {name}
-              {isCurrentSite && (
-                <span className="ml-2 text-sm text-secondary-600 dark:text-secondary-400 font-normal">
-                  (psst, you're looking at it)
-                </span>
-              )}
+          <div className="w-full">
+            <div className="flex items-center gap-2 w-full">
+              <div className="flex flex-col md:flex-row gap-0 md:gap-2 font-bold text-xl text-primary-700 dark:text-primary-100 w-full">
+                <span>{name}</span>
+                {isCurrentSite && (
+                  <span className="text-sm md:text-xl">
+                    <span className="text-sm text-secondary-600 dark:text-secondary-400 font-normal">
+                      (psst, you're looking at it)
+                    </span>
+                  </span>
+                )}
+              </div>
+              <div className="flex gap-2 shrink-0 ml-auto">
+                {url && (
+                  <a href={url} target="_blank" rel="noopener noreferrer" aria-label="Visit project">
+                    <SquareArrowOutUpRightIcon className="w-6 h-6 text-primary-300 hover:text-primary dark:text-primary dark:hover:text-primary-300" />
+                  </a>
+                )}
+                {githubUrl && <GithubButton href={githubUrl} className="w-6 h-6" />}
+              </div>
             </div>
             <div className="text-primary-900 dark:text-primary-100 font-light mt-2">{description}</div>
           </div>
-        </div>
-        <div className="flex gap-2 shrink-0">
-          {url && (
-            <a href={url} target="_blank" rel="noopener noreferrer" aria-label="Visit project">
-              <SquareArrowOutUpRightIcon className="w-6 h-6 text-primary-300 hover:text-primary dark:text-primary dark:hover:text-primary-300" />
-            </a>
-          )}
-          {githubUrl && <GithubButton href={githubUrl} className="w-6 h-6" />}
         </div>
       </div>
       <div className="flex flex-wrap gap-2">
