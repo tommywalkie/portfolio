@@ -12,6 +12,7 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as TypographyImport } from './routes/typography'
+import { Route as PrivacyImport } from './routes/privacy'
 import { Route as AboutImport } from './routes/about'
 import { Route as IndexImport } from './routes/index'
 
@@ -20,6 +21,12 @@ import { Route as IndexImport } from './routes/index'
 const TypographyRoute = TypographyImport.update({
   id: '/typography',
   path: '/typography',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PrivacyRoute = PrivacyImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -53,6 +60,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutImport
       parentRoute: typeof rootRoute
     }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyImport
+      parentRoute: typeof rootRoute
+    }
     '/typography': {
       id: '/typography'
       path: '/typography'
@@ -68,12 +82,14 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/privacy': typeof PrivacyRoute
   '/typography': typeof TypographyRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/privacy': typeof PrivacyRoute
   '/typography': typeof TypographyRoute
 }
 
@@ -81,27 +97,30 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/privacy': typeof PrivacyRoute
   '/typography': typeof TypographyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/typography'
+  fullPaths: '/' | '/about' | '/privacy' | '/typography'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/typography'
-  id: '__root__' | '/' | '/about' | '/typography'
+  to: '/' | '/about' | '/privacy' | '/typography'
+  id: '__root__' | '/' | '/about' | '/privacy' | '/typography'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  PrivacyRoute: typeof PrivacyRoute
   TypographyRoute: typeof TypographyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  PrivacyRoute: PrivacyRoute,
   TypographyRoute: TypographyRoute,
 }
 
@@ -117,6 +136,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/about",
+        "/privacy",
         "/typography"
       ]
     },
@@ -125,6 +145,9 @@ export const routeTree = rootRoute
     },
     "/about": {
       "filePath": "about.tsx"
+    },
+    "/privacy": {
+      "filePath": "privacy.tsx"
     },
     "/typography": {
       "filePath": "typography.tsx"

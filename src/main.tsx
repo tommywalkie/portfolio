@@ -1,11 +1,9 @@
 import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 import { RouterProvider, createRouter } from '@tanstack/react-router'
-
 import './index.css'
-
-// Import the generated route tree
 import { routeTree } from './routeTree.gen'
+import { injectLiwanScript } from './analytics'
 
 // Initialize dark mode before app renders
 if (
@@ -15,6 +13,10 @@ if (
   document.documentElement.classList.add('dark')
 } else {
   document.documentElement.classList.remove('dark')
+}
+
+if (import.meta.env.PROD && window.location.hostname === 'tommywalkie.com') {
+  injectLiwanScript('my-portfolio')
 }
 
 // Create a new router instance

@@ -18,7 +18,7 @@ function Index() {
 
   return (
     <div>
-      <div className="p-4 flex flex-col sm:flex-row gap-8 w-full justify-center items-center my-4 sm:my-8 md:my-16">
+      <div className="p-4 flex flex-col lg:flex-row gap-8 w-full mx-auto justify-center items-center my-4 sm:my-8 md:my-16 px-10">
         <Squircle width={128} height={128} className="min-w-max my-auto">
           <img src="/profiles/tom-bazarnik.jpg" alt="profile" className="w-32 h-32" />
         </Squircle>
