@@ -1,17 +1,11 @@
 ---
 import { ClientRouter } from 'astro:transitions';
-import { injectLiwanScript } from '../utils/analytics';
 
 interface Props {
 	title?: string;
 }
 
 const { title = 'Tom Bazarnik - Portfolio' } = Astro.props;
-
-// Only inject analytics in production
-if (import.meta.env.PROD) {
-	injectLiwanScript('my-portfolio');
-}
 ---
 
 <!doctype html>
@@ -27,6 +21,16 @@ if (import.meta.env.PROD) {
 		<link rel="manifest" href="/site.webmanifest" />
 		<title>{title}</title>
 		<ClientRouter />
+		<script is:inline>
+			// Inject Liwan analytics in production
+			if (import.meta.env.PROD) {
+				const script = document.createElement('script');
+				script.type = 'module';
+				script.src = 'https://liwan.tommywalkie.com/script.js';
+				script.dataset.entity = 'my-portfolio';
+				document.head.appendChild(script);
+			}
+		</script>
 		<style is:inline>
 			/* Hide header until JS loads to mitigate FOUC */
 			header {
