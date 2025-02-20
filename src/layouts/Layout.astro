@@ -15,11 +15,33 @@ import { ClientRouter } from 'astro:transitions';
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
 		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="manifest" href="/site.webmanifest" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+		<link rel="manifest" href="/site.webmanifest" />
 		<title>{title}</title>
-		{import.meta.env.DEV && <ClientRouter />}
+		<ClientRouter />
+		<style is:inline>
+			/* Hide header until JS loads to mitigate FOUC */
+			header {
+				opacity: 0;
+				transition: opacity 0.3s ease-out;
+			}
+			header.show {
+				opacity: 1;
+			}
+		</style>
+		<script is:inline>
+			// Show header after page load to mitigate FOUC
+			function showHeader() {
+				const header = document.querySelector('header');
+				const main = document.querySelector('main');
+				if (header && main) {
+					header.classList.add('show');
+				}
+			}
+			document.addEventListener('DOMContentLoaded', showHeader);
+			document.addEventListener('astro:after-swap', showHeader);
+		</script>
 	</head>
 	<body class="bg-white dark:bg-primary-950">
 		<div id="app">
