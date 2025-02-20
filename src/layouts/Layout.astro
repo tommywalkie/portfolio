@@ -1,0 +1,33 @@
+---
+interface Props {
+	title?: string;
+}
+
+const { title = 'Tom Bazarnik - Portfolio' } = Astro.props;
+import { ClientRouter } from 'astro:transitions';
+---
+
+<!doctype html>
+<html lang="en" transition:animate="initial">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Tom Bazarnik's portfolio" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+		<title>{title}</title>
+		{import.meta.env.DEV && <ClientRouter />}
+	</head>
+	<body class="bg-white dark:bg-primary-950">
+		<div id="app">
+			<slot />
+		</div>
+	</body>
+</html>
+
+<style is:global>
+	@import '../styles/global.css';
+</style>

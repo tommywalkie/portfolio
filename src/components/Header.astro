@@ -1,0 +1,71 @@
+---
+import { Moon, Sun } from 'lucide-react'
+import Logo from './Logo.astro'
+---
+
+<header class="sticky top-0 z-10 w-full bg-white/90 dark:bg-primary-950/90">
+  <div class="max-w-7xl mx-auto flex justify-between py-2">
+    <a href="/" class="my-auto ml-4" aria-label="Tom Bazarnik - Home">
+      <Logo class="w-6 h-6" />
+    </a>
+    <nav class="flex gap-2 my-auto"></nav>
+    <button
+      id="theme-toggle"
+      class="mr-2 px-2 my-auto h-8 rounded-lg hover:bg-primary-100 dark:hover:text-white dark:hover:bg-primary-700 cursor-pointer ring-none focus:ring-none"
+      aria-label="Toggle dark mode"
+    >
+      <div class="dark:hidden">
+        <Moon client:load className="w-5 h-5 text-primary-700 fill-primary-200" />
+      </div>
+      <div class="hidden dark:block">
+        <Sun client:load className="w-5 h-5 text-primary-200 fill-primary-500" />
+      </div>
+    </button>
+  </div>
+</header>
+
+<script>
+  function initTheme() {
+    // Initialize dark mode before app renders
+    if (
+      localStorage.getItem('color-theme') === 'dark' ||
+      (!localStorage.getItem('color-theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  
+    // Handle dark mode toggle
+    const themeToggle = document.getElementById('theme-toggle')
+    
+    function updateTheme(dark: boolean) {
+      if (dark) {
+        document.documentElement.classList.add('dark')
+      } else {
+        document.documentElement.classList.remove('dark')
+      }
+      localStorage.setItem('color-theme', dark ? 'dark' : 'light')
+    }
+  
+    themeToggle?.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.contains('dark')
+      updateTheme(!isDark)
+    })
+  
+    // Listen for system preference changes
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+    mediaQuery.addEventListener('change', (e) => {
+      // Only update if there's no saved preference
+      if (!localStorage.getItem('color-theme')) {
+        updateTheme(e.matches)
+      }
+    })
+  }
+  
+  // Run on initial page load
+  initTheme();
+  
+  // Re-run after each page navigation
+  document.addEventListener('astro:after-swap', initTheme);
+</script> 

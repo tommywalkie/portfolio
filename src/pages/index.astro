@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Hero from '../components/Hero.astro';
+import TestimonialsSection from '../components/TestimonialsSection.astro';
+import ExperienceSection from '../components/ExperienceSection.astro';
+import ProjectsSection from '../components/ProjectsSection.astro';
+
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+
+// Handle scroll to section on page load
+---
+
+<Layout>
+	<div class="min-h-screen flex flex-col w-full">
+		<Header />
+		<main class="w-full">
+			<Hero />
+			<TestimonialsSection />
+			<ExperienceSection />
+			<ProjectsSection />
+		</main>
+		<Footer />
+	</div>
+</Layout>
+
+<script>
+	// scroll to the section based on the url
+	const section = window.location.hash;
+	if (section) {
+		document.querySelector(section)?.scrollIntoView({ behavior: 'smooth' });
+	}
+</script>

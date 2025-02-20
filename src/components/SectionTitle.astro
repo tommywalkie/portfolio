@@ -1,0 +1,19 @@
+---
+interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+---
+
+<h2 id={id} class="text-3xl font-bold mb-8 ml-2 text-center group">
+  <a
+    href={`#${id}`}
+    class="text-primary-900 dark:text-primary-100 hover:text-primary-700 dark:hover:text-primary-300"
+  >
+    <slot />
+    <span class="inline-block ml-2 text-primary-400 dark:text-primary-600 opacity-0 group-hover:opacity-100">
+      #
+    </span>
+  </a>
+</h2> 

@@ -1,0 +1,64 @@
+---
+import { Image } from 'astro:assets';
+import Squircle from './Squircle.astro'
+import LinkedInIcon from './icons/LinkedInIcon.astro'
+
+interface Props {
+  avatarUrl: string
+  name: string
+  title: string
+  content: string
+  linkedIn?: string
+}
+
+const { avatarUrl, name, title, content, linkedIn } = Astro.props;
+
+const lines = content.split('\n')
+---
+
+<div class="p-4 md:p-6 flex flex-col gap-4 bg-primary-50 dark:bg-primary-900 rounded-lg w-full max-w-2xl">
+  <div class="flex gap-4 w-full">
+    <Squircle width={64} height={64} className="shrink-0">
+      <Image 
+        src={avatarUrl} 
+        alt={name} 
+        width={64} 
+        height={64}
+        class="w-16 h-16"
+        loading="eager"
+      />
+    </Squircle>
+    <div class="my-auto space-y-2 w-full">
+      <div>
+        <div class="flex items-center gap-2 justify-between">
+          <div class="font-bold text-xl text-primary-700 dark:text-primary-100">{name}</div>
+          {linkedIn && (
+            <a 
+              href={linkedIn} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              aria-label={`Visit ${name}'s LinkedIn profile`}
+            >
+              <LinkedInIcon class="translate-y-[1px] w-6 h-6 ml-auto fill-primary-300 hover:fill-primary dark:fill-primary dark:hover:fill-primary-300" />
+            </a>
+          )}
+        </div>
+        <div class="text-md text-secondary-600 dark:text-secondary-500">{title}</div>
+      </div>
+      <div class="text-primary-900 dark:text-primary-100 font-light text-lg hidden md:block">
+        {lines.map((line, index) => (
+          <span class={index < lines.length - 1 ? 'block mb-4' : 'block'}>
+            {line}
+          </span>
+        ))}
+      </div>
+    </div>
+  </div>
+  <div class="text-primary-900 dark:text-primary-100 font-light text-md block md:hidden">
+    {lines.map((line, index) => (
+      <span class={index < lines.length - 1 ? 'block mb-4' : 'block'}>
+        {line}
+      </span>
+    ))}
+  </div>
+</div> 

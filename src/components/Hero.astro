@@ -1,0 +1,103 @@
+---
+import { Image } from 'astro:assets'
+import { TextSlider } from './TextSlider'
+import Squircle from './Squircle.astro'
+import LinkedInIcon from './icons/LinkedInIcon.astro'
+import GithubIcon from './icons/GithubIcon.astro'
+
+const mainSkills = ['React', 'TypeScript', 'Node.js', 'NestJS', 'Tailwind CSS', 'Astro', 'PHP']
+
+const sections = [
+  { id: 'testimonials', label: 'Testimonials' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'projects', label: 'Projects' },
+] as const
+---
+
+<section
+  aria-label="Introduction"
+  class="p-4 flex flex-col lg:flex-row gap-8 w-full mx-auto justify-center items-center my-4 sm:my-8 md:my-16 px-10"
+>
+  <Squircle width={128} height={128} className="min-w-max my-auto">
+    <Image 
+      src="/profiles/tom-bazarnik.jpg" 
+      alt="Tom Bazarnik" 
+      width={128} 
+      height={128}
+      class="w-32 h-32"
+      loading="eager"
+    />
+  </Squircle>
+  
+  <div class="my-auto text-primary-900 dark:text-primary-100">
+    <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 text-primary-700 dark:text-primary-300">
+      Hello there! 👋
+    </h1>
+    <div class="text-2xl sm:text-3xl md:text-4xl pr-5 mb-4">
+      I'm Tom Bazarnik, a fullstack engineer based in{' '}
+      <span class="text-primary-400 dark:text-primary-300">Paris</span> who likes{' '}
+      <br class="hidden xl:block" />
+      building projects with <TextSlider client:load words={mainSkills} />
+    </div>
+    
+    <div class="flex flex-col gap-4">
+      <div class="flex gap-3" aria-label="Social links">
+        <a 
+          href="https://www.linkedin.com/in/tom-bazarnik-a4364010b/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Visit Tom Bazarnik's LinkedIn profile"
+        >
+          <LinkedInIcon class="w-8 h-8 fill-primary-300 hover:fill-primary dark:fill-primary dark:hover:fill-primary-300" />
+        </a>
+        <a
+          href="https://github.com/tommywalkie"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Visit Tom Bazarnik's GitHub profile"
+        >
+          <GithubIcon class="w-8 h-8 fill-primary-300 hover:fill-primary dark:fill-primary dark:hover:fill-primary-300" />
+        </a>
+      </div>
+      
+      <ul class="flex items-center gap-4 text-md md:text-lg list-none" aria-label="Main navigation">
+        {sections.map((section, index) => (
+          <>
+            <li>
+              <a
+                href={`#${section.id}`}
+                class="text-primary-600 dark:text-primary-300 hover:text-primary-800 dark:hover:text-primary-100 cursor-pointer"
+              >
+                {section.label}
+              </a>
+            </li>
+            {index < sections.length - 1 && (
+              <li
+                class="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-secondary-600 dark:bg-secondary-500"
+                aria-hidden="true"
+              />
+            )}
+          </>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Handle smooth scrolling
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      e.preventDefault()
+      const id = anchor.getAttribute('href')?.slice(1)
+      const element = document.getElementById(id!)
+      
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+        setTimeout(() => {
+          window.history.pushState({}, '', `#${id}`)
+        }, 500)
+      }
+    })
+  })
+</script> 

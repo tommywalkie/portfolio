@@ -1,0 +1,175 @@
+---
+import { Image } from 'astro:assets';
+import Squircle from './Squircle.astro';
+import LinkedInIcon from './icons/LinkedInIcon.astro';
+import { SquareArrowOutUpRight } from 'lucide-react';
+import { formatDateRange } from '../utils/dates';
+import type { CollectionEntry } from 'astro:content';
+
+type Props = CollectionEntry<'experiences'>['data'] & {
+  content: string;
+};
+
+const {
+  companyLogo,
+  companyName,
+  companyUrl,
+  companyLinkedIn,
+  role,
+  startDate,
+  endDate,
+  technologies = [],
+  subExperiences = [],
+  content,
+} = Astro.props;
+
+const { formattedStartDate, formattedEndDate, durationStr } = formatDateRange(startDate, endDate);
+---
+
+<div class="p-4 md:p-6 w-full bg-primary-50 dark:bg-primary-900 rounded-lg space-y-4">
+  <div class="flex gap-4">
+    <Squircle width={64} height={64} className="shrink-0">
+      <Image 
+        src={companyLogo} 
+        alt={companyName} 
+        width={64} 
+        height={64}
+        class="w-16 h-16"
+        loading="lazy"
+      />
+    </Squircle>
+    <div class="flex-grow">
+      <div class="flex items-center">
+        <div class="font-bold text-xl text-primary-900 dark:text-primary-100">{companyName}</div>
+        <div class="inline-flex gap-2 ml-auto pl-3">
+          {companyUrl && (
+            <a 
+              href={companyUrl} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              aria-label={`Visit ${companyName}'s website`}
+            >
+              <SquareArrowOutUpRight client:load className="w-6 h-6 text-primary-300 hover:text-primary dark:text-primary dark:hover:text-primary-300" />
+            </a>
+          )}
+          {companyLinkedIn && (
+            <a 
+              href={companyLinkedIn} 
+              target="_blank" 
+              rel="noopener noreferrer"
+              aria-label={`Visit ${companyName}'s LinkedIn page`}
+            >
+              <LinkedInIcon class="w-6 h-6 fill-primary-300 hover:fill-primary dark:fill-primary dark:hover:fill-primary-300" />
+            </a>
+          )}
+        </div>
+      </div>
+      <div class="text-lg font-semibold text-primary-700 dark:text-primary-300">{role}</div>
+      <div class="text-sm text-secondary-600 dark:text-secondary-500">
+        {formattedStartDate} - {formattedEndDate}{' '}
+        <span class="text-primary-700 dark:text-primary-300 ml-1">({durationStr})</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-primary-900 dark:text-primary-100 font-light">
+    {content.split('\n').map((line: string, index: number, arr: string[]) => (
+      <span class={index < arr.length - 1 ? 'block mb-2' : 'block'}>
+        {line}
+      </span>
+    ))}
+  </div>
+
+  {technologies.length > 0 && (
+    <div class="flex flex-wrap gap-2">
+      {technologies.map((tech) => (
+        <span class="px-3 py-1 text-sm bg-primary-100 dark:bg-primary-800 rounded-full">
+          {tech}
+        </span>
+      ))}
+    </div>
+  )}
+
+  {subExperiences.length > 0 && (
+    <div class="mt-6 space-y-4 pl-4 md:pl-6 border-l-2 border-primary-200 dark:border-primary-700">
+      {subExperiences.map((subExp) => (
+        <div class="space-y-2">
+          <div class="flex gap-4">
+            {subExp.companyLogo && (
+              <Squircle width={48} height={48} className="shrink-0 mt-1.5">
+                <Image 
+                  src={subExp.companyLogo} 
+                  alt={subExp.companyName || ''} 
+                  width={48} 
+                  height={48}
+                  class="w-12 h-12"
+                  loading="lazy"
+                />
+              </Squircle>
+            )}
+            <div class="flex-grow">
+              <div class="flex items-center">
+                <div class="font-semibold text-lg text-primary-900 dark:text-primary-100">
+                  {subExp.companyName}
+                </div>
+                <div class="inline-flex gap-2 ml-auto pl-3">
+                  {subExp.companyUrl && (
+                    <a 
+                      href={subExp.companyUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      aria-label={`Visit ${subExp.companyName}'s website`}
+                    >
+                      <SquareArrowOutUpRight client:load className="w-6 h-6 text-primary-300 hover:text-primary dark:text-primary dark:hover:text-primary-300" />
+                    </a>
+                  )}
+                  {subExp.companyLinkedIn && (
+                    <a 
+                      href={subExp.companyLinkedIn} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      aria-label={`Visit ${subExp.companyName}'s LinkedIn page`}
+                    >
+                      <LinkedInIcon class="w-6 h-6 fill-primary-300 hover:fill-primary dark:fill-primary dark:hover:fill-primary-300" />
+                    </a>
+                  )}
+                </div>
+              </div>
+              {subExp.companyName && (
+                <div class="text-primary-700 dark:text-primary-300 font-semibold">{subExp.role}</div>
+              )}
+              {(() => {
+                const { formattedStartDate, formattedEndDate, durationStr } = formatDateRange(
+                  subExp.startDate,
+                  subExp.endDate
+                );
+                return (
+                  <div class="text-sm text-secondary-600 dark:text-secondary-500">
+                    {formattedStartDate} - {formattedEndDate}{' '}
+                    <span class="text-primary-700 dark:text-primary-300 ml-1">({durationStr})</span>
+                  </div>
+                );
+              })()}
+            </div>
+          </div>
+          <div class="text-primary-900 dark:text-primary-100 font-light">
+            {subExp.description.split('\n').map((line: string, index: number, arr: string[]) => (
+              <span class={index < arr.length - 1 ? 'block mb-2' : 'block'}>
+                {line}
+              </span>
+            ))}
+          </div>
+          {subExp.technologies && subExp.technologies.length > 0 && (
+            <div class="flex flex-wrap gap-2">
+              {subExp.technologies.map((tech) => (
+                <span class="px-3 py-1 text-sm bg-primary-100 dark:bg-primary-800 rounded-full">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  )}
+</div> 
