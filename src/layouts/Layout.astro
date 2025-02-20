@@ -6,6 +6,7 @@ interface Props {
 }
 
 const { title = 'Tom Bazarnik - Portfolio' } = Astro.props;
+const isProd = import.meta.env.PROD;
 ---
 
 <!doctype html>
@@ -21,9 +22,9 @@ const { title = 'Tom Bazarnik - Portfolio' } = Astro.props;
 		<link rel="manifest" href="/site.webmanifest" />
 		<title>{title}</title>
 		<ClientRouter />
-		<script is:inline>
+		<script is:inline define:vars={{ isProd }}>
 			// Inject Liwan analytics in production
-			if (import.meta.env.PROD) {
+			if (isProd && window.location.hostname === 'tommywalkie.com') {
 				const script = document.createElement('script');
 				script.type = 'module';
 				script.src = 'https://liwan.tommywalkie.com/script.js';
