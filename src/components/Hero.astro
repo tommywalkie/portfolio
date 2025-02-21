@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets'
-import { TextSlider } from './TextSlider'
+import TextSlider from './TextSlider.astro'
 import Squircle from './Squircle.astro'
 import LinkedInIcon from './icons/LinkedInIcon.astro'
 import GithubIcon from './icons/GithubIcon.astro'
@@ -37,7 +37,7 @@ const sections = [
       I'm Tom Bazarnik, a fullstack engineer based in{' '}
       <span class="text-primary-400 dark:text-primary-300">Paris</span> who likes{' '}
       <br class="hidden xl:block" />
-      building projects with <TextSlider client:load words={mainSkills} />
+      building projects with <TextSlider words={mainSkills} />
     </div>
     
     <div class="flex flex-col gap-4">

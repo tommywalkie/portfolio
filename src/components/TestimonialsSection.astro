@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import Testimonial from './Testimonial.astro'
+import TestimonialCard from './TestimonialCard.astro'
 import LinkedInIcon from './icons/LinkedInIcon.astro'
 import SectionTitle from './SectionTitle.astro'
 
@@ -14,7 +14,7 @@ const sortedTestimonials = testimonials.sort((a, b) => a.data.order - b.data.ord
     {sortedTestimonials.map(async (testimonial) => {
       return (
         <div role="listitem">
-          <Testimonial 
+          <TestimonialCard 
             avatarUrl={testimonial.data.avatarUrl}
             name={testimonial.data.name}
             title={testimonial.data.title}

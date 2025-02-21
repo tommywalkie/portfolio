@@ -1,7 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import SectionTitle from './SectionTitle.astro';
-import ExperienceItem from './ExperienceItem.astro';
+import ExperienceCard from './ExperienceCard.astro';
 import { DateTime } from 'luxon';
 
 const experiences = await getCollection('experiences');
@@ -19,7 +19,7 @@ const sortedExperiences = experiences.sort((a, b) => {
   <SectionTitle id="experience">Experience</SectionTitle>
   <div class="space-y-6 w-full max-w-4xl mx-auto">
     {sortedExperiences.map((experience) => (
-      <ExperienceItem 
+      <ExperienceCard 
         {...experience.data} 
         content={experience.body}
         subExperiences={experience.data.subExperiences || []}

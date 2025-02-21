@@ -1,0 +1,59 @@
+---
+interface Props {
+  words: string[];
+}
+
+const { words } = Astro.props;
+---
+
+<span class="relative overflow-hidden inline-block align-bottom min-w-[150px] whitespace-nowrap pr-3 pb-2 -mb-2 mr-6 sm:mr-12">
+  <span class="opacity-0 select-none" id="placeholder">{words[0]}</span>
+  {words.map((word) => (
+    <span
+      class="absolute left-0 transition-all duration-500 ease-in-out font-semibold text-secondary-600 dark:text-secondary-500 translate-y-full opacity-0 select-none"
+      data-word={word}
+    >
+      {word}
+    </span>
+  ))}
+</span>
+
+<script>
+  function initSlider() {
+    const words = Array.from(document.querySelectorAll('[data-word]'));
+    const placeholder = document.getElementById('placeholder');
+    let currentIndex = 0;
+
+    function updateWords() {
+      words.forEach((word, index) => {
+        const element = word as HTMLElement;
+        element.style.transform = `translateY(${(index - currentIndex) * 100}%)`;
+        
+        if (index === currentIndex) {
+          element.classList.remove('translate-y-full', '-translate-y-full', 'opacity-0', 'select-none');
+          element.classList.add('translate-y-0', 'opacity-100');
+          if (placeholder) placeholder.textContent = word.textContent;
+        } else if (index < currentIndex) {
+          element.classList.remove('translate-y-0', 'translate-y-full', 'opacity-100');
+          element.classList.add('-translate-y-full', 'opacity-0', 'select-none');
+        } else {
+          element.classList.remove('translate-y-0', '-translate-y-full', 'opacity-100');
+          element.classList.add('translate-y-full', 'opacity-0', 'select-none');
+        }
+      });
+      currentIndex = (currentIndex + 1) % words.length;
+    }
+
+    updateWords();
+    const interval = setInterval(updateWords, 3000);
+
+    // Cleanup on page navigation
+    document.addEventListener('astro:before-swap', () => {
+      clearInterval(interval);
+    });
+  }
+
+  // Initialize on page load and after navigation
+  initSlider();
+  document.addEventListener('astro:after-swap', initSlider);
+</script> 

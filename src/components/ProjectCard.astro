@@ -1,0 +1,77 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import { SquareArrowOutUpRight } from 'lucide-react';
+import Squircle from './Squircle.astro';
+import GithubIcon from './icons/GithubIcon.astro';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+---
+
+<div class="p-4 md:p-6 w-full bg-primary-50 dark:bg-primary-900 rounded-lg space-y-4">
+  <div class="flex items-start justify-between gap-4 w-full">
+    <div class="flex gap-4 items-start w-full">
+      {project.data.logo && (
+        <Squircle width={48} height={48} className="shrink-0">
+          <Image 
+            src={project.data.logo} 
+            alt={`${project.data.name} logo`} 
+            width={48} 
+            height={48}
+            class="w-12 h-12"
+            loading="lazy"
+          />
+        </Squircle>
+      )}
+      <div class="w-full">
+        <div class="flex items-center gap-2 w-full">
+          <div class="flex flex-col md:flex-row gap-0 md:gap-2 font-bold text-xl text-primary-700 dark:text-primary-100 w-full">
+            <span>{project.data.name}</span>
+            {project.data.isCurrentSite && (
+              <span class="text-sm md:text-xl">
+                <span class="text-sm text-secondary-600 dark:text-secondary-400 font-normal">
+                  (psst, you're looking at it)
+                </span>
+              </span>
+            )}
+          </div>
+          <div class="flex gap-2 shrink-0 ml-auto mb-auto">
+            {project.data.url && (
+              <a 
+                href={project.data.url} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                aria-label={`Visit ${project.data.name} website`}
+              >
+                <SquareArrowOutUpRight client:load className="w-6 h-6 text-primary-300 hover:text-primary dark:text-primary dark:hover:text-primary-300" />
+              </a>
+            )}
+            {project.data.githubUrl && (
+              <a 
+                href={project.data.githubUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label={`Visit ${project.data.name} GitHub repository`}
+              >
+                <GithubIcon class="w-6 h-6 fill-primary-300 hover:fill-primary dark:fill-primary dark:hover:fill-primary-300" />
+              </a>
+            )}
+          </div>
+        </div>
+        <div class="text-primary-900 dark:text-primary-100 font-light hidden md:block">{project.body}</div>
+      </div>
+    </div>
+  </div>
+  <div class="text-primary-900 dark:text-primary-100 font-light block md:hidden">{project.body}</div>
+  <div class="flex flex-wrap gap-2">
+    {project.data.technologies.map((tech) => (
+      <span class="px-3 py-1 text-sm bg-primary-100 dark:bg-primary-800 rounded-full">
+        {tech}
+      </span>
+    ))}
+  </div>
+</div> 
