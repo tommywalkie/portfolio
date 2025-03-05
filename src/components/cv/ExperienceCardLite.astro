@@ -1,0 +1,136 @@
+---
+import { Image } from 'astro:assets';
+import Squircle from '../Squircle.astro';
+import { formatDateRange } from '../../utils/dates';
+import type { CollectionEntry } from 'astro:content';
+import { Building2, UsersRound, BriefcaseBusiness } from 'lucide-react';
+
+type Props = CollectionEntry<'experiences'>['data'] & {
+  content: string;
+};
+
+const {
+  companyLogo,
+  companyName,
+  companyType,
+  teamSize,
+  contractType,
+  role,
+  startDate,
+  endDate,
+  technologies = [],
+  subExperiences = [],
+  content,
+} = Astro.props;
+
+const { formattedStartDate, formattedEndDate } = formatDateRange(startDate, endDate);
+---
+
+<div class="w-full space-y-4">
+  <div class="flex gap-3">
+    <Squircle width={40} height={40} className="shrink-0">
+      <Image 
+        src={companyLogo} 
+        alt={companyName} 
+        width={40} 
+        height={40}
+        class="w-10 h-10"
+      />
+    </Squircle>
+    <div class="flex-grow">
+      <div class="flex items-center justify-between">
+        <div class="font-semibold text-primary-900">
+          {companyName}
+          {companyType && <span class="text-sm text-secondary-700 pl-2 inline-flex items-center gap-1 align-top font-normal">
+            <Building2 className="w-4 h-4" />
+            {companyType}
+          </span>}
+          {teamSize && <span class="text-sm text-secondary-700 pl-2 inline-flex items-center gap-1 align-top font-normal">
+            <UsersRound className="w-4 h-4" />
+            {teamSize}
+          </span>}
+          {contractType && <span class="text-sm text-secondary-700 pl-2 inline-flex items-center gap-1 align-top font-normal">
+            <BriefcaseBusiness className="w-4 h-4" />
+            {contractType}
+          </span>}
+        </div>
+        <div class="text-sm text-gray-600">
+          {formattedStartDate} - {formattedEndDate}
+        </div>
+      </div>
+      <div class="text-primary-700">{role}</div>
+    </div>
+  </div>
+
+  <div class="text-primary-900 font-light">
+    {content.split('\n').map((line: string) => (
+      <div class="mb-1 text-md">{line}</div>
+    ))}
+  </div>
+
+  {subExperiences.length > 0 && (
+    <div class="mt-6 space-y-4 pl-6 border-l-2 border-primary-100">
+      {subExperiences.map((subExp) => (
+        <div class="space-y-2">
+          <div class="flex gap-4">
+            {subExp.companyLogo && (
+              <Squircle width={40} height={40} className="shrink-0">
+                <Image 
+                  src={subExp.companyLogo} 
+                  alt={subExp.companyName} 
+                  width={40} 
+                  height={40}
+                  class="w-10 h-10"
+                  loading="lazy"
+                />
+              </Squircle>
+            )}
+            <div class="flex-grow">
+              <div class="">
+                <div class="flex items-center justify-between">
+                  <div class="font-semibold text-primary-900">
+                  {subExp.companyName}
+                </div>
+                </div>
+                
+                
+                <div class="text-sm text-gray-600">
+                  {subExp.role && (
+                    <div class="text-primary-700">{subExp.role}</div>
+                  )}
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="text-primary-900 font-light text-md">
+            {subExp.description.split('\n').map((line: string, index: number, arr: string[]) => (
+              <span class={index < arr.length - 1 ? 'block mb-2' : 'block'}>
+                {line}
+              </span>
+            ))}
+          </div>
+          {subExp.technologies && subExp.technologies.length > 0 && (
+            <div class="flex flex-wrap gap-2">
+              {subExp.technologies.map((tech) => (
+                <span class="px-2 py-0.5 text-xs bg-primary-50 text-primary-900 rounded">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  )}
+
+  {technologies.length > 0 && (
+    <div class="flex flex-wrap gap-2">
+      {technologies.map((tech) => (
+        <span class="px-2 py-0.5 text-xs bg-primary-50 text-primary-900 rounded">
+          {tech}
+        </span>
+      ))}
+    </div>
+  )}
+</div> 

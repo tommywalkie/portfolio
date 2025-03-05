@@ -1,0 +1,11 @@
+school: 'Lycée Diderot Paris'
+schoolUrl: 'http://www.diderot.org/'
+schoolLogo: '/schools/lycee-diderot-paris.jpg'
+schoolLinkedIn: 'https://www.linkedin.com/school/lycee-diderot'
+startDate: '2012-09'
+endDate: '2014-09'
+degree: 'Baccalauréat technologique STI2D'
+skills:
+  - 'Electronics'
+  - 'Arduino'
+  - 'Basic'

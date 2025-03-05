@@ -4,6 +4,7 @@ import type { CollectionEntry } from 'astro:content';
 import { SquareArrowOutUpRight } from 'lucide-react';
 import Squircle from './Squircle.astro';
 import GithubIcon from './icons/GithubIcon.astro';
+import Tooltip from './Tooltip.astro';
 
 interface Props {
   project: CollectionEntry<'projects'>;
@@ -40,25 +41,30 @@ const { project } = Astro.props;
             )}
           </div>
           <div class="flex gap-2 shrink-0 ml-auto mb-auto">
-            {project.data.url && (
-              <a 
-                href={project.data.url} 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                aria-label={`Visit ${project.data.name} website`}
-              >
-                <SquareArrowOutUpRight client:load className="w-6 h-6 text-primary-300 hover:text-primary dark:text-primary dark:hover:text-primary-300" />
-              </a>
+            {project.data.url && !project.data.isCurrentSite && (
+              <Tooltip text={`Visit ${project.data.name} website`} position="bottom-right">
+                <a 
+                  href={project.data.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer" 
+                  aria-label={`Visit ${project.data.name} website`}
+                >
+                  <SquareArrowOutUpRight client:load className="w-6 h-6 text-primary-300 hover:text-primary dark:text-primary dark:hover:text-primary-300" />
+                </a>
+              </Tooltip>
+              
             )}
             {project.data.githubUrl && (
-              <a 
-                href={project.data.githubUrl} 
-                target="_blank" 
-                rel="noopener noreferrer"
-                aria-label={`Visit ${project.data.name} GitHub repository`}
-              >
-                <GithubIcon class="w-6 h-6 fill-primary-300 hover:fill-primary dark:fill-primary dark:hover:fill-primary-300" />
-              </a>
+              <Tooltip text={`Visit ${project.data.name}'s GitHub repository`} position="bottom-right">
+                <a 
+                  href={project.data.githubUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  aria-label={`Visit ${project.data.name}'s GitHub repository`}
+                >
+                  <GithubIcon class="w-6 h-6 fill-primary-300 hover:fill-primary dark:fill-primary dark:hover:fill-primary-300" />
+                </a>
+              </Tooltip>
             )}
           </div>
         </div>

@@ -1,0 +1,67 @@
+---
+import { Image } from 'astro:assets';
+import Squircle from '../Squircle.astro';
+import { formatSchoolDateRange } from '../../utils/dates';
+import type { CollectionEntry } from 'astro:content';
+
+type Props = CollectionEntry<'education'>['data'] & {
+  content?: string;
+};
+
+const {
+  schoolLogo,
+  school,
+  degree,
+  startDate,
+  endDate,
+  degrees = [],
+  skills = [],
+  content,
+} = Astro.props;
+
+const { formattedStartDate, formattedEndDate } = formatSchoolDateRange(startDate, endDate);
+---
+
+<div class="w-full space-y-4">
+  <div class="flex gap-3">
+    <Squircle width={40} height={40} className="shrink-0">
+      <Image 
+        src={schoolLogo} 
+        alt={school} 
+        width={40} 
+        height={40}
+        class="w-10 h-10"
+      />
+    </Squircle>
+    <div class="flex-grow">
+      <div class="flex items-center justify-between">
+        <div class="font-semibold text-primary-900">
+          {school}
+        </div>
+        <div class="text-sm text-gray-600 whitespace-nowrap ml-4">
+          {formattedStartDate} - {formattedEndDate}
+        </div>
+      </div>
+      <div class="text-sm text-primary-700">{degree}</div>
+      {degrees.length > 0 && (
+        <div class="text-primary-700">
+          {degrees.map((subDegree) => (
+            <ul class="list-disc pl-3">
+              <li class="text-sm text-primary-300"><span class="text-primary-900">{subDegree.degree}</span></li>
+            </ul>
+          ))}
+        </div>
+      )}
+    </div>
+  </div>
+
+  {skills.length > 0 && (
+    <div class="flex flex-wrap gap-2">
+      {skills.map((skill) => (
+        <span class="px-2 py-0.5 text-xs bg-primary-50 text-primary-900 rounded">
+          {skill}
+        </span>
+      ))}
+    </div>
+  )}
+</div> 

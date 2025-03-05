@@ -27,3 +27,19 @@ export function formatDateRange(startDate: string, endDate: string | null) {
     durationStr,
   }
 }
+
+export function formatSchoolDateRange(startDate: string, endDate: string | null) {
+  const start = DateTime.fromFormat(startDate, 'yyyy-MM')
+  const end = endDate ? DateTime.fromFormat(endDate, 'yyyy-MM') : DateTime.now()
+
+  if (start.month === end.month) {
+    return {
+      formattedStartDate: `${start.year}`,
+      formattedEndDate: `${end.year}`,
+    }
+  }
+  return {
+    formattedStartDate: `${start.month} ${start.year}`,
+    formattedEndDate: `${end.month} ${end.year}`,
+  }
+}

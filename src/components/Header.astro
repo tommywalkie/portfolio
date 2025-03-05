@@ -1,26 +1,50 @@
 ---
-import { Moon, Sun } from 'lucide-react'
+import { Moon, Printer, Sun } from 'lucide-react'
 import Logo from './Logo.astro'
+import Tooltip from './Tooltip.astro';
+
+interface Props {
+  className?: string;
+}
+
+const { className = '' } = Astro.props;
 ---
 
-<header class="sticky top-0 z-10 w-full bg-white/90 dark:bg-primary-950/90">
+<header class={["sticky top-0 z-10 w-full bg-white/90 dark:bg-primary-950/90", className].join(" ")}>
   <div class="max-w-7xl mx-auto flex justify-between py-2">
     <a href="/" class="my-auto ml-4" aria-label="Tom Bazarnik - Home">
       <Logo class="w-6 h-6" />
     </a>
     <nav class="flex gap-2 my-auto"></nav>
-    <button
-      id="theme-toggle"
-      class="mr-2 px-2 my-auto h-8 rounded-lg hover:bg-primary-100 dark:hover:text-white dark:hover:bg-primary-700 cursor-pointer ring-none focus:ring-none"
-      aria-label="Toggle dark mode"
-    >
-      <div class="dark:hidden">
-        <Moon client:load className="w-5 h-5 text-primary-700 fill-primary-200" />
-      </div>
-      <div class="hidden dark:block">
-        <Sun client:load className="w-5 h-5 text-primary-200 fill-primary-500" />
-      </div>
-    </button>
+    <div class="mr-2 flex items-center gap-2">
+      <Tooltip text="Print my resume" position="bottom-right">
+        <a
+          href="/resume"
+          aria-label="Print my resume"
+        >
+          <button
+            class="px-2 my-auto h-8 rounded-lg hover:bg-primary-100 dark:hover:text-white dark:hover:bg-primary-700 cursor-pointer ring-none focus:ring-none text-center"
+            aria-label="Print my resume"
+          >
+            <Printer className="stroke-primary-700 dark:stroke-primary-200 fill-primary-200 dark:fill-primary-800 w-5 h-5" />
+          </button>
+        </a>
+      </Tooltip>
+      <Tooltip text="Toggle dark mode" position="bottom-right">
+        <button
+          id="theme-toggle"
+          class="px-2 my-auto h-8 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-700 cursor-pointer ring-none focus:ring-none"
+          aria-label="Toggle dark mode"
+        >
+          <div class="dark:hidden">
+            <Moon client:load className="w-5 h-5 fill-primary-200" />
+          </div>
+          <div class="hidden dark:block">
+            <Sun client:load className="w-5 h-5 fill-primary-800" />
+          </div>
+        </button>
+      </Tooltip>
+    </div>
   </div>
 </header>
 

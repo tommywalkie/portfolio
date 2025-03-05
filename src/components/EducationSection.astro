@@ -1,0 +1,22 @@
+---
+import { getCollection } from 'astro:content';
+import SectionTitle from './SectionTitle.astro';
+import EducationCard from './EducationCard.astro';
+import { DateTime } from 'luxon';
+
+const degrees = await getCollection('education');
+const sortedDegrees = degrees.sort((a, b) => {
+  const dateA = DateTime.fromFormat(a.data.startDate, 'yyyy-MM');
+  const dateB = DateTime.fromFormat(b.data.startDate, 'yyyy-MM');
+  return dateB.diff(dateA).toMillis();
+});
+---
+
+<section id="education" aria-labelledby="education" class="p-4 mb-12 scroll-mt-16">
+  <SectionTitle id="education">Education</SectionTitle>
+  <div class="space-y-6 w-full max-w-4xl mx-auto">
+    {sortedDegrees.map((degree) => (
+      <EducationCard {...degree.data} />
+    ))}
+  </div>
+</section> 

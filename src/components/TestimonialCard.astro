@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import Squircle from './Squircle.astro'
 import LinkedInIcon from './icons/LinkedInIcon.astro'
+import Tooltip from './Tooltip.astro';
 
 interface Props {
   avatarUrl: string
@@ -33,14 +34,16 @@ const lines = content.split('\n')
         <div class="flex items-center gap-2 justify-between">
           <div class="font-bold text-xl text-primary-700 dark:text-primary-100">{name}</div>
           {linkedIn && (
-            <a 
-              href={linkedIn} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              aria-label={`Visit ${name}'s LinkedIn profile`}
-            >
-              <LinkedInIcon class="translate-y-[1px] w-6 h-6 ml-auto fill-primary-300 hover:fill-primary dark:fill-primary dark:hover:fill-primary-300" />
-            </a>
+            <Tooltip text={`Visit ${name}'s LinkedIn profile`} position="bottom-right">
+              <a 
+                href={linkedIn} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label={`Visit ${name}'s LinkedIn profile`}
+              >
+                <LinkedInIcon class="translate-y-[1px] w-6 h-6 ml-auto fill-primary-300 hover:fill-primary dark:fill-primary dark:hover:fill-primary-300" />
+              </a>
+            </Tooltip>
           )}
         </div>
         <div class="text-md text-secondary-600 dark:text-secondary-500">{title}</div>

@@ -1,0 +1,37 @@
+---
+import SectionTitle from './SectionTitle.astro';
+import { getCollection } from 'astro:content';
+import RugbyIcon from './icons/RugbyIcon.astro';
+import InterestIcon from './InterestIcon.astro';
+
+
+const interests = await getCollection('interests');
+const sortedInterests = interests.sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
+---
+
+<section id="interests" aria-labelledby="interests" class="p-4 mb-12 scroll-mt-16">
+  <SectionTitle id="interests">Interests</SectionTitle>
+  <div class="space-y-6 w-full max-w-4xl mx-auto">
+    <div class="p-4 md:p-6 w-full bg-primary-50 dark:bg-primary-900 rounded-lg">
+      <ul class="space-y-4">
+        {sortedInterests.map((interest) => (
+          <li>
+            <div class="flex items-center gap-5">
+              <div class="min-w-12 min-h-12 max-w-12 max-h-12 flex items-center justify-center">
+                {interest.data.icon && <InterestIcon icon={interest.data.icon} />}
+              </div>
+              <div>
+                <div class="font-semibold text-lg text-primary-900 dark:text-primary-100">
+                  {interest.data.title}
+                </div>
+                <div class="text-primary-700 dark:text-primary-100">
+                  {interest.data.description}
+                </div>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section> 

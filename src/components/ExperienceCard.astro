@@ -5,6 +5,7 @@ import LinkedInIcon from './icons/LinkedInIcon.astro';
 import { SquareArrowOutUpRight } from 'lucide-react';
 import { formatDateRange } from '../utils/dates';
 import type { CollectionEntry } from 'astro:content';
+import Tooltip from './Tooltip.astro';
 
 type Props = CollectionEntry<'experiences'>['data'] & {
   content: string;
@@ -43,24 +44,28 @@ const { formattedStartDate, formattedEndDate, durationStr } = formatDateRange(st
         <div class="font-bold text-xl text-primary-900 dark:text-primary-100">{companyName}</div>
         <div class="inline-flex gap-2 ml-auto pl-3">
           {companyUrl && (
-            <a 
-              href={companyUrl} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              aria-label={`Visit ${companyName}'s website`}
+            <Tooltip text={`Visit ${companyName}'s website`} position="bottom-right">
+              <a 
+                href={companyUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label={`Visit ${companyName}'s website`}
             >
               <SquareArrowOutUpRight client:load className="w-6 h-6 text-primary-300 hover:text-primary dark:text-primary dark:hover:text-primary-300" />
-            </a>
+              </a>
+            </Tooltip>
           )}
           {companyLinkedIn && (
-            <a 
-              href={companyLinkedIn} 
-              target="_blank" 
-              rel="noopener noreferrer"
-              aria-label={`Visit ${companyName}'s LinkedIn page`}
-            >
-              <LinkedInIcon class="w-6 h-6 fill-primary-300 hover:fill-primary dark:fill-primary dark:hover:fill-primary-300" />
-            </a>
+            <Tooltip text={`Visit ${companyName}'s LinkedIn page`} position="bottom-right">
+              <a 
+                href={companyLinkedIn} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label={`Visit ${companyName}'s LinkedIn page`}
+              >
+                <LinkedInIcon class="w-6 h-6 fill-primary-300 hover:fill-primary dark:fill-primary dark:hover:fill-primary-300" />
+              </a>
+            </Tooltip>
           )}
         </div>
       </div>
@@ -114,24 +119,28 @@ const { formattedStartDate, formattedEndDate, durationStr } = formatDateRange(st
                 </div>
                 <div class="inline-flex gap-2 ml-auto pl-3">
                   {subExp.companyUrl && (
-                    <a 
-                      href={subExp.companyUrl} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      aria-label={`Visit ${subExp.companyName}'s website`}
-                    >
-                      <SquareArrowOutUpRight client:load className="w-6 h-6 text-primary-300 hover:text-primary dark:text-primary dark:hover:text-primary-300" />
-                    </a>
+                    <Tooltip text={`Visit ${subExp.companyName}'s website`} position="bottom-right">
+                      <a 
+                        href={subExp.companyUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        aria-label={`Visit ${subExp.companyName}'s website`}
+                      >
+                        <SquareArrowOutUpRight client:load className="w-6 h-6 text-primary-300 hover:text-primary dark:text-primary dark:hover:text-primary-300" />
+                      </a>
+                    </Tooltip>
                   )}
                   {subExp.companyLinkedIn && (
-                    <a 
-                      href={subExp.companyLinkedIn} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      aria-label={`Visit ${subExp.companyName}'s LinkedIn page`}
-                    >
-                      <LinkedInIcon class="w-6 h-6 fill-primary-300 hover:fill-primary dark:fill-primary dark:hover:fill-primary-300" />
-                    </a>
+                    <Tooltip text={`Visit ${subExp.companyName}'s LinkedIn page`} position="bottom-right">
+                      <a 
+                        href={subExp.companyLinkedIn} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        aria-label={`Visit ${subExp.companyName}'s LinkedIn page`}
+                      >
+                        <LinkedInIcon class="w-6 h-6 fill-primary-300 hover:fill-primary dark:fill-primary dark:hover:fill-primary-300" />
+                      </a>
+                    </Tooltip>
                   )}
                 </div>
               </div>

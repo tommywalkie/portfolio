@@ -1,6 +1,15 @@
 import { defineCollection, z } from 'astro:content'
 
 export const collections = {
+  interests: defineCollection({
+    type: 'data',
+    schema: z.object({
+      title: z.string(),
+      description: z.string(),
+      icon: z.string().optional(),
+      order: z.number().optional(),
+    }),
+  }),
   testimonials: defineCollection({
     type: 'content',
     schema: z.object({
@@ -23,6 +32,9 @@ export const collections = {
       companyName: z.string(),
       companyUrl: z.string().optional(),
       companyLinkedIn: z.string().optional(),
+      companyType: z.string().optional(),
+      teamSize: z.string().or(z.number()).optional(),
+      contractType: z.string().optional(),
       startDate: z.string(),
       endDate: z.string().nullable(),
       role: z.string(),
@@ -37,6 +49,8 @@ export const collections = {
             companyLogo: z.string().optional(),
             companyUrl: z.string().optional(),
             companyLinkedIn: z.string().optional(),
+            companyType: z.string().optional(),
+            teamSize: z.string().or(z.number()).optional(),
             description: z.string(),
             technologies: z.array(z.string()).optional(),
           }),
@@ -54,6 +68,31 @@ export const collections = {
       isCurrentSite: z.boolean().optional(),
       logo: z.string(),
       order: z.number(),
+    }),
+  }),
+  // Education, some school entries may have sub-entries for degrees
+  education: defineCollection({
+    type: 'data',
+    schema: z.object({
+      school: z.string(),
+      schoolUrl: z.string().optional(),
+      schoolLogo: z.string().optional(),
+      schoolLinkedIn: z.string().optional(),
+      startDate: z.string(),
+      endDate: z.string().nullable(),
+      degree: z.string().optional(),
+      skills: z.array(z.string()).optional(),
+      degrees: z
+        .array(
+          z.object({
+            degree: z.string(),
+            startDate: z.string(),
+            endDate: z.string(),
+            description: z.string().optional(),
+            skills: z.array(z.string()).optional(),
+          }),
+        )
+        .optional(),
     }),
   }),
 }

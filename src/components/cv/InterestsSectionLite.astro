@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+import RugbyIcon from '../icons/RugbyIcon.astro';
+import InterestIcon from '../InterestIcon.astro';
+
+const interests = await getCollection('interests');
+const sortedInterests = interests.sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
+---
+
+<section>
+  <h4 class="mb-4 text-primary-900">Interests</h4>
+  <ul class="space-y-2">
+    {sortedInterests.map((interest) => (
+      <li>
+        <div class="flex items-center gap-4">
+          <div class="w-8 h-8 flex items-center justify-center mb-auto">
+            {interest.data.icon && <InterestIcon icon={interest.data.icon} className="p-1" darkMode={false} />}
+          </div>
+          <span class="text-sm text-primary-700">
+            <span class="font-semibold">
+              {interest.data.title}
+            </span>
+            <span class="ml-1">
+              {interest.data.description}
+            </span>
+          </span>
+        </div>
+      </li>
+    ))}
+  </ul>
+</section> 

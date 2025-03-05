@@ -1,19 +1,22 @@
 ---
 interface Props {
   id: string;
+  description?: string;
 }
 
-const { id } = Astro.props;
+const { id, description } = Astro.props;
 ---
 
 <h2 id={id} class="text-3xl font-bold mb-8 ml-2 text-center group">
   <a
     href={`#${id}`}
-    class="text-primary-900 dark:text-primary-100 hover:text-primary-700 dark:hover:text-primary-300"
+    class="text-primary-900 dark:text-primary-100 hover:text-primary-700 dark:hover:text-primary-300 relative"
   >
     <slot />
-    <span class="inline-block ml-2 text-primary-400 dark:text-primary-600 opacity-0 group-hover:opacity-100">
+    
+    <span class="inline-block ml-2 text-primary-400 dark:text-primary-600 opacity-0 group-hover:opacity-100 absolute -right-8 top-1/2 -translate-y-1/2">
       #
     </span>
   </a>
+  {description && <p class="text-sm font-light text-primary-600 dark:text-primary-400 text-center">{description}</p>}
 </h2> 

@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import SectionTitle from './SectionTitle.astro';
-import ExperienceCard from './ExperienceCard.astro';
+import ExperienceCardLite from './ExperienceCardLite.astro';
 import { DateTime } from 'luxon';
 
 const experiences = await getCollection('experiences');
@@ -28,11 +27,11 @@ const yearsOfExperience = Math.floor(monthsOfExperience / 12);
 const remainingMonths = monthsOfExperience % 12;
 ---
 
-<section id="experience" aria-labelledby="experience" class="p-4 mb-12 scroll-mt-16">
-  <SectionTitle id="experience" description={`${yearsOfExperience}${remainingMonths > 0 ? '+' : ''} years in web development`}>Experience</SectionTitle>
-  <div class="space-y-6 w-full max-w-4xl mx-auto mb-8">
+<section id="experience" aria-labelledby="experience">
+  <h4 class="mb-4 text-primary-900">Experience <span class="text-md text-primary-400 font-medium">({yearsOfExperience}{remainingMonths > 0 ? '+' : ''} years)</span></h4>
+  <div class="space-y-7 w-full max-w-4xl mx-auto">
     {sortedExperiences.map((experience) => (
-      <ExperienceCard 
+      <ExperienceCardLite 
         {...experience.data} 
         content={experience.body}
         subExperiences={experience.data.subExperiences || []}

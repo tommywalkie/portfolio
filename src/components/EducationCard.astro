@@ -1,0 +1,132 @@
+---
+import { Image } from 'astro:assets';
+import Squircle from './Squircle.astro';
+import LinkedInIcon from './icons/LinkedInIcon.astro';
+import { SquareArrowOutUpRight } from 'lucide-react';
+import { formatSchoolDateRange } from '../utils/dates';
+import type { CollectionEntry } from 'astro:content';
+import Tooltip from './Tooltip.astro';
+
+type Props = CollectionEntry<'education'>['data'] & {
+  content?: string;
+};
+
+const {
+  schoolLogo,
+  school,
+  schoolUrl,
+  schoolLinkedIn,
+  startDate,
+  endDate,
+  degree,
+  degrees = [],
+  skills = [],
+} = Astro.props;
+
+const { formattedStartDate, formattedEndDate } = formatSchoolDateRange(startDate, endDate);
+---
+
+<div class="p-4 md:p-6 w-full bg-primary-50 dark:bg-primary-900 rounded-lg space-y-4">
+  <div class="flex gap-4">
+    <Squircle width={64} height={64} className="shrink-0">
+      <Image 
+        src={schoolLogo} 
+        alt={school} 
+        width={64} 
+        height={64}
+        class="w-16 h-16"
+        loading="lazy"
+      />
+    </Squircle>
+    <div class="flex-grow">
+      <div class="flex items-center">
+        <div class="font-bold text-xl text-primary-900 dark:text-primary-100">{school}</div>
+        <div class="inline-flex gap-2 ml-auto pl-3">
+          {schoolUrl && (
+            <Tooltip text={`Visit school's website`} position="bottom-right">
+              <a 
+                href={schoolUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label={`Visit ${school}'s website`}
+              >
+                <SquareArrowOutUpRight client:load className="w-6 h-6 text-primary-300 hover:text-primary dark:text-primary dark:hover:text-primary-300" />
+              </a>
+            </Tooltip>
+          )}
+          {schoolLinkedIn && (
+            <Tooltip text={`Visit school's LinkedIn page`} position="bottom-right">
+              <a 
+                href={schoolLinkedIn} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label={`Visit ${school}'s LinkedIn page`}
+              >
+                <LinkedInIcon class="w-6 h-6 fill-primary-300 hover:fill-primary dark:fill-primary dark:hover:fill-primary-300" />
+              </a>
+            </Tooltip>
+          )}
+        </div>
+      </div>
+      {degree && <div class="text-lg font-semibold text-primary-700 dark:text-primary-300">{degree}</div>}
+      <div class="text-sm text-secondary-600 dark:text-secondary-500">
+        {formattedStartDate} - {formattedEndDate}
+      </div>
+    </div>
+  </div>
+
+  {skills.length > 0 && (
+    <div class="flex flex-wrap gap-2">
+      {skills.map((skill) => (
+        <span class="px-3 py-1 text-sm bg-primary-100 dark:bg-primary-800 rounded-full">
+          {skill}
+        </span>
+      ))}
+    </div>
+  )}
+
+  {degrees.length > 0 && (
+    <div class="mt-6 space-y-4 pl-4 md:pl-6 border-l-2 border-primary-200 dark:border-primary-700">
+      {degrees.map((subDegree) => (
+        <div class="space-y-2">
+          <div class="flex gap-4">
+            <div class="flex-grow">
+              <div class="flex items-center">
+                <div class="font-semibold text-lg text-primary-900 dark:text-primary-100">
+                  {subDegree.degree}
+                </div>
+              </div>
+              {(() => {
+                const { formattedStartDate, formattedEndDate } = formatSchoolDateRange(
+                  subDegree.startDate,
+                  subDegree.endDate
+                );
+                return (
+                  <div class="text-sm text-secondary-600 dark:text-secondary-500">
+                    {formattedStartDate} - {formattedEndDate}{' '}
+                  </div>
+                );
+              })()}
+            </div>
+          </div>
+          <div class="text-primary-900 dark:text-primary-100 font-light">
+            {subDegree.description && subDegree.description.split('\n').map((line: string, index: number, arr: string[]) => (
+              <span class={index < arr.length - 1 ? 'block mb-2' : 'block'}>
+                {line}
+              </span>
+            ))}
+          </div>
+          {subDegree.skills && subDegree.skills.length > 0 && (
+            <div class="flex flex-wrap gap-2">
+              {subDegree.skills.map((skill) => (
+                <span class="px-3 py-1 text-sm bg-primary-100 dark:bg-primary-800 rounded-full">
+                  {skill}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  )}
+</div> 

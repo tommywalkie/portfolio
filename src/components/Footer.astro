@@ -1,8 +1,14 @@
 ---
+interface Props {
+  className?: string;
+}
+
+const { className = '' } = Astro.props;
+
 const currentYear = new Date().getFullYear();
 ---
 
-<footer class="mt-auto bg-primary-100 dark:bg-primary-800 w-full">
+<footer class={["mt-auto bg-primary-100 dark:bg-primary-800 w-full", className].join(" ")}>
   <div class="max-w-7xl mx-auto px-6 py-6">
     <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
       <div class="text-primary-900 dark:text-primary-100">

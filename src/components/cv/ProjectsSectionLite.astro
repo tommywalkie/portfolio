@@ -1,0 +1,16 @@
+---
+import { getCollection } from 'astro:content';
+import ProjectCardLite from './ProjectCardLite.astro';
+
+const projects = await getCollection('projects');
+const sortedProjects = projects.sort((a, b) => a.data.order - b.data.order);
+---
+
+<section id="projects" aria-labelledby="projects">
+  <h4 class="mb-4 text-primary-900">Projects</h4>
+  <div class="space-y-7 w-full max-w-4xl mx-auto">
+    {sortedProjects.map((project) => (
+      <ProjectCardLite project={project} />
+    ))}
+  </div>
+</section> 

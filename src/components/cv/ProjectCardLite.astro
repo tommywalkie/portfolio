@@ -1,0 +1,54 @@
+---
+import { Image } from 'astro:assets';
+import Squircle from '../Squircle.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  project: CollectionEntry<'projects'>;
+}
+
+const { project } = Astro.props;
+---
+
+<div class="w-full space-y-4">
+  <div class="flex gap-3">
+    <Squircle width={40} height={40} className="shrink-0">
+      <Image 
+        src={project.data.logo} 
+        alt={`${project.data.name} logo`} 
+        width={40} 
+        height={40}
+        class="w-10 h-10"
+      />
+    </Squircle>
+    <div class="flex-grow">
+      <div class="flex items-center justify-between">
+        <div class="font-semibold text-primary-900">
+          {project.data.name}
+        </div>
+      </div>
+      <div class="text-sm text-primary-700">
+        {project.data.url && (
+          <span class="text-primary-700">{project.data.url}</span>
+        )}
+        {!project.data.url && project.data.githubUrl && (
+          <span>{project.data.githubUrl}</span>
+        )}
+      </div>
+    </div>
+  </div>
+
+  <div class="text-primary-900 font-light text-sm">
+    {project.body}
+  </div>
+
+  {project.data.technologies.length > 0 && (
+    <div class="flex flex-wrap gap-2">
+      {project.data.technologies.map((tech) => (
+        <span class="px-2 py-0.5 text-xs bg-primary-50 text-primary-900 rounded">
+          {tech}
+        </span>
+      ))}
+    </div>
+  )}
+</div> 
