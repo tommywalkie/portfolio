@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ExperienceSectionLite from '../components/cv/ExperienceSectionLite.astro';
-import { Mail, Phone, Globe, ArrowLeftIcon } from 'lucide-react';
+import { Mail, Phone, Globe, ArrowLeftIcon, Eye, EyeOff } from 'lucide-react';
 import Squircle from '../components/Squircle.astro';
 import { Image } from 'astro:assets'
 import Header from '../components/Header.astro';
@@ -9,8 +9,8 @@ import Footer from '../components/Footer.astro';
 import EducationSectionLite from '../components/cv/EducationSectionLite.astro';
 import ProjectsSectionLite from '../components/cv/ProjectsSectionLite.astro';
 import InterestsSectionLite from '../components/cv/InterestsSectionLite.astro';
+import DistinctionsSectionLite from '../components/cv/DistinctionsSectionLite.astro';
 import LinkedInIcon from '../components/icons/LinkedInIcon.astro';
-import Tooltip from '../components/Tooltip.astro';
 
 const LOOKING_FOR_NEW_JOB = true;
 const isProd = import.meta.env.PROD || false;
@@ -40,6 +40,7 @@ const linkedin = 'https://www.linkedin.com/in/tom-bazarnik-a4364010b/';
                       Back to home
                     </a>
                 </div>
+
                 <div class="no-print max-w-[1152px] mx-auto mb-8">
                     <div class="space-y-2">
                         <p>💡 <span class="font-bold text-primary-900 dark:text-primary-100">Tips</span>:</p>
@@ -61,6 +62,17 @@ const linkedin = 'https://www.linkedin.com/in/tom-bazarnik-a4364010b/';
                         </ul>
                     </div>
                 </div>
+
+                <div class="max-w-[1152px] mx-auto no-print mb-8">
+                    <button
+                      class="text-primary-600 dark:text-primary-300 flex items-center gap-2 mb-5 bg-primary-50 dark:bg-primary-900 px-4 py-2 rounded-md hover:bg-primary-100 dark:hover:bg-primary-800 max-w-max cursor-pointer"
+                      id="toggle-logos-button"
+                    >
+                      <Eye className="w-4 h-4 disabled-logos-icon hidden" />
+                      <EyeOff className="w-4 h-4 enabled-logos-icon" />
+                      Toggle logos
+                    </button>
+                </div>
             </div>
             
             <div class="max-w-full overflow-scroll xl:overflow-auto h-[calc(100vh-300px)] my-4 mx-10 xl:my-0 xl:mx-0 xl:h-auto p-4 xl:p-0 cv-container">
@@ -76,6 +88,7 @@ const linkedin = 'https://www.linkedin.com/in/tom-bazarnik-a4364010b/';
                                         height={100}
                                         loading="eager"
                                         class="relative z-10"
+                                        quality="low"
                                     />
                                 </Squircle>
                                 <div>
@@ -140,9 +153,10 @@ const linkedin = 'https://www.linkedin.com/in/tom-bazarnik-a4364010b/';
                                     </div>
                                 </div>
                             </div>
-                            <div class="border-l-3 border-primary-50 pl-8 flex flex-col gap-12 max-w-[420px]">
+                            <div class="border-l-3 border-primary-50 pl-8 flex flex-col gap-8 max-w-[420px]">
                                 <EducationSectionLite />
                                 <ProjectsSectionLite />
+                                <DistinctionsSectionLite />
                                 <InterestsSectionLite />
                             </div>
                         </div>
@@ -193,10 +207,33 @@ const linkedin = 'https://www.linkedin.com/in/tom-bazarnik-a4364010b/';
             color-adjust: exact !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
+            padding-left: 2rem;
         }
 
         .no-print, .no-print * {
             display: none !important;
         }
     }
-</style> 
+</style>
+
+<script>
+    const toggleLogosButton = document.querySelector('#toggle-logos-button');
+    
+    const toggleLogos = () => {
+        const cvPaper = document.querySelector('.cv-paper');
+        cvPaper?.classList.toggle('toggle-logos');
+        
+        const eyeIcon = document.querySelector('.disabled-logos-icon');
+        const eyeOffIcon = document.querySelector('.enabled-logos-icon');
+        eyeIcon?.classList.toggle('hidden');
+        eyeOffIcon?.classList.toggle('hidden');
+    }
+
+    toggleLogosButton?.addEventListener('click', toggleLogos);
+
+    // Handle view transitions
+    document.addEventListener('astro:after-swap', () => {
+        const newToggleButton = document.querySelector('#toggle-logos-button');
+        newToggleButton?.addEventListener('click', toggleLogos);
+    });
+</script>

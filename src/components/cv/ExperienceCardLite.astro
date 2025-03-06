@@ -7,6 +7,7 @@ import { Building2, UsersRound, BriefcaseBusiness } from 'lucide-react';
 
 type Props = CollectionEntry<'experiences'>['data'] & {
   content: string;
+  render?: () => Promise<{ Content: any }>;
 };
 
 const {
@@ -21,21 +22,31 @@ const {
   technologies = [],
   subExperiences = [],
   content,
+  render,
 } = Astro.props;
 
 const { formattedStartDate, formattedEndDate } = formatDateRange(startDate, endDate);
+const { Content } = await render?.() || { Content: () => content };
 ---
 
 <div class="w-full space-y-4">
   <div class="flex gap-3">
-    <Squircle width={40} height={40} className="shrink-0">
-      <Image 
-        src={companyLogo} 
-        alt={companyName} 
-        width={40} 
-        height={40}
-        class="w-10 h-10"
-      />
+    <Squircle width={40} height={40} className="shrink-0 bg-primary-100 w-[40px] h-[40px] relative">
+      <div class="real-logo absolute inset-0">
+        <Image 
+          src={companyLogo} 
+          alt={companyName} 
+          width={40} 
+          height={40}
+          class="w-10 h-10"
+          quality="low"
+        />
+      </div>
+      <div class="placeholder-icon absolute inset-0">
+        <div class="w-[40px] h-[40px] flex items-center justify-center text-primary-300">
+          <Building2 className="w-6 h-6" />
+        </div>
+      </div>
     </Squircle>
     <div class="flex-grow">
       <div class="flex items-center justify-between">
@@ -62,10 +73,10 @@ const { formattedStartDate, formattedEndDate } = formatDateRange(startDate, endD
     </div>
   </div>
 
-  <div class="text-primary-900 font-light">
-    {content.split('\n').map((line: string) => (
-      <div class="mb-1 text-md">{line}</div>
-    ))}
+  <div class="text-primary-900 font-light text-md">
+    <div class="[&>ul]:list-disc [&>ul]:ml-4 [&>ul>li]:mb-2 [&>ul>li::marker]:text-secondary-600 [&>ul>li::marker]:dark:text-secondary-500 text-md">
+      <Content />
+    </div>
   </div>
 
   {subExperiences.length > 0 && (
@@ -74,15 +85,22 @@ const { formattedStartDate, formattedEndDate } = formatDateRange(startDate, endD
         <div class="space-y-2">
           <div class="flex gap-4">
             {subExp.companyLogo && (
-              <Squircle width={40} height={40} className="shrink-0">
-                <Image 
-                  src={subExp.companyLogo} 
-                  alt={subExp.companyName} 
-                  width={40} 
-                  height={40}
-                  class="w-10 h-10"
-                  loading="lazy"
-                />
+              <Squircle width={40} height={40} className="shrink-0 bg-primary-100 w-[40px] h-[40px] relative">
+                <div class="real-logo absolute inset-0">
+                  <Image 
+                    src={subExp.companyLogo} 
+                    alt={subExp.companyName} 
+                    width={40} 
+                    height={40}
+                    class="w-10 h-10"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="placeholder-icon absolute inset-0">
+                  <div class="w-[40px] h-[40px] flex items-center justify-center text-primary-300">
+                    <Building2 className="w-6 h-6" />
+                  </div>
+                </div>
               </Squircle>
             )}
             <div class="flex-grow">
@@ -133,4 +151,24 @@ const { formattedStartDate, formattedEndDate } = formatDateRange(startDate, endD
       ))}
     </div>
   )}
-</div> 
+</div>
+
+<style>
+  /* Default states */
+  .real-logo {
+    display: block;
+  }
+  
+  .placeholder-icon {
+    display: none;
+  }
+
+  /* When ANY parent has toggle-logos class, hide real logo and show placeholder */
+  :global(.toggle-logos) .real-logo {
+    display: none !important;
+  }
+  
+  :global(.toggle-logos) .placeholder-icon {
+    display: block !important;
+  }
+</style> 

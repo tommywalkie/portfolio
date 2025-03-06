@@ -1,0 +1,84 @@
+---
+import { Image } from 'astro:assets';
+import { getCollection } from 'astro:content';
+import Squircle from './Squircle.astro';
+import LinkedInIcon from './icons/LinkedInIcon.astro';
+import { SquareArrowOutUpRight, Trophy } from 'lucide-react';
+import { DateTime } from 'luxon';
+import Tooltip from './Tooltip.astro';
+
+const distinctions = await getCollection('distinctions');
+type Distinction = typeof distinctions[number];
+
+type Props = Distinction['data'] & {
+  render?: () => Promise<{ Content: any }>;
+}
+
+const { title, date, organization, logo, organizationUrl, organizationLinkedIn, render } = Astro.props;
+
+const formattedDate = DateTime.fromFormat(date, 'yyyy-MM').toFormat('MMM yyyy');
+const { Content } = await render?.() || { Content: () => null };
+---
+
+<div class="p-4 md:p-6 w-full bg-primary-50 dark:bg-primary-900 rounded-lg space-y-4">
+  <div class="flex gap-4">
+    <Squircle width={64} height={64} className="shrink-0 bg-primary-100 dark:bg-primary-950 w-[64px] h-[64px]">
+      {logo ? (
+        <Image 
+          src={logo} 
+          alt={title} 
+          width={64} 
+          height={64}
+          class="w-16 h-16"
+          loading="lazy"
+        />
+      ) : (
+        <div class="w-[64px] h-[64px] flex items-center justify-center text-primary-300 dark:text-primary">
+          <Trophy className="w-10 h-10" />
+        </div>
+      )}
+    </Squircle>
+    <div class="flex-grow">
+      <div class="flex items-center">
+        <div class="font-bold text-xl text-primary-900 dark:text-primary-100">{title}</div>
+        <div class="inline-flex gap-2 ml-auto pl-3">
+          {organizationUrl && (
+            <Tooltip text={`Visit ${organization}'s website`} position="top-right">
+              <a 
+                href={organizationUrl} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label={`Visit ${organization}'s website`}
+              >
+                <SquareArrowOutUpRight client:load className="w-6 h-6 text-primary-300 hover:text-primary dark:text-primary dark:hover:text-primary-300" />
+              </a>
+            </Tooltip>
+          )}
+          {organizationLinkedIn && (
+            <Tooltip text={`Visit ${organization}'s LinkedIn page`} position="top-right">
+              <a 
+                href={organizationLinkedIn} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label={`Visit ${organization}'s LinkedIn page`}
+              >
+                <LinkedInIcon class="w-6 h-6 fill-primary-300 hover:fill-primary dark:fill-primary dark:hover:fill-primary-300" />
+              </a>
+            </Tooltip>
+          )}
+        </div>
+      </div>
+      <div class="text-lg font-semibold text-primary-700 dark:text-primary-300">
+        {organization && <span class="text-primary-700 dark:text-primary-300">Associated to </span>}
+        {organization && <span class="text-primary-600 dark:text-primary-200">{organization}</span>}
+      </div>
+      <div class="text-sm text-secondary-600 dark:text-secondary-500">{formattedDate}</div>
+    </div>
+  </div>
+
+  <div class="text-primary-900 dark:text-primary-100 font-light">
+    <div class="[&>ul]:list-disc [&>ul]:ml-4 [&>ul>li]:mb-2 [&>ul>li::marker]:text-secondary-600 [&>ul>li::marker]:dark:text-secondary-500">
+      <Content />
+    </div>
+  </div>
+</div> 

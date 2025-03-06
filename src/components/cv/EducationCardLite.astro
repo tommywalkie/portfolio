@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import Squircle from '../Squircle.astro';
 import { formatSchoolDateRange } from '../../utils/dates';
 import type { CollectionEntry } from 'astro:content';
+import { GraduationCap } from 'lucide-react';
 
 type Props = CollectionEntry<'education'>['data'] & {
   content?: string;
@@ -16,7 +17,6 @@ const {
   endDate,
   degrees = [],
   skills = [],
-  content,
 } = Astro.props;
 
 const { formattedStartDate, formattedEndDate } = formatSchoolDateRange(startDate, endDate);
@@ -24,14 +24,24 @@ const { formattedStartDate, formattedEndDate } = formatSchoolDateRange(startDate
 
 <div class="w-full space-y-4">
   <div class="flex gap-3">
-    <Squircle width={40} height={40} className="shrink-0">
-      <Image 
-        src={schoolLogo} 
-        alt={school} 
-        width={40} 
-        height={40}
-        class="w-10 h-10"
-      />
+    <Squircle width={40} height={40} className="shrink-0 bg-primary-100 w-[40px] h-[40px] relative">
+      <div class="real-logo absolute inset-0">
+        {schoolLogo ? (
+          <Image 
+            src={schoolLogo} 
+            alt={school} 
+            width={40} 
+            height={40}
+            class="w-10 h-10"
+            quality="low"
+          />
+        ) : null}
+      </div>
+      <div class="placeholder-icon absolute inset-0">
+        <div class="w-[40px] h-[40px] flex items-center justify-center text-primary-300">
+          <GraduationCap className="w-6 h-6" />
+        </div>
+      </div>
     </Squircle>
     <div class="flex-grow">
       <div class="flex items-center justify-between">
@@ -47,7 +57,7 @@ const { formattedStartDate, formattedEndDate } = formatSchoolDateRange(startDate
         <div class="text-primary-700">
           {degrees.map((subDegree) => (
             <ul class="list-disc pl-3">
-              <li class="text-sm text-primary-300"><span class="text-primary-900">{subDegree.degree}</span></li>
+              <li class="text-sm text-secondary-500"><span class="text-primary-900">{subDegree.degree}</span></li>
             </ul>
           ))}
         </div>
@@ -64,4 +74,24 @@ const { formattedStartDate, formattedEndDate } = formatSchoolDateRange(startDate
       ))}
     </div>
   )}
-</div> 
+</div>
+
+<style>
+  /* Default states */
+  .real-logo {
+    display: block;
+  }
+  
+  .placeholder-icon {
+    display: none;
+  }
+
+  /* When ANY parent has toggle-logos class, hide real logo and show placeholder */
+  :global(.toggle-logos) .real-logo {
+    display: none !important;
+  }
+  
+  :global(.toggle-logos) .placeholder-icon {
+    display: block !important;
+  }
+</style>

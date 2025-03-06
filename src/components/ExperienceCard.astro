@@ -2,13 +2,14 @@
 import { Image } from 'astro:assets';
 import Squircle from './Squircle.astro';
 import LinkedInIcon from './icons/LinkedInIcon.astro';
-import { SquareArrowOutUpRight } from 'lucide-react';
+import { SquareArrowOutUpRight, Building2, UsersRound, BriefcaseBusiness } from 'lucide-react';
 import { formatDateRange } from '../utils/dates';
 import type { CollectionEntry } from 'astro:content';
 import Tooltip from './Tooltip.astro';
 
 type Props = CollectionEntry<'experiences'>['data'] & {
   content: string;
+  render?: () => Promise<{ Content: any }>;
 };
 
 const {
@@ -16,15 +17,20 @@ const {
   companyName,
   companyUrl,
   companyLinkedIn,
+  companyType,
+  teamSize,
+  contractType,
   role,
   startDate,
   endDate,
   technologies = [],
   subExperiences = [],
+  render,
   content,
 } = Astro.props;
 
 const { formattedStartDate, formattedEndDate, durationStr } = formatDateRange(startDate, endDate);
+const { Content } = await render?.() || { Content: () => content };
 ---
 
 <div class="p-4 md:p-6 w-full bg-primary-50 dark:bg-primary-900 rounded-lg space-y-4">
@@ -41,10 +47,36 @@ const { formattedStartDate, formattedEndDate, durationStr } = formatDateRange(st
     </Squircle>
     <div class="flex-grow">
       <div class="flex items-center">
-        <div class="font-bold text-xl text-primary-900 dark:text-primary-100">{companyName}</div>
+        <div class="font-bold text-xl text-primary-900 dark:text-primary-100">
+          {companyName}
+          {companyType && (
+            <Tooltip text={`Company type: ${companyType}`} position="top">
+              <span class="text-base text-secondary-700 dark:text-secondary-500 pl-2 inline-flex items-center gap-1 align-top font-normal">
+                <Building2 className="w-5 h-5" />
+                {companyType}
+              </span>
+            </Tooltip>
+          )}
+          {!subExperiences.length && teamSize && (
+            <Tooltip text={`Team size: ${teamSize} people`} position="top">
+              <span class="text-base text-secondary-700 dark:text-secondary-500 pl-2 inline-flex items-center gap-1 align-top font-normal">
+                <UsersRound className="w-5 h-5" />
+                {teamSize}
+              </span>
+            </Tooltip>
+          )}
+          {contractType && (
+            <Tooltip text={`Contract type: ${contractType}`} position="top">
+              <span class="text-base text-secondary-700 dark:text-secondary-500 pl-2 inline-flex items-center gap-1 align-top font-normal">
+                <BriefcaseBusiness className="w-5 h-5" />
+                {contractType}
+              </span>
+            </Tooltip>
+          )}
+        </div>
         <div class="inline-flex gap-2 ml-auto pl-3">
           {companyUrl && (
-            <Tooltip text={`Visit ${companyName}'s website`} position="bottom-right">
+            <Tooltip text={`Visit ${companyName}'s website`} position="top-right">
               <a 
                 href={companyUrl} 
                 target="_blank" 
@@ -56,7 +88,7 @@ const { formattedStartDate, formattedEndDate, durationStr } = formatDateRange(st
             </Tooltip>
           )}
           {companyLinkedIn && (
-            <Tooltip text={`Visit ${companyName}'s LinkedIn page`} position="bottom-right">
+            <Tooltip text={`Visit ${companyName}'s LinkedIn page`} position="top-right">
               <a 
                 href={companyLinkedIn} 
                 target="_blank" 
@@ -77,12 +109,10 @@ const { formattedStartDate, formattedEndDate, durationStr } = formatDateRange(st
     </div>
   </div>
 
-  <div class="text-primary-900 dark:text-primary-100 font-light">
-    {content.split('\n').map((line: string, index: number, arr: string[]) => (
-      <span class={index < arr.length - 1 ? 'block mb-2' : 'block'}>
-        {line}
-      </span>
-    ))}
+  <div class="text-primary-900 dark:text-primary-100 font-light experience-content">
+    <div class="[&>ul]:list-disc [&>ul]:ml-4 [&>ul>li]:mb-2 [&>ul>li::marker]:text-secondary-600 [&>ul>li::marker]:dark:text-secondary-500">
+      <Content />
+    </div>
   </div>
 
   {technologies.length > 0 && (
@@ -116,10 +146,18 @@ const { formattedStartDate, formattedEndDate, durationStr } = formatDateRange(st
               <div class="flex items-center">
                 <div class="font-semibold text-lg text-primary-900 dark:text-primary-100">
                   {subExp.companyName}
+                  {subExp.teamSize && (
+                    <Tooltip text={`Team size: ${subExp.teamSize} people`} position="top">
+                      <span class="text-base text-secondary-700 dark:text-secondary-500 pl-2 inline-flex items-center gap-1 align-top font-normal">
+                        <UsersRound className="w-5 h-5" />
+                        {subExp.teamSize}
+                      </span>
+                    </Tooltip>
+                  )}
                 </div>
                 <div class="inline-flex gap-2 ml-auto pl-3">
                   {subExp.companyUrl && (
-                    <Tooltip text={`Visit ${subExp.companyName}'s website`} position="bottom-right">
+                    <Tooltip text={`Visit ${subExp.companyName}'s website`} position="top-right">
                       <a 
                         href={subExp.companyUrl} 
                         target="_blank" 
@@ -131,7 +169,7 @@ const { formattedStartDate, formattedEndDate, durationStr } = formatDateRange(st
                     </Tooltip>
                   )}
                   {subExp.companyLinkedIn && (
-                    <Tooltip text={`Visit ${subExp.companyName}'s LinkedIn page`} position="bottom-right">
+                    <Tooltip text={`Visit ${subExp.companyName}'s LinkedIn page`} position="top-right">
                       <a 
                         href={subExp.companyLinkedIn} 
                         target="_blank" 
@@ -181,4 +219,4 @@ const { formattedStartDate, formattedEndDate, durationStr } = formatDateRange(st
       ))}
     </div>
   )}
-</div> 
+</div>

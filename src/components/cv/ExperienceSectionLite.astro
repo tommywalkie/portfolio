@@ -34,6 +34,7 @@ const remainingMonths = monthsOfExperience % 12;
       <ExperienceCardLite 
         {...experience.data} 
         content={experience.body}
+        render={experience.render}
         subExperiences={experience.data.subExperiences || []}
       />
     ))}

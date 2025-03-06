@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+import DistinctionCardLite from './DistinctionCardLite.astro';
+import { DateTime } from 'luxon';
+
+const distinctions = await getCollection('distinctions');
+const sortedDistinctions = distinctions.sort((a, b) => {
+  const dateA = DateTime.fromFormat(a.data.date, 'yyyy-MM');
+  const dateB = DateTime.fromFormat(b.data.date, 'yyyy-MM');
+  return dateB.diff(dateA).toMillis();
+});
+---
+
+<section id="distinctions" aria-labelledby="distinctions">
+  <h4 class="mb-4 text-primary-900">Distinctions</h4>
+  <div class="space-y-4 w-full">
+    {sortedDistinctions.map((distinction) => (
+      <DistinctionCardLite 
+        {...distinction.data}
+        render={distinction.render}
+      />
+    ))}
+  </div>
+</section> 

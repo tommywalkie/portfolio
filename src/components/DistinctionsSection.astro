@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import SectionTitle from './SectionTitle.astro';
+import { DateTime } from 'luxon';
+import DistinctionCard from './DistinctionCard.astro';
+
+const distinctions = await getCollection('distinctions');
+const sortedDistinctions = distinctions.sort((a, b) => {
+  const dateA = DateTime.fromFormat(a.data.date, 'yyyy-MM');
+  const dateB = DateTime.fromFormat(b.data.date, 'yyyy-MM');
+  return dateB.diff(dateA).toMillis();
+});
+---
+
+<section id="distinctions" aria-labelledby="distinctions" class="p-4 mb-12 scroll-mt-16">
+  <SectionTitle id="distinctions">Distinctions</SectionTitle>
+  <div class="space-y-6 w-full max-w-4xl mx-auto">
+    {sortedDistinctions.map((distinction) => (
+      <DistinctionCard 
+        {...distinction.data}
+        render={distinction.render}
+      />
+    ))}
+  </div>
+</section> 

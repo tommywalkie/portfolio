@@ -1,7 +1,6 @@
 ---
 import SectionTitle from './SectionTitle.astro';
 import { getCollection } from 'astro:content';
-import RugbyIcon from './icons/RugbyIcon.astro';
 import InterestIcon from './InterestIcon.astro';
 
 
@@ -24,7 +23,7 @@ const sortedInterests = interests.sort((a, b) => (a.data.order || 0) - (b.data.o
                 <div class="font-semibold text-lg text-primary-900 dark:text-primary-100">
                   {interest.data.title}
                 </div>
-                <div class="text-primary-700 dark:text-primary-100">
+                <div class="text-primary-700 dark:text-primary-300">
                   {interest.data.description}
                 </div>
               </div>

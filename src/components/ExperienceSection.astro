@@ -35,6 +35,7 @@ const remainingMonths = monthsOfExperience % 12;
       <ExperienceCard 
         {...experience.data} 
         content={experience.body}
+        render={experience.render}
         subExperiences={experience.data.subExperiences || []}
       />
     ))}

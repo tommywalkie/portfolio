@@ -42,7 +42,7 @@ const { project } = Astro.props;
           </div>
           <div class="flex gap-2 shrink-0 ml-auto mb-auto">
             {project.data.url && !project.data.isCurrentSite && (
-              <Tooltip text={`Visit ${project.data.name} website`} position="bottom-right">
+              <Tooltip text={`Visit ${project.data.name} website`} position="top-right">
                 <a 
                   href={project.data.url} 
                   target="_blank" 
@@ -55,7 +55,7 @@ const { project } = Astro.props;
               
             )}
             {project.data.githubUrl && (
-              <Tooltip text={`Visit ${project.data.name}'s GitHub repository`} position="bottom-right">
+              <Tooltip text={`Visit ${project.data.name}'s GitHub repository`} position="top-right">
                 <a 
                   href={project.data.githubUrl} 
                   target="_blank" 

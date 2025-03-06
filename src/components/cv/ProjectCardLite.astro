@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import Squircle from '../Squircle.astro';
 import type { CollectionEntry } from 'astro:content';
+import { Code2 } from 'lucide-react';
 
 interface Props {
   project: CollectionEntry<'projects'>;
@@ -12,14 +13,22 @@ const { project } = Astro.props;
 
 <div class="w-full space-y-4">
   <div class="flex gap-3">
-    <Squircle width={40} height={40} className="shrink-0">
-      <Image 
-        src={project.data.logo} 
-        alt={`${project.data.name} logo`} 
-        width={40} 
-        height={40}
-        class="w-10 h-10"
-      />
+    <Squircle width={40} height={40} className="shrink-0 w-[40px] h-[40px] relative">
+      <div class="real-logo absolute inset-0">
+        <Image 
+          src={project.data.logo} 
+          alt={`${project.data.name} logo`} 
+          width={40} 
+          height={40}
+          class="w-10 h-10"
+          quality="low"
+        />
+      </div>
+      <div class="placeholder-icon absolute inset-0">
+        <div class="w-[40px] h-[40px] flex items-center justify-center text-primary-300 bg-primary-100">
+          <Code2 className="w-6 h-6" />
+        </div>
+      </div>
     </Squircle>
     <div class="flex-grow">
       <div class="flex items-center justify-between">
@@ -51,4 +60,24 @@ const { project } = Astro.props;
       ))}
     </div>
   )}
-</div> 
+</div>
+
+<style>
+  /* Default states */
+  .real-logo {
+    display: block;
+  }
+  
+  .placeholder-icon {
+    display: none;
+  }
+
+  /* When ANY parent has toggle-logos class, hide real logo and show placeholder */
+  :global(.toggle-logos) .real-logo {
+    display: none !important;
+  }
+  
+  :global(.toggle-logos) .placeholder-icon {
+    display: block !important;
+  }
+</style>
