@@ -43,7 +43,7 @@ const { formattedStartDate, formattedEndDate } = formatSchoolDateRange(startDate
         <div class="font-bold text-xl text-primary-900 dark:text-primary-100">{school}</div>
         <div class="inline-flex gap-2 ml-auto pl-3">
           {schoolUrl && (
-            <Tooltip text={`Visit school's website`} position="top-right">
+            <Tooltip text={`Visit ${school}'s website`} position="top-right">
               <a 
                 href={schoolUrl} 
                 target="_blank" 
@@ -55,7 +55,7 @@ const { formattedStartDate, formattedEndDate } = formatSchoolDateRange(startDate
             </Tooltip>
           )}
           {schoolLinkedIn && (
-            <Tooltip text={`Visit school's LinkedIn page`} position="top-right">
+            <Tooltip text={`Visit ${school}'s LinkedIn page`} position="top-right">
               <a 
                 href={schoolLinkedIn} 
                 target="_blank" 

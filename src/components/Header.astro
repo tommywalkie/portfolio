@@ -16,14 +16,10 @@ const { className = '' } = Astro.props;
       <Logo class="w-6 h-6" />
     </a>
     <nav class="flex gap-2 my-auto"></nav>
-    <div class="mr-2 flex items-center gap-2">
+    <div class="mr-2 flex items-center gap-2 items-start">
       <Tooltip text="Go to resume builder, download PDF or print my resume" position="bottom-right">
-        <a href="/resume" aria-label="Navigate to resume builder">
-          <button
-            class="px-2 my-auto h-8 rounded-lg hover:bg-primary-100 dark:hover:text-white dark:hover:bg-primary-700 cursor-pointer ring-none focus:ring-none text-center"
-          >
-            <FilePen className="stroke-primary-700 dark:stroke-primary-200 fill-primary-200 dark:fill-primary-800 w-5 h-5" />
-          </button>
+        <a href="/resume" aria-label="Navigate to resume builder" class="my-auto px-2 h-8 rounded-lg hover:bg-primary-100 dark:hover:text-white dark:hover:bg-primary-700 cursor-pointer ring-none focus:ring-none text-center align-middle">
+          <FilePen className="stroke-primary-700 dark:stroke-primary-200 fill-primary-200 dark:fill-primary-800 w-5 h-[inherit]" />
         </a>
       </Tooltip>
       <Tooltip text="Toggle dark mode" position="bottom-right">
