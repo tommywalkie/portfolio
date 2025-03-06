@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ExperienceSectionLite from '../components/cv/ExperienceSectionLite.astro';
-import { Mail, Phone, Globe, ArrowLeftIcon, Eye, EyeOff } from 'lucide-react';
+import { Mail, Phone, Globe, ArrowLeftIcon } from 'lucide-react';
 import Squircle from '../components/Squircle.astro';
 import { Image } from 'astro:assets'
 import Header from '../components/Header.astro';
@@ -61,17 +61,6 @@ const linkedin = 'https://www.linkedin.com/in/tom-bazarnik-a4364010b/';
                             </li>
                         </ul>
                     </div>
-                </div>
-
-                <div class="max-w-[1152px] mx-auto no-print mb-8">
-                    <button
-                      class="text-primary-600 dark:text-primary-300 flex items-center gap-2 mb-5 bg-primary-50 dark:bg-primary-900 px-4 py-2 rounded-md hover:bg-primary-100 dark:hover:bg-primary-800 max-w-max cursor-pointer"
-                      id="toggle-logos-button"
-                    >
-                      <Eye className="w-4 h-4 disabled-logos-icon hidden" />
-                      <EyeOff className="w-4 h-4 enabled-logos-icon" />
-                      Toggle logos
-                    </button>
                 </div>
             </div>
             
@@ -215,25 +204,3 @@ const linkedin = 'https://www.linkedin.com/in/tom-bazarnik-a4364010b/';
         }
     }
 </style>
-
-<script>
-    const toggleLogosButton = document.querySelector('#toggle-logos-button');
-    
-    const toggleLogos = () => {
-        const cvPaper = document.querySelector('.cv-paper');
-        cvPaper?.classList.toggle('toggle-logos');
-        
-        const eyeIcon = document.querySelector('.disabled-logos-icon');
-        const eyeOffIcon = document.querySelector('.enabled-logos-icon');
-        eyeIcon?.classList.toggle('hidden');
-        eyeOffIcon?.classList.toggle('hidden');
-    }
-
-    toggleLogosButton?.addEventListener('click', toggleLogos);
-
-    // Handle view transitions
-    document.addEventListener('astro:after-swap', () => {
-        const newToggleButton = document.querySelector('#toggle-logos-button');
-        newToggleButton?.addEventListener('click', toggleLogos);
-    });
-</script>

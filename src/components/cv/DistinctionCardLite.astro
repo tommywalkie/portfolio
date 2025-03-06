@@ -53,6 +53,12 @@ const { Content } = await render?.() || { Content: () => null };
       <div class="text-sm text-primary-700">Associated to <span class="text-primary-500">{organization}</span></div>
     </div>
   </div>
+
+  <div class="text-primary-900 font-light text-sm">
+    <div class="[&>ul]:list-disc [&>ul]:ml-4 [&>ul>li]:mb-2 [&>ul>li::marker]:text-secondary-600">
+      <Content />
+    </div>
+  </div>
 </div>
 
 <style>
