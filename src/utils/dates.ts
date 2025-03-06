@@ -5,8 +5,13 @@ export function formatDateRange(startDate: string, endDate: string | null) {
   const start = DateTime.fromFormat(startDate, 'yyyy-MM')
   const end = endDate ? DateTime.fromFormat(endDate, 'yyyy-MM') : DateTime.now()
 
-  // Add 1 month to include both start and end months in the duration
-  const duration = end.diff(start, ['years', 'months']).plus({ months: 1 }).toObject()
+  // Calculate duration without the +1 month first
+  const baseDuration = end.diff(start, ['years', 'months']).toObject()
+
+  // Special case: if start and end are in the same month of different years
+  // (like Sep 2017 to Sep 2019), don't add the extra month
+  const sameMonth = start.month === end.month
+  const duration = sameMonth ? baseDuration : end.diff(start, ['years', 'months']).plus({ months: 1 }).toObject()
 
   const formattedStartDate = start.toFormat('MMM yyyy')
   const formattedEndDate = endDate ? DateTime.fromFormat(endDate, 'yyyy-MM').toFormat('MMM yyyy') : 'Present'

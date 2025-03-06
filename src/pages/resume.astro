@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import ExperienceSectionLite from '../components/cv/ExperienceSectionLite.astro';
-import { Mail, Phone, Globe, ArrowLeftIcon } from 'lucide-react';
+import { Mail, Phone, Globe, ArrowLeft, Printer } from 'lucide-react';
 import Squircle from '../components/Squircle.astro';
 import { Image } from 'astro:assets'
 import Header from '../components/Header.astro';
@@ -32,13 +32,23 @@ const linkedin = 'https://www.linkedin.com/in/tom-bazarnik-a4364010b/';
 		<main class="min-h-[calc(100vh-100px)] bg-white dark:bg-primary-950 mb-4 lg:mb-10 py-4 w-full">
             <div class="px-10">
                 <div class="max-w-[1152px] mx-auto no-print">
-                    <a
-                      href="/"
-                      class="text-primary-600 dark:text-primary-300 flex items-center gap-2 mb-5 bg-primary-50 dark:bg-primary-900 px-4 py-2 rounded-md hover:bg-primary-100 dark:hover:bg-primary-800 max-w-max"
-                    >
-                      <ArrowLeftIcon className="w-4 h-4" />
-                      Back to home
-                    </a>
+                    <div class="flex items-center justify-between mb-5">
+                        <a
+                          href="/"
+                          class="text-primary-600 dark:text-primary-300 flex items-center gap-2 bg-primary-50 dark:bg-primary-900 px-4 py-2 rounded-md hover:bg-primary-100 dark:hover:bg-primary-800"
+                        >
+                          <ArrowLeft className="w-4 h-4" />
+                          Back to home
+                        </a>
+                        
+                        <button
+                          onclick="window.print()"
+                          class="text-primary-600 dark:text-primary-300 flex items-center gap-2 bg-primary-50 dark:bg-primary-900 px-4 py-2 rounded-md hover:bg-primary-100 dark:hover:bg-primary-800 cursor-pointer"
+                        >
+                          <Printer className="w-4 h-4" />
+                          Print resume
+                        </button>
+                    </div>
                 </div>
 
                 <div class="no-print max-w-[1152px] mx-auto mb-8">
@@ -65,7 +75,7 @@ const linkedin = 'https://www.linkedin.com/in/tom-bazarnik-a4364010b/';
             </div>
             
             <div class="max-w-full overflow-scroll xl:overflow-auto h-[calc(100vh-300px)] my-4 mx-10 xl:my-0 xl:mx-0 xl:h-auto p-4 xl:p-0 cv-container">
-                <div class="cv-paper mx-auto max-w-[1152px] min-w-[1152px] h-[1629px] bg-white p-12 shadow-md">
+                <div class="cv-paper mx-auto max-w-[1152px] min-w-[1152px] h-[1629px] bg-white p-12 shadow-md mb-10">
                     <div class="">
                         <div class="mb-6">
                             <div class="flex items-center gap-4">

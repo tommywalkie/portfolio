@@ -1,5 +1,5 @@
 ---
-import { Moon, Printer, Sun } from 'lucide-react'
+import { Moon, Sun, FilePen } from 'lucide-react'
 import Logo from './Logo.astro'
 import Tooltip from './Tooltip.astro';
 
@@ -17,16 +17,12 @@ const { className = '' } = Astro.props;
     </a>
     <nav class="flex gap-2 my-auto"></nav>
     <div class="mr-2 flex items-center gap-2">
-      <Tooltip text="Print my resume" position="bottom-right">
-        <a
-          href="/resume"
-          aria-label="Print my resume"
-        >
+      <Tooltip text="Go to resume builder, download PDF or print my resume" position="bottom-right">
+        <a href="/resume" aria-label="Navigate to resume builder">
           <button
             class="px-2 my-auto h-8 rounded-lg hover:bg-primary-100 dark:hover:text-white dark:hover:bg-primary-700 cursor-pointer ring-none focus:ring-none text-center"
-            aria-label="Print my resume"
           >
-            <Printer className="stroke-primary-700 dark:stroke-primary-200 fill-primary-200 dark:fill-primary-800 w-5 h-5" />
+            <FilePen className="stroke-primary-700 dark:stroke-primary-200 fill-primary-200 dark:fill-primary-800 w-5 h-5" />
           </button>
         </a>
       </Tooltip>
