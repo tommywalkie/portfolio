@@ -1,0 +1,14 @@
+---
+import ResumeBuilder from '../../layouts/ResumeBuilder.astro';
+
+export function getStaticPaths() {
+  return [
+    { params: { lang: 'en' } },
+    { params: { lang: 'fr' } },
+  ];
+}
+
+const { lang = 'en' } = Astro.params;
+---
+
+<ResumeBuilder lang={lang} />

@@ -1,23 +1,36 @@
 ---
 import { getCollection } from 'astro:content';
 import SectionTitle from './SectionTitle.astro';
+import translations from '../i18n/portfolio.json';
 import { DateTime } from 'luxon';
 import DistinctionCard from './DistinctionCard.astro';
 
+interface Props {
+  lang?: string;
+}
+
+const { lang = 'en' } = Astro.props;
+
 const distinctions = await getCollection('distinctions');
-const sortedDistinctions = distinctions.sort((a, b) => {
-  const dateA = DateTime.fromFormat(a.data.date, 'yyyy-MM');
-  const dateB = DateTime.fromFormat(b.data.date, 'yyyy-MM');
-  return dateB.diff(dateA).toMillis();
-});
+
+const sortedDistinctions = distinctions
+  .filter(distinction => distinction.slug.startsWith(`${lang}/`))
+  .sort((a, b) => {
+    const dateA = DateTime.fromFormat(a.data.date, 'yyyy-MM');
+    const dateB = DateTime.fromFormat(b.data.date, 'yyyy-MM');
+    return dateB.diff(dateA).toMillis();
+  });
 ---
 
 <section id="distinctions" aria-labelledby="distinctions" class="p-4 mb-12 scroll-mt-16">
-  <SectionTitle id="distinctions">Distinctions</SectionTitle>
+  <SectionTitle id="distinctions" aria-label={translations[lang].sections.distinctions.ariaLabel}>
+    {translations[lang].sections.distinctions.title}
+  </SectionTitle>
   <div class="space-y-6 w-full max-w-4xl mx-auto">
     {sortedDistinctions.map((distinction) => (
       <DistinctionCard 
         {...distinction.data}
+        lang={lang}
         render={distinction.render}
       />
     ))}

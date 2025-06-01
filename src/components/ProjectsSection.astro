@@ -2,16 +2,25 @@
 import { getCollection } from 'astro:content';
 import SectionTitle from './SectionTitle.astro';
 import ProjectCard from './ProjectCard.astro';
+import translations from '../i18n/portfolio.json';
+
+interface Props { 
+  lang: string;
+}
+
+const { lang = 'en' } = Astro.props;
 
 const projects = await getCollection('projects');
-const sortedProjects = projects.sort((a, b) => a.data.order - b.data.order);
+const sortedProjects = projects.filter(project => project.slug.startsWith(`${lang}/`)).sort((a, b) => a.data.order - b.data.order);
 ---
 
 <section id="projects" aria-labelledby="projects" class="p-4 mb-12 scroll-mt-16">
-  <SectionTitle id="projects">Projects</SectionTitle>
+  <SectionTitle id="projects" aria-label={translations[lang].sections.projects.ariaLabel}>
+    {translations[lang].sections.projects.title}
+  </SectionTitle>
   <div class="space-y-6 w-full max-w-4xl mx-auto">
     {sortedProjects.map((project) => (
-      <ProjectCard project={project} />
+      <ProjectCard project={project} lang={lang} />
     ))}
   </div>
 </section> 

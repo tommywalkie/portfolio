@@ -1,14 +1,24 @@
 ---
 import { getCollection } from 'astro:content';
-import RugbyIcon from '../icons/RugbyIcon.astro';
 import InterestIcon from '../InterestIcon.astro';
+import translations from '../../i18n/portfolio.json';
+
+interface Props {
+  lang: string;
+}
+
+const { lang = 'en' } = Astro.props;
+
+const t = translations[lang];
 
 const interests = await getCollection('interests');
-const sortedInterests = interests.sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
+const sortedInterests = interests
+  .filter(interest => interest.slug.startsWith(`${lang}/`))
+  .sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
 ---
 
 <section>
-  <h4 class="mb-4 text-primary-900">Interests</h4>
+  <h4 class="mb-4 text-primary-900">{t.sections.interests.title}</h4>
   <ul class="space-y-2">
     {sortedInterests.map((interest) => (
       <li>

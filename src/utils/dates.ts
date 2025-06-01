@@ -1,7 +1,8 @@
 import { DateTime } from 'luxon'
 import pluralize from 'pluralize'
+import dates from '../i18n/dates.json'
 
-export function formatDateRange(startDate: string, endDate: string | null) {
+export function formatDateRange(startDate: string, endDate: string | null, lang: string = 'en') {
   const start = DateTime.fromFormat(startDate, 'yyyy-MM')
   const end = endDate ? DateTime.fromFormat(endDate, 'yyyy-MM') : DateTime.now()
 
@@ -13,8 +14,10 @@ export function formatDateRange(startDate: string, endDate: string | null) {
   const sameMonth = start.month === end.month
   const duration = sameMonth ? baseDuration : end.diff(start, ['years', 'months']).plus({ months: 1 }).toObject()
 
-  const formattedStartDate = start.toFormat('MMM yyyy')
-  const formattedEndDate = endDate ? DateTime.fromFormat(endDate, 'yyyy-MM').toFormat('MMM yyyy') : 'Present'
+  const formattedStartDate = start.toFormat('MMM yyyy', { locale: lang })
+  const formattedEndDate = endDate
+    ? DateTime.fromFormat(endDate, 'yyyy-MM').toFormat('MMM yyyy', { locale: lang })
+    : dates[lang].present
 
   const years = Math.floor(duration.years || 0)
   const months = Math.ceil(duration.months || 0)
@@ -22,9 +25,9 @@ export function formatDateRange(startDate: string, endDate: string | null) {
   const durationStr =
     years > 0
       ? months > 0
-        ? `${years} ${pluralize('year', years)} and ${months} ${pluralize('month', months)}`
-        : `${years} ${pluralize('year', years)}`
-      : `${months} ${pluralize('month', months)}`
+        ? `${years} ${pluralize(dates[lang].year, years)} ${dates[lang].and} ${months} ${pluralize(dates[lang].month, months)}`
+        : `${years} ${pluralize(dates[lang].year, years)}`
+      : `${months} ${pluralize(dates[lang].month, months)}`
 
   return {
     formattedStartDate,

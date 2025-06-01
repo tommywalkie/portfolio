@@ -1,32 +1,37 @@
 ---
 import { Moon, Sun, FilePen } from 'lucide-react'
+import translations from '../i18n/portfolio.json';
 import Logo from './Logo.astro'
 import Tooltip from './Tooltip.astro';
+import LanguageSelector from './LanguageSelector.astro';
 
 interface Props {
   className?: string;
+  lang?: string;
 }
 
-const { className = '' } = Astro.props;
+const { className = '', lang = 'en' } = Astro.props;
+const t = translations[lang];
 ---
 
 <header class={["sticky top-0 z-10 w-full bg-white/90 dark:bg-primary-950/90", className].join(" ")}>
   <div class="max-w-7xl mx-auto flex justify-between py-2">
-    <a href="/" class="my-auto ml-4" aria-label="Tom Bazarnik - Home">
+    <a href={`/${lang}`} class="my-auto ml-4" aria-label="Tom Bazarnik - Home">
       <Logo class="w-6 h-6" />
     </a>
     <nav class="flex gap-2 my-auto"></nav>
     <div class="mr-2 flex items-center gap-2 items-start">
-      <Tooltip text="Go to resume builder, download PDF or print my resume" position="bottom-right">
-        <a href="/resume" aria-label="Navigate to resume builder" class="my-auto px-2 h-8 rounded-lg hover:bg-primary-100 dark:hover:text-white dark:hover:bg-primary-700 cursor-pointer ring-none focus:ring-none text-center align-middle">
+      <Tooltip text={t.header.hero.goToResumeBuilder} position="bottom-right">
+        <a href={`/${lang}/resume`} aria-label="Navigate to resume builder" class="my-auto px-2 h-8 rounded-lg hover:bg-primary-100 dark:hover:text-white dark:hover:bg-primary-700 cursor-pointer ring-none focus:ring-none text-center align-middle">
           <FilePen className="stroke-primary-700 dark:stroke-primary-200 fill-primary-200 dark:fill-primary-800 w-5 h-[inherit]" />
         </a>
       </Tooltip>
-      <Tooltip text="Toggle dark mode" position="bottom-right">
+      <LanguageSelector lang={lang} />
+      <Tooltip text={t.header.hero.toggleDarkMode} position="bottom-right">
         <button
           id="theme-toggle"
           class="px-2 my-auto h-8 rounded-lg hover:bg-primary-100 dark:hover:bg-primary-700 cursor-pointer ring-none focus:ring-none"
-          aria-label="Toggle dark mode"
+          aria-label={t.header.hero.toggleDarkMode}
         >
           <div class="dark:hidden">
             <Moon client:load className="w-5 h-5 fill-primary-200" />

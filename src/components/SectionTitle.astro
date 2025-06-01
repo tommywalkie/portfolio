@@ -2,12 +2,13 @@
 interface Props {
   id: string;
   description?: string;
+  ariaLabel?: string;
 }
 
-const { id, description } = Astro.props;
+const { id, description, ariaLabel } = Astro.props;
 ---
 
-<h2 id={id} class="text-3xl font-bold mb-8 ml-2 text-center group">
+<h2 id={id} class="text-3xl font-bold mb-8 ml-2 text-center group" aria-label={ariaLabel}>
   <a
     href={`#${id}`}
     class="text-primary-900 dark:text-primary-100 hover:text-primary-700 dark:hover:text-primary-300 relative"

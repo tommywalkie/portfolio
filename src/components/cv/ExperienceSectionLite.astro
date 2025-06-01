@@ -2,22 +2,31 @@
 import { getCollection } from 'astro:content';
 import ExperienceCardLite from './ExperienceCardLite.astro';
 import { DateTime } from 'luxon';
+import translations from '../../i18n/portfolio.json';
+
+interface Props {
+  lang: string;
+}
+
+const { lang = 'en' } = Astro.props;
+
+const t = translations[lang];
 
 const experiences = await getCollection('experiences');
-const sortedExperiences = experiences.sort((a, b) => {
+const sortedExperiences = experiences.filter(experience => experience.data.showInResume && experience.data.official).filter(experience => experience.slug.startsWith(`${lang}/`)).sort((a, b) => {
   const dateA = DateTime.fromFormat(a.data.startDate, 'yyyy-MM');
   const dateB = DateTime.fromFormat(b.data.startDate, 'yyyy-MM');
   return dateB.diff(dateA).toMillis();
 });
 
-const monthsOfExperience = experiences
+const monthsOfExperience = sortedExperiences
     .filter(experience => 
-        experience.data.contractType !== 'Work-study contract' && 
-        experience.data.contractType !== 'Internship'
+        experience.data.contractType !== 'workStudy' && 
+        experience.data.contractType !== 'internship'
     )
     .map(experience => {
         const startDate = DateTime.fromFormat(experience.data.startDate, 'yyyy-MM');
-        const endDate = DateTime.fromFormat(experience.data.endDate, 'yyyy-MM');
+        const endDate = DateTime.fromFormat(experience.data.endDate || DateTime.now().toFormat('yyyy-MM'), 'yyyy-MM');
         const duration = endDate.diff(startDate, ['months']).as('months');
         return Math.round(duration);
     })
@@ -25,10 +34,14 @@ const monthsOfExperience = experiences
 
 const yearsOfExperience = Math.floor(monthsOfExperience / 12);
 const remainingMonths = monthsOfExperience % 12;
+
+function capitalize(str: string = '') {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
 ---
 
 <section id="experience" aria-labelledby="experience">
-  <h4 class="mb-4 text-primary-900">Experience <span class="text-md text-primary-400 font-medium">({yearsOfExperience}{remainingMonths > 0 ? '+' : ''} years)</span></h4>
+  <h4 class="mb-4 text-primary-900">{capitalize(t.sections.experience.title)} <span class="text-md text-primary-400 font-medium">({yearsOfExperience}{remainingMonths > 0 ? '+' : ''} {t.years})</span></h4>
   <div class="space-y-7 w-full max-w-4xl mx-auto">
     {sortedExperiences.map((experience) => (
       <ExperienceCardLite 
@@ -36,6 +49,7 @@ const remainingMonths = monthsOfExperience % 12;
         content={experience.body}
         render={experience.render}
         subExperiences={experience.data.subExperiences || []}
+        lang={lang}
       />
     ))}
   </div>

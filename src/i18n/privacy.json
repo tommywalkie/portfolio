@@ -1,0 +1,62 @@
+{
+  "en": {
+    "backToHome": "Back to home",
+    "title": "Privacy Policy",
+    "sections": {
+      "overview": {
+        "title": "Overview",
+        "content": "This privacy policy explains how we handle your data when you visit this portfolio website, currently hosted at"
+      },
+      "analytics": {
+        "title": "Analytics",
+        "content": "We use Liwan, a privacy-focused analytics service hosted on our server, to collect anonymous usage data. The data is publicly available and can be viewed at",
+        "whatWeCollect": {
+          "title": "What we collect:",
+          "items": ["Page visits", "Referrer domain", "Browser type", "Operating system"]
+        },
+        "whatWeDontCollect": {
+          "title": "What we don't collect:",
+          "items": [
+            "IP addresses (only used temporarily for generating anonymous visitor IDs)",
+            "Personal information",
+            "Cookies or persistent identifiers"
+          ]
+        }
+      },
+      "contact": {
+        "title": "Contact",
+        "content": "For privacy-related questions, you can reach out via"
+      }
+    }
+  },
+  "fr": {
+    "backToHome": "Retour à l'accueil",
+    "title": "Politique de Confidentialité",
+    "sections": {
+      "overview": {
+        "title": "Aperçu",
+        "content": "Cette politique de confidentialité explique comment nous traitons vos données lorsque vous visitez ce site portfolio, actuellement hébergé sur"
+      },
+      "analytics": {
+        "title": "Analytique",
+        "content": "Nous utilisons Liwan, un service d'analyse axé sur la confidentialité hébergé sur notre serveur, pour collecter des données d'utilisation anonymes. Les données sont publiquement disponibles et peuvent être consultées sur",
+        "whatWeCollect": {
+          "title": "Ce que nous collectons :",
+          "items": ["Visites de pages", "Domaine de référence", "Type de navigateur", "Système d'exploitation"]
+        },
+        "whatWeDontCollect": {
+          "title": "Ce que nous ne collectons pas :",
+          "items": [
+            "Adresses IP (utilisées temporairement uniquement pour générer des identifiants de visiteurs anonymes)",
+            "Informations personnelles",
+            "Cookies ou identifiants persistants"
+          ]
+        }
+      },
+      "contact": {
+        "title": "Contact",
+        "content": "Pour toute question relative à la confidentialité, vous pouvez nous contacter via"
+      }
+    }
+  }
+}

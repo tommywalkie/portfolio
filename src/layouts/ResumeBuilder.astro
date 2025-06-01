@@ -1,0 +1,226 @@
+---
+import Layout from './Layout.astro';
+import ExperienceSectionLite from '../components/cv/ExperienceSectionLite.astro';
+import { Mail, Phone, Globe, ArrowLeft, Printer } from 'lucide-react';
+import Squircle from '../components/Squircle.astro';
+import { Image } from 'astro:assets'
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import EducationSectionLite from '../components/cv/EducationSectionLite.astro';
+import ProjectsSectionLite from '../components/cv/ProjectsSectionLite.astro';
+import InterestsSectionLite from '../components/cv/InterestsSectionLite.astro';
+import DistinctionsSectionLite from '../components/cv/DistinctionsSectionLite.astro';
+import LinkedInIcon from '../components/icons/LinkedInIcon.astro';
+import translations from '../i18n/portfolio.json';
+
+const LOOKING_FOR_NEW_JOB = false;
+const isProd = import.meta.env.PROD || false;
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = 'en' } = Astro.props;
+
+const t = translations[lang];
+
+// Hide phone number and email while in production, to avoid spam, encourage people to contact me via LinkedIn.
+const telephone = import.meta.env.VITE_PHONE_NUMBER ?? '(+XX) XX XX XX XX';
+const email = import.meta.env.VITE_EMAIL ?? 'xxxxxxxx@xxx.xx';
+
+const linkedin = 'https://www.linkedin.com/in/tom-bazarnik-a4364010b/';
+---
+
+<Layout>
+    <!-- A4 dimensions in pixels (assuming 96 DPI): 8.27 × 11.69 inches = 793.7 × 1122.5 pixels -->
+    <div class="flex flex-col w-full">
+        <div class="no-print sticky top-0 z-10">
+            <Header className="no-print" lang={lang} />
+        </div>
+
+		<main class="min-h-[calc(100vh-100px)] bg-white dark:bg-primary-950 mb-4 lg:mb-10 py-4 w-full">
+            <div class="px-4 lg:px-10">
+                <div class="max-w-[1152px] mx-auto no-print">
+                    <div class="flex items-center justify-between mb-5">
+                        <a
+                          href={`/${lang}`}
+                          class="text-primary-600 dark:text-primary-300 flex items-center gap-2 bg-primary-50 dark:bg-primary-900 px-4 py-2 rounded-md hover:bg-primary-100 dark:hover:bg-primary-800"
+                        >
+                          <ArrowLeft className="w-4 h-4" />
+                          {t.resume.backToHome}
+                        </a>
+                    </div>
+                </div>
+
+                <div class="no-print max-w-[1152px] mx-auto mb-4">
+                    <div class="space-y-2">
+                        <p>💡 <span class="font-bold text-primary-900 dark:text-primary-100">{t.resume.tips.title}</span>:</p>
+                        <ul class="list-disc list-inside pl-4 text-secondary-500">
+                            <li>
+                                <span class="text-primary-900 dark:text-primary-100">{t.resume.tips.tips_1}</span> 
+                            </li>
+                            <li>
+                                <span class="text-primary-900 dark:text-primary-100">{t.resume.tips.tips_2}</span>{' '}
+                                <a 
+                                    href={linkedin}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    class="text-primary-600 hover:text-primary-800 dark:text-primary-300 dark:hover:text-primary-100 underline"
+                                >
+                                    {t.resume.tips.connectWithMeOnLinkedIn}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <button
+                    onclick="window.print()"
+                    class="mx-auto bg-primary-500 hover:bg-primary-600 dark:bg-primary-500 dark:text-primary-100 dark:hover:bg-primary-600 text-white px-4 py-2 rounded-md cursor-pointer mb-8 flex items-center gap-2 no-print"
+                >
+                    <Printer className="w-4 h-4" />
+                    {t.resume.print}
+                </button>
+            </div>
+            
+            <div class="max-w-full overflow-x-auto xl:overflow-auto h-[calc(100vh-300px)] my-4 xl:my-0 xl:h-auto cv-container bg-primary-50 dark:bg-gray-950 xl:bg-transparent dark:xl:bg-transparent">
+                <div class="w-fit mx-auto px-4 xl:px-0">
+                    <div class="cv-paper max-w-[1152px] min-w-[1152px] h-[1629px] bg-white p-12 shadow-md mb-4">
+                        <div class="">
+                            <div class="mb-6">
+                                <div class="flex items-center gap-4">
+                                    <Squircle width={100} height={100} className="w-25 h-25 min-w-max bg-primary-50 relative">
+                                        <Image 
+                                            src="/profiles/tom-bazarnik-transparent.png" 
+                                            alt="Tom Bazarnik" 
+                                            width={100} 
+                                            height={100}
+                                            loading="eager"
+                                            class="relative z-10"
+                                            quality="low"
+                                        />
+                                    </Squircle>
+                                    <div>
+                                        <div class="text-3xl font-bold mb-0 text-primary-700">Tom Bazarnik</div>
+                                        <p class="text-primary-900">
+                                            <span class="font-semibold">
+                                                {t.resume.role}
+                                            </span>
+                                            <span>{t.resume.basedIn} <span class="text-primary-500">Paris, France</span> {LOOKING_FOR_NEW_JOB ? 'seeking a permanent position with hybrid work arrangement' : ''}</span>
+                                        </p>
+                                        <ul class="flex items-center gap-4 text-sm list-none text-primary-600 mt-1" aria-label="Main navigation">
+                                            {!isProd && <Fragment>
+                                                <li>
+                                                    <span class="flex items-center gap-2">
+                                                        <Mail className="w-4 h-4" />
+                                                        <span>{email}</span>
+                                                    </span>
+                                                </li>
+                                                <li
+                                                    class="w-1.5 h-1.5 rounded-full bg-secondary-600"
+                                                    aria-hidden="true"
+                                                />
+                                                <li>
+                                                    <span class="flex items-center gap-2">
+                                                        <Phone className="w-4 h-4" />
+                                                        <span>{telephone}</span>
+                                                    </span>
+                                                </li>
+                                                <li class="w-1.5 h-1.5 rounded-full bg-secondary-600"
+                                                    aria-hidden="true"
+                                                />
+                                            </Fragment>}
+                                            {isProd && <Fragment>
+                                                <li>
+                                                    <span class="flex items-center gap-2">
+                                                        <LinkedInIcon class="w-4 h-4 fill-primary-600" />
+                                                        <span>{linkedin}</span>
+                                                    </span>
+                                                </li>
+                                                <li class="w-1.5 h-1.5 rounded-full bg-secondary-600"
+                                                    aria-hidden="true"
+                                                />
+                                            </Fragment>}
+                                            <li>
+                                                <span class="flex items-center gap-2">
+                                                    <Globe className="w-4 h-4" />
+                                                    https://tommywalkie.com
+                                                </span>
+                                            </li>
+                                            
+                                        </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                
+                            <div class="flex flex-row gap-8">
+                                <div class="max-w-[620px]">
+                                    <div class="mb-6">
+                                        <div class="text-sm">
+                                            <ExperienceSectionLite lang={lang} />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="border-l-3 border-primary-50 pl-8 flex flex-col gap-8 max-w-[420px]">
+                                    <EducationSectionLite lang={lang} />
+                                    <ProjectsSectionLite lang={lang} />
+                                    <DistinctionsSectionLite lang={lang} />
+                                    <InterestsSectionLite lang={lang} />
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </main>
+	</div>
+    <div class="no-print">
+        <Footer />
+    </div>
+</Layout>
+
+<style>
+    /* Add print-specific styles */
+    @media print {
+        @page {
+            size: A4;
+            margin: 0;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+        
+        .shadow-md {
+            box-shadow: none !important;
+        }
+        
+        main {
+            background: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        .cv-container {
+            max-height: 1650px !important;
+            height: 1650px !important;
+            overflow: visible !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        .cv-paper {
+            overflow: hidden !important;
+            max-height: 1700px !important;
+            margin: 10px 20px !important;
+            color-adjust: exact !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+            padding-left: 2rem;
+        }
+
+        .no-print, .no-print * {
+            display: none !important;
+        }
+    }
+</style>

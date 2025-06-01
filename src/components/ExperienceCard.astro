@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import translations from '../i18n/portfolio.json';
 import Squircle from './Squircle.astro';
 import LinkedInIcon from './icons/LinkedInIcon.astro';
 import { SquareArrowOutUpRight, Building2, UsersRound, BriefcaseBusiness } from 'lucide-react';
@@ -10,6 +11,7 @@ import Tooltip from './Tooltip.astro';
 type Props = CollectionEntry<'experiences'>['data'] & {
   content: string;
   render?: () => Promise<{ Content: any }>;
+  lang?: string;
 };
 
 const {
@@ -27,10 +29,13 @@ const {
   subExperiences = [],
   render,
   content,
+  lang = 'en',
 } = Astro.props;
 
-const { formattedStartDate, formattedEndDate, durationStr } = formatDateRange(startDate, endDate);
+const { formattedStartDate, formattedEndDate, durationStr } = formatDateRange(startDate, endDate, lang);  
 const { Content } = await render?.() || { Content: () => content };
+
+const t = translations[lang];
 ---
 
 <div class="p-4 md:p-6 w-full bg-primary-50 dark:bg-primary-900 rounded-lg space-y-4">
@@ -50,15 +55,15 @@ const { Content } = await render?.() || { Content: () => content };
         <div class="font-bold text-xl text-primary-900 dark:text-primary-100">
           <span class="mr-2">{companyName}</span>
           {companyType && (
-            <Tooltip text={`Company type: ${companyType}`} position="top" className="align-sub">
+            <Tooltip text={`${translations[lang].sections.experience.companyType}: ${companyType}`} position="top" className="align-sub">
               <span class="text-base text-secondary-700 dark:text-secondary-500 mr-2 inline-flex items-center gap-1 font-normal">
                 <Building2 className="w-5 h-5" />
-                {companyType}
+                {t.sections.experience.companyTypes[String(companyType).toLowerCase()]}
               </span>
             </Tooltip>
           )}
           {!subExperiences.length && teamSize && (
-            <Tooltip text={`Team size: ${teamSize} people`} position="top" className="align-sub">
+            <Tooltip text={`${translations[lang].sections.experience.teamSize.label}: ${teamSize} ${translations[lang].sections.experience.teamSize.unit}`} position="top" className="align-sub">
               <span class="text-base text-secondary-700 dark:text-secondary-500 mr-2 inline-flex items-center gap-1 font-normal">
                 <UsersRound className="w-5 h-5" />
                 {teamSize}
@@ -66,34 +71,34 @@ const { Content } = await render?.() || { Content: () => content };
             </Tooltip>
           )}
           {contractType && (
-            <Tooltip text={`Contract type: ${contractType}`} position="top" className="align-sub">
+            <Tooltip text={`${translations[lang].sections.experience.contractType}: ${translations[lang].sections.experience.contractTypes[contractType]}`} position="top" className="align-sub">
               <span class="text-base text-secondary-700 dark:text-secondary-500 inline-flex items-center gap-1 font-normal">
                 <BriefcaseBusiness className="w-5 h-5" />
-                {contractType}
+                {t.sections.experience.contractTypes[contractType]}
               </span>
             </Tooltip>
           )}
         </div>
         <div class="inline-flex gap-2 ml-auto pl-3">
           {companyUrl && (
-            <Tooltip text={`Visit ${companyName}'s website`} position="top-right">
+            <Tooltip text={t.sections.experience.visitWebsite.replace('{name}', companyName)} position="top-right">
               <a 
                 href={companyUrl} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                aria-label={`Visit ${companyName}'s website`}
+                aria-label={t.sections.experience.visitWebsite.replace('{name}', companyName)}
             >
               <SquareArrowOutUpRight client:load className="w-6 h-6 text-primary-300 hover:text-primary dark:text-primary dark:hover:text-primary-300" />
               </a>
             </Tooltip>
           )}
           {companyLinkedIn && (
-            <Tooltip text={`Visit ${companyName}'s LinkedIn page`} position="top-right">
+            <Tooltip text={t.sections.experience.visitLinkedIn.replace('{name}', companyName)} position="top-right">
               <a 
                 href={companyLinkedIn} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                aria-label={`Visit ${companyName}'s LinkedIn page`}
+                aria-label={t.sections.experience.visitLinkedIn.replace('{name}', companyName)}
               >
                 <LinkedInIcon class="w-6 h-6 fill-primary-300 hover:fill-primary dark:fill-primary dark:hover:fill-primary-300" />
               </a>
@@ -147,7 +152,7 @@ const { Content } = await render?.() || { Content: () => content };
                 <div class="font-semibold text-lg text-primary-900 dark:text-primary-100">
                   {subExp.companyName}
                   {subExp.teamSize && (
-                    <Tooltip text={`Team size: ${subExp.teamSize} people`} position="top" className="align-sub">
+                    <Tooltip text={`${t.sections.experience.teamSize.label}: ${subExp.teamSize} ${t.sections.experience.teamSize.unit}`} position="top" className="align-sub">
                       <span class="text-base text-secondary-700 dark:text-secondary-500 pl-2 inline-flex items-center gap-1 align-top font-normal">
                         <UsersRound className="w-5 h-5" />
                         {subExp.teamSize}
@@ -157,24 +162,24 @@ const { Content } = await render?.() || { Content: () => content };
                 </div>
                 <div class="inline-flex gap-2 ml-auto pl-3">
                   {subExp.companyUrl && (
-                    <Tooltip text={`Visit ${subExp.companyName}'s website`} position="top-right" className="align-sub">
+                    <Tooltip text={t.sections.experience.visitWebsite.replace('{name}', subExp.companyName)} position="top-right" className="align-sub">
                       <a 
                         href={subExp.companyUrl} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        aria-label={`Visit ${subExp.companyName}'s website`}
+                        aria-label={t.sections.experience.visitWebsite.replace('{name}', subExp.companyName)}
                       >
                         <SquareArrowOutUpRight client:load className="w-6 h-6 text-primary-300 hover:text-primary dark:text-primary dark:hover:text-primary-300" />
                       </a>
                     </Tooltip>
                   )}
                   {subExp.companyLinkedIn && (
-                    <Tooltip text={`Visit ${subExp.companyName}'s LinkedIn page`} position="top-right" className="align-sub">
+                    <Tooltip text={t.sections.experience.visitLinkedIn.replace('{name}', subExp.companyName)} position="top-right" className="align-sub">
                       <a 
                         href={subExp.companyLinkedIn} 
                         target="_blank" 
                         rel="noopener noreferrer"
-                        aria-label={`Visit ${subExp.companyName}'s LinkedIn page`}
+                        aria-label={t.sections.experience.visitLinkedIn.replace('{name}', subExp.companyName)}
                       >
                         <LinkedInIcon class="w-6 h-6 fill-primary-300 hover:fill-primary dark:fill-primary dark:hover:fill-primary-300" />
                       </a>
@@ -188,7 +193,8 @@ const { Content } = await render?.() || { Content: () => content };
               {(() => {
                 const { formattedStartDate, formattedEndDate, durationStr } = formatDateRange(
                   subExp.startDate,
-                  subExp.endDate
+                  subExp.endDate,
+                  lang
                 );
                 return (
                   <div class="text-sm text-secondary-600 dark:text-secondary-500">

@@ -1,15 +1,28 @@
 ---
 import { getCollection } from 'astro:content';
+import translations from '../i18n/portfolio.json';
 import TestimonialCard from './TestimonialCard.astro'
 import LinkedInIcon from './icons/LinkedInIcon.astro'
 import SectionTitle from './SectionTitle.astro'
 
+interface Props {
+  lang: string;
+}
+
+const { lang = 'en' } = Astro.props;
+
 const testimonials = await getCollection('testimonials');
-const sortedTestimonials = testimonials.sort((a, b) => a.data.order - b.data.order);
+const sortedTestimonials = testimonials
+  .filter(testimonial => testimonial.slug.startsWith(`${lang}/`))
+  .sort((a, b) => a.data.order - b.data.order);
+
+const t = translations[lang];
 ---
 
 <section id="testimonials" aria-labelledby="testimonials" class="p-4 mb-12 scroll-mt-16">
-  <SectionTitle id="testimonials">Testimonials</SectionTitle>
+  <SectionTitle id="testimonials" aria-label={t.sections.testimonials.ariaLabel}>
+    {t.sections.testimonials.title}
+  </SectionTitle>
   <div class="flex flex-col gap-4 w-full items-center mb-8" role="list" aria-label="List of testimonials">
     {sortedTestimonials.map(async (testimonial) => {
       return (
@@ -34,7 +47,7 @@ const sortedTestimonials = testimonials.sort((a, b) => a.data.order - b.data.ord
       class="bg-primary-500 hover:bg-primary-600 dark:bg-primary-500 dark:text-primary-100 dark:hover:bg-primary-600 text-white px-4 py-2 rounded-md cursor-pointer flex items-center"
     >
       <LinkedInIcon class="fill-primary-200 dark:fill-primary-100 w-4 h-4 mr-2" />
-      Submit a recommendation for me
+      {t.sections.testimonials.submitLinkedInRecommendation}
     </a>
   </div>
 </section> 

@@ -1,0 +1,42 @@
+---
+import Layout from './Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Hero from '../components/Hero.astro';
+import TestimonialsSection from '../components/TestimonialsSection.astro';
+import ExperienceSection from '../components/ExperienceSection.astro';
+import ProjectsSection from '../components/ProjectsSection.astro';
+import EducationSection from '../components/EducationSection.astro';
+import InterestsSection from '../components/InterestsSection.astro';
+import DistinctionsSection from '../components/DistinctionsSection.astro';
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = 'en' } = Astro.props;
+---
+
+<Layout>
+	<div class="min-h-screen flex flex-col w-full">
+		<Header lang={lang} />
+		<main class="w-full">
+			<Hero lang={lang} />
+			<TestimonialsSection lang={lang} />
+			<ExperienceSection lang={lang} />
+			<EducationSection lang={lang} />
+			<ProjectsSection lang={lang} />
+			<DistinctionsSection lang={lang} />
+			<InterestsSection lang={lang} />
+		</main>
+		<Footer lang={lang} />
+	</div>
+</Layout>
+
+<script>
+	// scroll to the section based on the url
+	const section = window.location.hash;
+	if (section) {
+		document.querySelector(section)?.scrollIntoView({ behavior: 'smooth' });
+	}
+</script>

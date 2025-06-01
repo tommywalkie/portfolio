@@ -1,19 +1,26 @@
 ---
 import { Image } from 'astro:assets'
+import translations from '../i18n/portfolio.json';
 import TextSlider from './TextSlider.astro'
 import Squircle from './Squircle.astro'
 import LinkedInIcon from './icons/LinkedInIcon.astro'
 import GithubIcon from './icons/GithubIcon.astro'
 
+interface Props {
+  lang?: string;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = translations[lang];
 const mainSkills = ['React', 'TypeScript', 'Node.js', 'NestJS', 'Tailwind CSS', 'Astro', 'PHP']
 
 const sections = [
-  { id: 'testimonials', label: 'Testimonials' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'education', label: 'Education' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'distinctions', label: 'Distinctions' },
-  { id: 'interests', label: 'Interests' },
+  { id: 'testimonials', label: translations[lang].sections.testimonials.title },
+  { id: 'experience', label: translations[lang].sections.experience.title },
+  { id: 'education', label: translations[lang].sections.education.title },
+  { id: 'projects', label: translations[lang].sections.projects.title },
+  { id: 'distinctions', label: translations[lang].sections.distinctions.title },
+  { id: 'interests', label: translations[lang].sections.interests.title },
 ] as const
 ---
 
@@ -34,13 +41,15 @@ const sections = [
   
   <div class="my-auto text-primary-900 dark:text-primary-100">
     <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 text-primary-700 dark:text-primary-300">
-      Hello there! 👋
+      {t.header.hero.title}
     </h1>
     <div class="text-2xl sm:text-3xl md:text-4xl pr-5 mb-4">
-      I'm Tom Bazarnik, a fullstack engineer based in{' '}
-      <span class="text-primary-400 dark:text-primary-300">Paris</span> who likes{' '}
+      {t.header.hero.description}
+      <span class="text-primary-400 dark:text-primary-300">Paris</span>
+      {t.header.hero.description_2}
       <br class="hidden xl:block" />
-      building projects with <TextSlider words={mainSkills} />
+      {t.header.hero.description_3}
+      <TextSlider words={mainSkills} />
     </div>
     
     <div class="flex flex-col gap-4">

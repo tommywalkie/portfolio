@@ -13,7 +13,7 @@ export const collections = {
     }),
   }),
   interests: defineCollection({
-    type: 'data',
+    type: 'content',
     schema: z.object({
       title: z.string(),
       description: z.string(),
@@ -36,6 +36,7 @@ export const collections = {
       order: z.number(),
     }),
   }),
+  // Experiences, some entries may have sub-entries for consulting experiences
   experiences: defineCollection({
     type: 'content',
     schema: z.object({
@@ -44,8 +45,10 @@ export const collections = {
       companyUrl: z.string().optional(),
       companyLinkedIn: z.string().optional(),
       companyType: z.string().optional(),
-      teamSize: z.string().or(z.number()).optional(),
+      teamSize: z.string().or(z.number()).nullable().optional(),
       contractType: z.string().optional(),
+      official: z.boolean().optional().default(true),
+      showInResume: z.boolean().optional().default(true),
       startDate: z.string(),
       endDate: z.string().nullable(),
       role: z.string(),
@@ -83,7 +86,7 @@ export const collections = {
   }),
   // Education, some school entries may have sub-entries for degrees
   education: defineCollection({
-    type: 'data',
+    type: 'content',
     schema: z.object({
       school: z.string(),
       schoolUrl: z.string().optional(),

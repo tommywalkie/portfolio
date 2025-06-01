@@ -4,18 +4,21 @@ import { Image } from 'astro:assets';
 import Squircle from '../Squircle.astro';
 import { Trophy } from 'lucide-react';
 import { DateTime } from 'luxon';
-
+import translations from '../../i18n/portfolio.json';
 const distinctions = await getCollection('distinctions');
 type Distinction = typeof distinctions[number];
 
 type Props = Distinction['data'] & {
   render?: () => Promise<{ Content: any }>;
+  lang: string;
 }
 
-const { title, date, organization, logo, render } = Astro.props;
+const { title, date, organization, logo, render, lang = 'en' } = Astro.props;
 
-const formattedDate = DateTime.fromFormat(date, 'yyyy-MM').toFormat('MMM yyyy');
+const formattedDate = DateTime.fromFormat(date, 'yyyy-MM').setLocale(lang).toFormat('MMM yyyy');
 const { Content } = await render?.() || { Content: () => null };
+
+const t = translations[lang];
 ---
 
 <div class="w-full space-y-2">
@@ -50,7 +53,7 @@ const { Content } = await render?.() || { Content: () => null };
           {formattedDate}
         </div>
       </div>
-      <div class="text-sm text-primary-700">Associated to <span class="text-primary-500">{organization}</span></div>
+      <div class="text-sm text-primary-700">{t.sections.distinctions.associatedWith} <span class="text-primary-500">{organization}</span></div>
     </div>
   </div>
 

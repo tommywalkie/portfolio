@@ -1,0 +1,122 @@
+---
+import languagesData from '../i18n/languages.json';
+import Tooltip from './Tooltip.astro';
+import { Globe } from 'lucide-react';
+
+interface Props {
+  lang: string;
+  className?: string;
+}
+
+const { lang = 'en', className = '' } = Astro.props;
+const icons = {
+  en: {
+    emoji: '🇬🇧',
+    image: 'https://cdn.jsdelivr.net/npm/flag-icons@7.3.2/flags/4x3/gb.svg'
+  },
+  fr: {
+    emoji: '🇫🇷',
+    image: 'https://cdn.jsdelivr.net/npm/flag-icons@7.3.2/flags/4x3/fr.svg'
+  }
+}
+
+const LANGUAGES = Object.keys(languagesData).map(language => ({
+  code: language,
+  name: languagesData[language][lang],
+  flag_emoji: icons[language].emoji,
+  flag_svg: icons[language].image
+}));
+
+const SHOW_FLAG_AS_MAIN_ICON = true;
+
+// Get current path to maintain it when switching languages
+const { pathname } = Astro.url;
+const currentPath = pathname.replace(/^\/[^\/]+/, '') || '/';
+
+// Find current language data
+const currentLanguage = LANGUAGES.find(l => l.code === lang) || LANGUAGES[0];
+
+const isCurrentLanguage = (code: string) => code === lang;
+---
+
+<div class={`relative ${className}`}>
+  {SHOW_FLAG_AS_MAIN_ICON && <button
+    id="language-selector-button"
+    class="px-2 my-auto h-8 rounded-lg hover:bg-primary-100 dark:hover:text-white dark:hover:bg-primary-700 cursor-pointer ring-none focus:ring-none flex items-center"
+    aria-label="Select language"
+    aria-expanded="false"
+    aria-controls="language-dropdown"
+  >
+    <img src={icons[lang].image} alt={currentLanguage.name} class="h-5" />
+  </button>}
+  
+  {!SHOW_FLAG_AS_MAIN_ICON && <Tooltip text="Change language" position="bottom-right">
+    <button
+      id="language-selector-button"
+      class="px-2 my-auto h-8 rounded-lg hover:bg-primary-100 dark:hover:text-white dark:hover:bg-primary-700 cursor-pointer ring-none focus:ring-none flex items-center"
+      aria-label="Select language"
+      aria-expanded="false"
+      aria-controls="language-dropdown"
+    >
+      <Globe client:load className="w-5 h-5 stroke-primary-700 dark:stroke-primary-200" />
+    </button>
+  </Tooltip>}
+
+  <div
+    id="language-dropdown"
+    class="absolute right-0 mt-1 py-1 bg-white dark:bg-primary-800 rounded-lg shadow-lg z-50 min-w-32 hidden overflow-hidden"
+    role="menu"
+  >
+    {LANGUAGES.map((language) => {
+      const isCurrent = isCurrentLanguage(language.code);
+      if (isCurrent) {
+        return (
+          <div class="flex items-center px-4 py-2 text-sm font-medium bg-primary-50 dark:bg-primary-900">
+            <span class="mr-2"><img src={icons[language.code].image} alt={language.name} class="h-5" /></span>
+            <span>{language.name}</span>
+          </div>
+        )
+      }
+      return (
+        <a
+          href={`/${language.code}${currentPath}`}
+          class={`flex items-center block px-4 py-2 text-sm hover:bg-primary-100 dark:hover:bg-primary-700`}
+          role="menuitem"
+        >
+          <span class="mr-2"><img src={icons[language.code].image} alt={language.name} class="h-5" /></span>
+          <span>{language.name}</span>
+        </a>
+      )
+    })}
+  </div>
+</div>
+
+<script>
+  function setupLanguageSelector() {
+    const button = document.getElementById('language-selector-button');
+    const dropdown = document.getElementById('language-dropdown');
+    
+    if (!button || !dropdown) return;
+    
+    // Toggle dropdown
+    button.addEventListener('click', () => {
+      const expanded = button.getAttribute('aria-expanded') === 'true';
+      button.setAttribute('aria-expanded', (!expanded).toString());
+      dropdown.classList.toggle('hidden');
+    });
+    
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (event) => {
+      if (!button.contains(event.target as Node) && !dropdown.contains(event.target as Node)) {
+        button.setAttribute('aria-expanded', 'false');
+        dropdown.classList.add('hidden');
+      }
+    });
+  }
+  
+  // Run on initial page load
+  setupLanguageSelector();
+  
+  // Re-run after each page navigation
+  document.addEventListener('astro:after-swap', setupLanguageSelector);
+</script> 

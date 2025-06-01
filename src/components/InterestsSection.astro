@@ -1,15 +1,23 @@
 ---
 import SectionTitle from './SectionTitle.astro';
+import translations from '../i18n/portfolio.json';
 import { getCollection } from 'astro:content';
 import InterestIcon from './InterestIcon.astro';
 
+interface Props {
+  lang: string;
+}
+
+const { lang = 'en' } = Astro.props;
 
 const interests = await getCollection('interests');
-const sortedInterests = interests.sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
+const sortedInterests = interests.filter(interest => interest.slug.startsWith(`${lang}/`)).sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
 ---
 
 <section id="interests" aria-labelledby="interests" class="p-4 mb-12 scroll-mt-16">
-  <SectionTitle id="interests">Interests</SectionTitle>
+  <SectionTitle id="interests" aria-label={translations[lang].sections.interests.ariaLabel}>
+    {translations[lang].sections.interests.title}
+  </SectionTitle>
   <div class="space-y-6 w-full max-w-4xl mx-auto">
     <div class="p-4 md:p-6 w-full bg-primary-50 dark:bg-primary-900 rounded-lg">
       <ul class="space-y-4">

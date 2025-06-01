@@ -1,0 +1,14 @@
+{
+  "en": {
+    "present": "Present",
+    "year": "year",
+    "month": "month",
+    "and": "and"
+  },
+  "fr": {
+    "present": "Présent",
+    "year": "an",
+    "month": "mois",
+    "and": "et"
+  }
+}

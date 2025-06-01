@@ -4,10 +4,12 @@ import Squircle from '../Squircle.astro';
 import { formatDateRange } from '../../utils/dates';
 import type { CollectionEntry } from 'astro:content';
 import { Building2, UsersRound, BriefcaseBusiness } from 'lucide-react';
+import translations from '../../i18n/portfolio.json';
 
 type Props = CollectionEntry<'experiences'>['data'] & {
   content: string;
   render?: () => Promise<{ Content: any }>;
+  lang?: string;
 };
 
 const {
@@ -23,10 +25,13 @@ const {
   subExperiences = [],
   content,
   render,
+  lang = 'en',
 } = Astro.props;
 
-const { formattedStartDate, formattedEndDate } = formatDateRange(startDate, endDate);
+const { formattedStartDate, formattedEndDate } = formatDateRange(startDate, endDate, lang);
 const { Content } = await render?.() || { Content: () => content };
+
+const t = translations[lang];
 ---
 
 <div class="w-full space-y-4">
@@ -62,7 +67,7 @@ const { Content } = await render?.() || { Content: () => content };
           </span>}
           {contractType && <span class="text-sm text-secondary-700 pl-2 inline-flex items-center gap-1 align-top font-normal">
             <BriefcaseBusiness className="w-4 h-4" />
-            {contractType}
+            {t.sections.experience.contractTypes[contractType]}
           </span>}
         </div>
         <div class="text-sm text-gray-600">
@@ -73,8 +78,8 @@ const { Content } = await render?.() || { Content: () => content };
     </div>
   </div>
 
-  <div class="text-primary-900 font-light text-md">
-    <div class="[&>ul]:list-disc [&>ul]:ml-4 [&>ul>li]:mb-2 [&>ul>li::marker]:text-secondary-600 [&>ul>li::marker]:dark:text-secondary-500 text-md">
+  <div class="text-primary-900 font-light text-sm">
+    <div class="[&>ul]:list-disc [&>ul]:ml-4 [&>ul>li]:mb-2 [&>ul>li::marker]:text-secondary-600 [&>ul>li::marker]:dark:text-secondary-500 text-sm">
       <Content />
     </div>
   </div>
@@ -121,7 +126,7 @@ const { Content } = await render?.() || { Content: () => content };
               </div>
             </div>
           </div>
-          <div class="text-primary-900 font-light text-md">
+          <div class="text-primary-900 font-light text-sm">
             {subExp.description.split('\n').map((line: string, index: number, arr: string[]) => (
               <span class={index < arr.length - 1 ? 'block mb-2' : 'block'}>
                 {line}

@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import translations from '../i18n/portfolio.json';
 import Squircle from './Squircle.astro';
 import LinkedInIcon from './icons/LinkedInIcon.astro';
 import { SquareArrowOutUpRight } from 'lucide-react';
@@ -9,6 +10,7 @@ import Tooltip from './Tooltip.astro';
 
 type Props = CollectionEntry<'education'>['data'] & {
   content?: string;
+  lang: string;
 };
 
 const {
@@ -21,6 +23,7 @@ const {
   degree,
   degrees = [],
   skills = [],
+  lang = 'en'
 } = Astro.props;
 
 const { formattedStartDate, formattedEndDate } = formatSchoolDateRange(startDate, endDate);
@@ -43,24 +46,24 @@ const { formattedStartDate, formattedEndDate } = formatSchoolDateRange(startDate
         <div class="font-bold text-xl text-primary-900 dark:text-primary-100">{school}</div>
         <div class="inline-flex gap-2 ml-auto pl-3">
           {schoolUrl && (
-            <Tooltip text={`Visit ${school}'s website`} position="top-right">
+            <Tooltip text={translations[lang].sections.education.visitWebsite.replace('{name}', school)} position="top-right">
               <a 
                 href={schoolUrl} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                aria-label={`Visit ${school}'s website`}
+                aria-label={translations[lang].sections.education.visitWebsite.replace('{name}', school)}
               >
                 <SquareArrowOutUpRight client:load className="w-6 h-6 text-primary-300 hover:text-primary dark:text-primary dark:hover:text-primary-300" />
               </a>
             </Tooltip>
           )}
           {schoolLinkedIn && (
-            <Tooltip text={`Visit ${school}'s LinkedIn page`} position="top-right">
+            <Tooltip text={translations[lang].sections.education.visitLinkedIn.replace('{name}', school)} position="top-right">
               <a 
                 href={schoolLinkedIn} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                aria-label={`Visit ${school}'s LinkedIn page`}
+                aria-label={translations[lang].sections.education.visitLinkedIn.replace('{name}', school)}
               >
                 <LinkedInIcon class="w-6 h-6 fill-primary-300 hover:fill-primary dark:fill-primary dark:hover:fill-primary-300" />
               </a>

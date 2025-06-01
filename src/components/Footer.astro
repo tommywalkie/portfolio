@@ -1,10 +1,14 @@
 ---
+import translations from '../i18n/portfolio.json';
+
 interface Props {
   className?: string;
+  lang?: string;
 }
 
-const { className = '' } = Astro.props;
+const { className = '', lang = 'en' } = Astro.props;
 
+const t = translations[lang];
 const currentYear = new Date().getFullYear();
 ---
 
@@ -12,14 +16,14 @@ const currentYear = new Date().getFullYear();
   <div class="max-w-7xl mx-auto px-6 py-6">
     <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
       <div class="text-primary-900 dark:text-primary-100">
-        © {currentYear} Tom Bazarnik. All rights reserved.
+        © {currentYear} Tom Bazarnik. {t.footer.allRightsReserved}.
       </div>
       <div class="flex gap-6">
         <a
-          href="/privacy"
+          href={`/${lang}/privacy`}
           class="text-primary-600 dark:text-primary-300 hover:text-primary-800 dark:hover:text-primary-100"
         >
-          Privacy Policy
+          {t.footer.privacyPolicy}
         </a>
       </div>
     </div>

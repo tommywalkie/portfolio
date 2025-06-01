@@ -1,0 +1,173 @@
+{
+  "en": {
+    "header": {
+      "hero": {
+        "title": "Hello there! 👋",
+        "description": "I'm Tom Bazarnik, a fullstack engineer based in",
+        "description_2": "who likes",
+        "description_3": "building projects with",
+        "goToResumeBuilder": "Go to resume builder, print my resume",
+        "switchLanguage": "Switch language",
+        "toggleDarkMode": "Toggle dark mode"
+      }
+    },
+    "footer": {
+      "privacyPolicy": "Privacy Policy",
+      "allRightsReserved": "All rights reserved"
+    },
+    "resume": {
+      "backToHome": "Back to home",
+      "tips": {
+        "title": "Tips",
+        "tips_1": "This CV is optimized for printing. You can download the PDF version by printing the page.",
+        "tips_2": "Want to see the complete version with contact details?",
+        "connectWithMeOnLinkedIn": "Connect with me on LinkedIn"
+      },
+      "print": "Print resume",
+      "role": "Fullstack engineer",
+      "basedIn": "based in",
+      "seekingHybridWork": "seeking a permanent position with hybrid work arrangement"
+    },
+    "sections": {
+      "testimonials": {
+        "title": "Testimonials",
+        "ariaLabel": "List of testimonials",
+        "visitLinkedIn": "Visit {name}'s LinkedIn profile",
+        "submitLinkedInRecommendation": "Recommend me on LinkedIn"
+      },
+      "experience": {
+        "title": "Experience",
+        "ariaLabel": "Experience",
+        "companyType": "Company type",
+        "companyTypes": {
+          "startup": "Startup",
+          "consulting": "Consulting"
+        },
+        "contractType": "Contract type",
+        "contractTypes": {
+          "freelance": "Freelance",
+          "fullTime": "Full-time",
+          "partTime": "Part-time",
+          "internship": "Internship",
+          "workStudy": "Work-study contract"
+        },
+        "teamSize": {
+          "label": "Team size",
+          "unit": "people"
+        },
+        "visitLinkedIn": "Visit {name}'s LinkedIn page",
+        "visitWebsite": "Visit {name} website"
+      },
+      "education": {
+        "title": "Education",
+        "ariaLabel": "Education",
+        "visitLinkedIn": "Visit {name}'s LinkedIn page",
+        "visitWebsite": "Visit {name} website"
+      },
+      "projects": {
+        "title": "Projects",
+        "ariaLabel": "Projects",
+        "youAreLookingAtSaidPortfolio": "psst, you're looking at it",
+        "visitGitHub": "Visit {name}'s GitHub repository",
+        "visitWebsite": "Visit {name} website"
+      },
+      "distinctions": {
+        "title": "Distinctions",
+        "ariaLabel": "Distinctions",
+        "associatedWith": "Associated with"
+      },
+      "interests": {
+        "title": "Interests",
+        "ariaLabel": "Interests"
+      }
+    },
+    "yearsOfExperience": "years in web development",
+    "years": "years"
+  },
+  "fr": {
+    "header": {
+      "hero": {
+        "title": "Bienvenue! 👋",
+        "description": "Je suis Tom Bazarnik, un ingénieur fullstack basé à",
+        "description_2": "qui aime",
+        "description_3": "concevoir des projets avec",
+        "goToResumeBuilder": "Accéder au générateur de CV, imprimer mon CV",
+        "switchLanguage": "Changer de langue",
+        "toggleDarkMode": "Changer de thème"
+      }
+    },
+    "footer": {
+      "privacyPolicy": "Politique de confidentialité",
+      "allRightsReserved": "Tous droits réservés"
+    },
+    "resume": {
+      "backToHome": "Retour à l'accueil",
+      "tips": {
+        "title": "Conseils",
+        "tips_1": "Ce CV est optimisé pour l'impression. Vous pouvez télécharger la version PDF en imprimant la page.",
+        "tips_2": "Voulez-vous voir la version complète avec les coordonnées de contact?",
+        "connectWithMeOnLinkedIn": "Ajoutez moi sur LinkedIn"
+      },
+      "print": "Imprimer le CV",
+      "role": "Ingénieur fullstack",
+      "basedIn": "basé à",
+      "seekingHybridWork": "recherche un poste en CDI avec un rythme hybride"
+    },
+    "sections": {
+      "testimonials": {
+        "title": "Témoignages",
+        "ariaLabel": "Liste des témoignages",
+        "visitLinkedIn": "Visiter le profil LinkedIn de {name}",
+        "visitWebsite": "Visiter le site web de {name}",
+        "submitLinkedInRecommendation": "Recommendez-moi sur LinkedIn"
+      },
+      "experience": {
+        "title": "Expérience",
+        "ariaLabel": "Expérience",
+        "companyType": "Type d'entreprise",
+        "contractType": "Type de contrat",
+        "visitLinkedIn": "Visiter le profil LinkedIn de {name}",
+        "visitWebsite": "Visiter le site web de {name}",
+        "companyTypes": {
+          "startup": "Startup",
+          "consulting": "Consulting"
+        },
+        "contractTypes": {
+          "freelance": "Freelance",
+          "fullTime": "CDD",
+          "partTime": "CDI",
+          "internship": "Stage",
+          "workStudy": "Contrat en alternance"
+        },
+        "teamSize": {
+          "label": "Taille d'équipe",
+          "unit": "personne(s)"
+        }
+      },
+      "education": {
+        "title": "Formation",
+        "ariaLabel": "Formation",
+        "visitLinkedIn": "Visiter le profil LinkedIn de {name}",
+        "visitWebsite": "Visiter le site web de {name}"
+      },
+      "projects": {
+        "title": "Projets",
+        "ariaLabel": "Projets",
+        "youAreLookingAtSaidPortfolio": "psst, vous êtes en train de le consulter",
+        "visitGitHub": "Visiter le dépôt GitHub de {name}",
+        "visitWebsite": "Visiter le site web de {name}"
+      },
+      "distinctions": {
+        "title": "Distinctions",
+        "ariaLabel": "Distinctions",
+        "associatedWith": "Associé à"
+      },
+      "interests": {
+        "title": "Passions",
+        "ariaLabel": "Passions"
+      }
+    },
+    "yearsOfExperience": "ans de développement web",
+    "years": "ans"
+  }
+}

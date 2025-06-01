@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import translations from '../i18n/portfolio.json';
 import { getCollection } from 'astro:content';
 import Squircle from './Squircle.astro';
 import LinkedInIcon from './icons/LinkedInIcon.astro';
@@ -11,12 +12,13 @@ const distinctions = await getCollection('distinctions');
 type Distinction = typeof distinctions[number];
 
 type Props = Distinction['data'] & {
+  lang: string;
   render?: () => Promise<{ Content: any }>;
 }
 
-const { title, date, organization, logo, organizationUrl, organizationLinkedIn, render } = Astro.props;
+const { title, date, organization, logo, organizationUrl, organizationLinkedIn, render, lang = 'en' } = Astro.props;
 
-const formattedDate = DateTime.fromFormat(date, 'yyyy-MM').toFormat('MMM yyyy');
+const formattedDate = DateTime.fromFormat(date, 'yyyy-MM').setLocale(lang).toFormat('MMM yyyy');
 const { Content } = await render?.() || { Content: () => null };
 ---
 
@@ -69,7 +71,7 @@ const { Content } = await render?.() || { Content: () => null };
         </div>
       </div>
       <div class="text-lg font-semibold text-primary-700 dark:text-primary-300">
-        {organization && <span class="text-primary-700 dark:text-primary-300">Associated to </span>}
+        {organization && <span class="text-primary-700 dark:text-primary-300">{translations[lang].sections.distinctions.associatedWith}</span>}
         {organization && <span class="text-primary-600 dark:text-primary-200">{organization}</span>}
       </div>
       <div class="text-sm text-secondary-600 dark:text-secondary-500">{formattedDate}</div>
