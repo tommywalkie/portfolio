@@ -107,7 +107,12 @@ const t = translations[lang];
         </div>
       </div>
       <div class="text-lg font-semibold text-primary-700 dark:text-primary-300">{role}</div>
-      <div class="text-sm text-secondary-600 dark:text-secondary-500">
+      <div 
+        class="text-sm text-secondary-600 dark:text-secondary-500 experience-date-range"
+        data-start-date={startDate}
+        data-end-date={endDate || ''}
+        data-lang={lang}
+      >
         {formattedStartDate} - {formattedEndDate}{' '}
         <span class="text-primary-700 dark:text-primary-300 ml-1">({durationStr})</span>
       </div>
@@ -197,7 +202,12 @@ const t = translations[lang];
                   lang
                 );
                 return (
-                  <div class="text-sm text-secondary-600 dark:text-secondary-500">
+                  <div 
+                    class="text-sm text-secondary-600 dark:text-secondary-500 experience-date-range"
+                    data-start-date={subExp.startDate}
+                    data-end-date={subExp.endDate || ''}
+                    data-lang={lang}
+                  >
                     {formattedStartDate} - {formattedEndDate}{' '}
                     <span class="text-primary-700 dark:text-primary-300 ml-1">({durationStr})</span>
                   </div>
@@ -226,3 +236,33 @@ const t = translations[lang];
     </div>
   )}
 </div>
+
+<script>
+  import { formatDateRange } from '../utils/dates';
+
+  function updateDateRanges() {
+    document.querySelectorAll('.experience-date-range').forEach((element) => {
+      const startDate = element.getAttribute('data-start-date');
+      const endDate = element.getAttribute('data-end-date') || null;
+      const lang = element.getAttribute('data-lang') || 'en';
+      
+      if (!startDate) return;
+      
+      const { formattedStartDate, formattedEndDate, durationStr } = formatDateRange(startDate, endDate, lang);
+      
+      element.textContent = `${formattedStartDate} - ${formattedEndDate} `;
+      const durationSpan = document.createElement('span');
+      durationSpan.className = 'text-primary-700 dark:text-primary-300 ml-1';
+      durationSpan.textContent = `(${durationStr})`;
+      element.appendChild(durationSpan);
+    });
+  }
+
+  if (typeof window !== 'undefined') {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', updateDateRanges);
+    } else {
+      updateDateRanges();
+    }
+  }
+</script>

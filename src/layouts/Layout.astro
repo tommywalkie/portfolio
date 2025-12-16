@@ -36,16 +36,13 @@ const isProd = import.meta.env.PROD;
 		<link rel="manifest" href="/site.webmanifest" />
 		<title>{title}</title>
 		<ClientRouter />
-		<script is:inline define:vars={{ isProd }}>
-			// Inject Liwan analytics in production
-			if (isProd && window.location.hostname === 'tommywalkie.com') {
-				const script = document.createElement('script');
-				script.type = 'module';
-				script.src = 'https://liwan.tommywalkie.com/script.js';
-				script.dataset.entity = 'my-portfolio';
-				document.head.appendChild(script);
-			}
-		</script>
+		{isProd && (
+			<script
+				src="https://rybbit.tommywalkie.com/api/script.js"
+				data-site-id="c9ff0314587b"
+				defer
+			></script>
+		)}
 		<style is:inline>
 			/* Hide header until JS loads to mitigate FOUC */
 			header {

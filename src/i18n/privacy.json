@@ -9,17 +9,27 @@
       },
       "analytics": {
         "title": "Analytics",
-        "content": "We use Liwan, a privacy-focused analytics service hosted on our server, to collect anonymous usage data. The data is publicly available and can be viewed at",
+        "content": "We use Rybbit, a privacy-focused analytics service hosted on our server, to collect anonymous usage data.",
         "whatWeCollect": {
           "title": "What we collect:",
-          "items": ["Page visits", "Referrer domain", "Browser type", "Operating system"]
+          "items": [
+            "Page URLs and titles",
+            "Referrer domain",
+            "Browser type and version",
+            "Operating system",
+            "Device type and screen resolution",
+            "Session duration",
+            "Country and region (derived from IP address, which is not stored)",
+            "UTM parameters"
+          ]
         },
         "whatWeDontCollect": {
           "title": "What we don't collect:",
           "items": [
-            "IP addresses (only used temporarily for generating anonymous visitor IDs)",
+            "IP addresses (used temporarily for location only, never stored)",
             "Personal information",
-            "Cookies or persistent identifiers"
+            "Cookies or persistent identifiers",
+            "Cross-site tracking"
           ]
         }
       },
@@ -39,17 +49,27 @@
       },
       "analytics": {
         "title": "Analytique",
-        "content": "Nous utilisons Liwan, un service d'analyse axé sur la confidentialité hébergé sur notre serveur, pour collecter des données d'utilisation anonymes. Les données sont publiquement disponibles et peuvent être consultées sur",
+        "content": "Nous utilisons Rybbit, un service d'analyse axé sur la confidentialité hébergé sur notre serveur, pour collecter des données d'utilisation anonymes.",
         "whatWeCollect": {
           "title": "Ce que nous collectons :",
-          "items": ["Visites de pages", "Domaine de référence", "Type de navigateur", "Système d'exploitation"]
+          "items": [
+            "URLs et titres de pages",
+            "Domaine de référence",
+            "Type et version du navigateur",
+            "Système d'exploitation",
+            "Type d'appareil et résolution d'écran",
+            "Durée de session",
+            "Pays et région (dérivés de l'adresse IP, qui n'est pas stockée)",
+            "Paramètres UTM"
+          ]
         },
         "whatWeDontCollect": {
           "title": "Ce que nous ne collectons pas :",
           "items": [
-            "Adresses IP (utilisées temporairement uniquement pour générer des identifiants de visiteurs anonymes)",
+            "Adresses IP (utilisées temporairement uniquement pour la localisation, jamais stockées)",
             "Informations personnelles",
-            "Cookies ou identifiants persistants"
+            "Cookies ou identifiants persistants",
+            "Suivi inter-sites"
           ]
         }
       },
