@@ -9,27 +9,28 @@
       },
       "analytics": {
         "title": "Analytics",
-        "content": "We use Rybbit, a privacy-focused analytics service hosted on our server, to collect anonymous usage data.",
+        "content": "We use Umami, a privacy-focused analytics service hosted on our server, to collect anonymous usage data.",
         "whatWeCollect": {
           "title": "What we collect:",
           "items": [
-            "Page URLs and titles",
-            "Referrer domain",
-            "Browser type and version",
+            "Page URL, hostname, and title",
+            "Referrer URL",
+            "Browser name and language",
             "Operating system",
-            "Device type and screen resolution",
-            "Session duration",
-            "Country and region (derived from IP address, which is not stored)",
-            "UTM parameters"
+            "Device type and screen dimensions",
+            "Country, region, and city (derived from IP address, which is never stored)",
+            "Session metrics (visits, pageviews, bounce rate, duration)",
+            "UTM and query parameters"
           ]
         },
         "whatWeDontCollect": {
           "title": "What we don't collect:",
           "items": [
-            "IP addresses (used temporarily for location only, never stored)",
-            "Personal information",
-            "Cookies or persistent identifiers",
-            "Cross-site tracking"
+            "IP addresses (used temporarily for geolocation only, never stored)",
+            "Cookies (Umami's tracker is cookie-free)",
+            "Browser fingerprinting",
+            "Personal information (names, emails, etc.)",
+            "Cross-site tracking or persistent identifiers"
           ]
         }
       },
@@ -49,27 +50,28 @@
       },
       "analytics": {
         "title": "Analytique",
-        "content": "Nous utilisons Rybbit, un service d'analyse axé sur la confidentialité hébergé sur notre serveur, pour collecter des données d'utilisation anonymes.",
+        "content": "Nous utilisons Umami, un service d'analyse axé sur la confidentialité hébergé sur notre serveur, pour collecter des données d'utilisation anonymes.",
         "whatWeCollect": {
           "title": "Ce que nous collectons :",
           "items": [
-            "URLs et titres de pages",
-            "Domaine de référence",
-            "Type et version du navigateur",
+            "URL, nom d'hôte et titre de la page",
+            "URL de référence",
+            "Nom et langue du navigateur",
             "Système d'exploitation",
-            "Type d'appareil et résolution d'écran",
-            "Durée de session",
-            "Pays et région (dérivés de l'adresse IP, qui n'est pas stockée)",
-            "Paramètres UTM"
+            "Type d'appareil et dimensions d'écran",
+            "Pays, région et ville (dérivés de l'adresse IP, qui n'est jamais stockée)",
+            "Métriques de session (visites, pages vues, taux de rebond, durée)",
+            "Paramètres UTM et de requête"
           ]
         },
         "whatWeDontCollect": {
           "title": "Ce que nous ne collectons pas :",
           "items": [
-            "Adresses IP (utilisées temporairement uniquement pour la localisation, jamais stockées)",
-            "Informations personnelles",
-            "Cookies ou identifiants persistants",
-            "Suivi inter-sites"
+            "Adresses IP (utilisées temporairement pour la géolocalisation uniquement, jamais stockées)",
+            "Cookies (le traceur Umami n'utilise pas de cookies)",
+            "Empreinte numérique du navigateur",
+            "Informations personnelles (noms, emails, etc.)",
+            "Suivi inter-sites ou identifiants persistants"
           ]
         }
       },
