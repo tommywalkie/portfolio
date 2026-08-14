@@ -22,6 +22,7 @@ interface Props {
 
 const { lang = 'en' } = Astro.props;
 
+// @ts-expect-error
 const t = translations[lang];
 
 // Hide phone number and email while in production, to avoid spam, encourage people to contact me via LinkedIn.
@@ -57,11 +58,11 @@ const linkedin = 'https://www.linkedin.com/in/tom-bazarnik-a4364010b/';
                         <p>💡 <span class="font-bold text-primary-900 dark:text-primary-100">{t.resume.tips.title}</span>:</p>
                         <ul class="list-disc list-inside pl-4 text-secondary-500">
                             <li>
-                                <span class="text-primary-900 dark:text-primary-100">{t.resume.tips.tips_1}</span> 
+                                <span class="text-primary-900 dark:text-primary-100">{t.resume.tips.tips_1}</span>
                             </li>
                             <li>
                                 <span class="text-primary-900 dark:text-primary-100">{t.resume.tips.tips_2}</span>{' '}
-                                <a 
+                                <a
                                     href={linkedin}
                                     target="_blank"
                                     rel="noopener noreferrer"
@@ -81,7 +82,7 @@ const linkedin = 'https://www.linkedin.com/in/tom-bazarnik-a4364010b/';
                     {t.resume.print}
                 </button>
             </div>
-            
+
             <div class="max-w-full overflow-x-auto xl:overflow-auto h-[calc(100vh-300px)] my-4 xl:my-0 xl:h-auto cv-container bg-primary-50 dark:bg-gray-950 xl:bg-transparent dark:xl:bg-transparent">
                 <div class="w-fit mx-auto px-4 xl:px-0">
                     <div class="cv-paper max-w-[1152px] min-w-[1152px] h-[1629px] bg-white p-12 shadow-md mb-4">
@@ -89,10 +90,10 @@ const linkedin = 'https://www.linkedin.com/in/tom-bazarnik-a4364010b/';
                             <div class="mb-6">
                                 <div class="flex items-center gap-4">
                                     <Squircle width={100} height={100} className="w-25 h-25 min-w-max bg-primary-50 relative">
-                                        <Image 
-                                            src="/profiles/tom-bazarnik-transparent.png" 
-                                            alt="Tom Bazarnik" 
-                                            width={100} 
+                                        <Image
+                                            src="/profiles/tom-bazarnik-transparent.png"
+                                            alt="Tom Bazarnik"
+                                            width={100}
                                             height={100}
                                             loading="eager"
                                             class="relative z-10"
@@ -100,8 +101,8 @@ const linkedin = 'https://www.linkedin.com/in/tom-bazarnik-a4364010b/';
                                         />
                                     </Squircle>
                                     <div>
-                                        <div class="text-3xl font-bold mb-0 text-primary-700">Tom Bazarnik</div>
-                                        <p class="text-primary-900">
+                                        <div class="text-3xl font-bold mb-1 text-primary-700">Tom Bazarnik</div>
+                                        <p class="text-primary-900 mb-1">
                                             <span class="font-semibold">
                                                 {t.resume.role}
                                             </span>
@@ -146,13 +147,13 @@ const linkedin = 'https://www.linkedin.com/in/tom-bazarnik-a4364010b/';
                                                     https://tommywalkie.com
                                                 </span>
                                             </li>
-                                            
+
                                         </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                
+
                             <div class="flex flex-row gap-8">
                                 <div class="max-w-[620px]">
                                     <div class="mb-6">
@@ -161,19 +162,19 @@ const linkedin = 'https://www.linkedin.com/in/tom-bazarnik-a4364010b/';
                                         </div>
                                     </div>
                                 </div>
-                                <div class="border-l-3 border-primary-50 pl-8 flex flex-col gap-8 max-w-[420px]">
+                                <div class="border-l-3 border-primary-50 pl-8 flex flex-col gap-6 max-w-[420px]">
                                     <EducationSectionLite lang={lang} />
                                     <ProjectsSectionLite lang={lang} />
                                     <DistinctionsSectionLite lang={lang} />
                                     <InterestsSectionLite lang={lang} />
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
             </div>
-            
+
         </main>
 	</div>
     <div class="no-print">
@@ -190,11 +191,11 @@ const linkedin = 'https://www.linkedin.com/in/tom-bazarnik-a4364010b/';
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;
         }
-        
+
         .shadow-md {
             box-shadow: none !important;
         }
-        
+
         main {
             background: none !important;
             padding: 0 !important;
@@ -209,10 +210,15 @@ const linkedin = 'https://www.linkedin.com/in/tom-bazarnik-a4364010b/';
             padding: 0 !important;
         }
 
+        .cv-container > div {
+            padding-left: 0 !important;
+            padding-right: 0 !important;
+        }
+
         .cv-paper {
             overflow: hidden !important;
             max-height: 1700px !important;
-            margin: 10px 20px !important;
+            margin: 0px 20px 0px 20px !important;
             color-adjust: exact !important;
             -webkit-print-color-adjust: exact !important;
             print-color-adjust: exact !important;

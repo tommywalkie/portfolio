@@ -13,6 +13,7 @@ const t = translations[lang];
 
 const projects = await getCollection('projects');
 const sortedProjects = projects
+  .filter(project => project.data.enabled)
   .filter(project => project.slug.startsWith(`${lang}/`))
   .sort((a, b) => a.data.order - b.data.order);
 ---

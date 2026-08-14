@@ -3,27 +3,32 @@ import { Image } from 'astro:assets';
 import Squircle from './Squircle.astro'
 import LinkedInIcon from './icons/LinkedInIcon.astro'
 import Tooltip from './Tooltip.astro';
+import '../styles/markdown.css';
 
 interface Props {
   avatarUrl: string
   name: string
   title: string
-  content: string
+  content?: string
   linkedIn?: string
+  render?: () => Promise<{ Content: any }>
 }
 
-const { avatarUrl, name, title, content, linkedIn } = Astro.props;
+const { avatarUrl, name, title, content = '', linkedIn, render } = Astro.props;
 
-const lines = content.split('\n')
+const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+const { Content } = await render?.() || { Content: () => null };
+const lines = content.split('\n');
 ---
 
-<div class="p-4 md:p-6 flex flex-col gap-4 bg-primary-50 dark:bg-primary-900 rounded-lg w-full max-w-2xl">
+<div id={slug} class="p-4 md:p-6 flex flex-col gap-4 bg-primary-50 dark:bg-primary-900 rounded-lg w-full max-w-2xl scroll-mt-20">
   <div class="flex gap-4 w-full">
     <Squircle width={64} height={64} className="shrink-0">
-      <Image 
-        src={avatarUrl} 
-        alt={name} 
-        width={64} 
+      <Image
+        src={avatarUrl}
+        alt={name}
+        width={64}
         height={64}
         class="w-16 h-16"
         loading="lazy"
@@ -32,12 +37,16 @@ const lines = content.split('\n')
     <div class="my-auto space-y-2 w-full">
       <div>
         <div class="flex items-center gap-2 justify-between">
-          <div class="font-bold text-xl text-primary-700 dark:text-primary-100">{name}</div>
+          <div class="font-bold text-xl text-primary-700 dark:text-primary-100">
+            <a href={`#${slug}`} class="text-primary-700 dark:text-primary-100 hover:text-primary-900 dark:hover:text-primary-300 inline-flex items-center">
+              <span>{name}</span>
+            </a>
+          </div>
           {linkedIn && (
             <Tooltip text={`Visit ${name}'s LinkedIn profile`} position="top-right">
-              <a 
-                href={linkedIn} 
-                target="_blank" 
+              <a
+                href={linkedIn}
+                target="_blank"
                 rel="noopener noreferrer"
                 aria-label={`Visit ${name}'s LinkedIn profile`}
               >
@@ -48,20 +57,12 @@ const lines = content.split('\n')
         </div>
         <div class="text-md text-secondary-600 dark:text-secondary-500">{title}</div>
       </div>
-      <div class="text-primary-900 dark:text-primary-100 font-light text-lg hidden md:block">
-        {lines.map((line, index) => (
-          <span class={index < lines.length - 1 ? 'block mb-4' : 'block'}>
-            {line}
-          </span>
-        ))}
+      <div class="text-primary-900 dark:text-primary-100 font-light text-md hidden md:block markdown-content">
+          <Content />
       </div>
     </div>
   </div>
-  <div class="text-primary-900 dark:text-primary-100 font-light text-md block md:hidden">
-    {lines.map((line, index) => (
-      <span class={index < lines.length - 1 ? 'block mb-4' : 'block'}>
-        {line}
-      </span>
-    ))}
+  <div class="text-primary-900 dark:text-primary-100 font-light text-md block md:hidden markdown-content">
+      <Content />
   </div>
-</div> 
+</div>

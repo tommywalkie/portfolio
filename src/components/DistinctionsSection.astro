@@ -14,6 +14,7 @@ const { lang = 'en' } = Astro.props;
 const distinctions = await getCollection('distinctions');
 
 const sortedDistinctions = distinctions
+  .filter(distinction => distinction.data.enabled)
   .filter(distinction => distinction.slug.startsWith(`${lang}/`))
   .sort((a, b) => {
     const dateA = DateTime.fromFormat(a.data.date, 'yyyy-MM');

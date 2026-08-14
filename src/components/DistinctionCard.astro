@@ -7,6 +7,7 @@ import LinkedInIcon from './icons/LinkedInIcon.astro';
 import { SquareArrowOutUpRight, Trophy } from 'lucide-react';
 import { DateTime } from 'luxon';
 import Tooltip from './Tooltip.astro';
+import '../styles/markdown.css';
 
 const distinctions = await getCollection('distinctions');
 type Distinction = typeof distinctions[number];
@@ -18,11 +19,13 @@ type Props = Distinction['data'] & {
 
 const { title, date, organization, logo, organizationUrl, organizationLinkedIn, render, lang = 'en' } = Astro.props;
 
+const slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
 const formattedDate = DateTime.fromFormat(date, 'yyyy-MM').setLocale(lang).toFormat('MMM yyyy');
 const { Content } = await render?.() || { Content: () => null };
 ---
 
-<div class="p-4 md:p-6 w-full bg-primary-50 dark:bg-primary-900 rounded-lg space-y-4">
+<div id={slug} class="p-4 md:p-6 w-full bg-primary-50 dark:bg-primary-900 rounded-lg space-y-4 scroll-mt-20">
   <div class="flex gap-4">
     <Squircle width={64} height={64} className="shrink-0 bg-primary-100 dark:bg-primary-950 w-[64px] h-[64px]">
       {logo ? (
@@ -42,7 +45,11 @@ const { Content } = await render?.() || { Content: () => null };
     </Squircle>
     <div class="flex-grow">
       <div class="flex items-center">
-        <div class="font-bold text-xl text-primary-900 dark:text-primary-100">{title}</div>
+        <div class="font-bold text-xl text-primary-900 dark:text-primary-100 flex items-center">
+          <a href={`#${slug}`} class="text-primary-900 dark:text-primary-100 hover:text-primary-700 dark:hover:text-primary-300 inline-flex items-center">
+            <span>{title}</span>
+          </a>
+        </div>
         <div class="inline-flex gap-2 ml-auto pl-3">
           {organizationUrl && (
             <Tooltip text={`Visit ${organization}'s website`} position="top-right">
@@ -78,9 +85,7 @@ const { Content } = await render?.() || { Content: () => null };
     </div>
   </div>
 
-  <div class="text-primary-900 dark:text-primary-100 font-light">
-    <div class="[&>ul]:list-disc [&>ul]:ml-4 [&>ul>li]:mb-2 [&>ul>li::marker]:text-secondary-600 [&>ul>li::marker]:dark:text-secondary-500">
-      <Content />
-    </div>
+  <div class="text-primary-900 dark:text-primary-100 font-light markdown-content">
+    <Content />
   </div>
 </div> 

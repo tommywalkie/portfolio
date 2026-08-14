@@ -13,6 +13,7 @@ const { lang = 'en' } = Astro.props;
 
 const testimonials = await getCollection('testimonials');
 const sortedTestimonials = testimonials
+  .filter(testimonial => testimonial.data.enabled)
   .filter(testimonial => testimonial.slug.startsWith(`${lang}/`))
   .sort((a, b) => a.data.order - b.data.order);
 
@@ -25,6 +26,7 @@ const t = translations[lang];
   </SectionTitle>
   <div class="flex flex-col gap-4 w-full items-center mb-8" role="list" aria-label="List of testimonials">
     {sortedTestimonials.map(async (testimonial) => {
+      const { Content } = await testimonial.render();
       return (
         <div role="listitem">
           <TestimonialCard 
@@ -32,6 +34,7 @@ const t = translations[lang];
             name={testimonial.data.name}
             title={testimonial.data.title}
             linkedIn={testimonial.data.linkedIn}
+            render={testimonial.render}
             content={testimonial.body}
           />
         </div>

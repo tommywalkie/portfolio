@@ -15,6 +15,8 @@ type Props = CollectionEntry<'experiences'>['data'] & {
 const {
   companyLogo,
   companyName,
+  parentCompanyName,
+  parentCompanyLogo,
   companyType,
   teamSize,
   contractType,
@@ -36,27 +38,46 @@ const t = translations[lang];
 
 <div class="w-full space-y-4">
   <div class="flex gap-3">
-    <Squircle width={40} height={40} className="shrink-0 bg-primary-100 w-[40px] h-[40px] relative">
-      <div class="real-logo absolute inset-0">
-        <Image 
-          src={companyLogo} 
-          alt={companyName} 
-          width={40} 
-          height={40}
-          class="w-10 h-10"
-          quality="low"
-        />
-      </div>
-      <div class="placeholder-icon absolute inset-0">
-        <div class="w-[40px] h-[40px] flex items-center justify-center text-primary-300">
-          <Building2 className="w-6 h-6" />
+    <div class="relative shrink-0 w-[40px] h-[40px] mb-1 mr-1">
+      <Squircle width={40} height={40} className="shrink-0 bg-primary-100 w-[40px] h-[40px] relative">
+        <div class="real-logo absolute inset-0">
+          <Image 
+            src={companyLogo} 
+            alt={companyName} 
+            width={40} 
+            height={40}
+            class="w-10 h-10"
+            quality="low"
+          />
         </div>
-      </div>
-    </Squircle>
+        <div class="placeholder-icon absolute inset-0">
+          <div class="w-[40px] h-[40px] flex items-center justify-center text-primary-300">
+            <Building2 className="w-6 h-6" />
+          </div>
+        </div>
+      </Squircle>
+      {parentCompanyLogo && (
+        <div class="real-logo absolute -bottom-1.5 -right-1.5 w-6 h-6 p-[2px] bg-white rounded-lg z-1">
+          <Squircle width={20} height={20} className="w-full h-full bg-primary-100">
+            <Image 
+              src={parentCompanyLogo} 
+              alt={parentCompanyName || 'Parent company'} 
+              width={20} 
+              height={20}
+              class="w-full h-full object-cover"
+              quality="low"
+            />
+          </Squircle>
+        </div>
+      )}
+    </div>
     <div class="flex-grow">
       <div class="flex items-center justify-between">
         <div class="font-semibold text-primary-900">
           {companyName}
+          {parentCompanyName && (
+            <span class="text-secondary-700 font-normal text-sm"> ({parentCompanyName})</span>
+          )}
           {companyType && <span class="text-sm text-secondary-700 pl-2 inline-flex items-center gap-1 align-top font-normal">
             <Building2 className="w-4 h-4" />
             {companyType}

@@ -15,6 +15,7 @@ const t = translations[lang];
 const degrees = await getCollection('education');
 
 const sortedDegrees = degrees
+  .filter(degree => degree.data.enabled)
   .filter(degree => degree.slug.startsWith(`${lang}/`))
   .sort((a, b) => {
     const dateA = DateTime.fromFormat(a.data.startDate, 'yyyy-MM');

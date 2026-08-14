@@ -6,10 +6,11 @@ export const collections = {
     schema: z.object({
       title: z.string(),
       date: z.string(),
-      organization: z.string(),
+      organization: z.string().optional(),
       logo: z.string().optional(),
       organizationUrl: z.string().optional(),
       organizationLinkedIn: z.string().optional(),
+      enabled: z.boolean().optional().default(true),
     }),
   }),
   interests: defineCollection({
@@ -19,6 +20,7 @@ export const collections = {
       description: z.string(),
       icon: z.string().optional(),
       order: z.number().optional(),
+      enabled: z.boolean().optional().default(true),
     }),
   }),
   testimonials: defineCollection({
@@ -34,6 +36,7 @@ export const collections = {
         })
         .optional(),
       order: z.number(),
+      enabled: z.boolean().optional().default(true),
     }),
   }),
   // Experiences, some entries may have sub-entries for consulting experiences
@@ -44,11 +47,16 @@ export const collections = {
       companyName: z.string(),
       companyUrl: z.string().optional(),
       companyLinkedIn: z.string().optional(),
+      parentCompanyName: z.string().optional(),
+      parentCompanyLogo: z.string().optional(),
+      parentCompanyUrl: z.string().optional(),
+      parentCompanyLinkedIn: z.string().optional(),
       companyType: z.string().optional(),
       teamSize: z.string().or(z.number()).nullable().optional(),
       contractType: z.string().optional(),
       official: z.boolean().optional().default(true),
       showInResume: z.boolean().optional().default(true),
+      enabled: z.boolean().optional().default(true),
       startDate: z.string(),
       endDate: z.string().nullable(),
       role: z.string(),
@@ -82,6 +90,7 @@ export const collections = {
       isCurrentSite: z.boolean().optional(),
       logo: z.string(),
       order: z.number(),
+      enabled: z.boolean().optional().default(true),
     }),
   }),
   // Education, some school entries may have sub-entries for degrees
@@ -107,6 +116,7 @@ export const collections = {
           }),
         )
         .optional(),
+      enabled: z.boolean().optional().default(true),
     }),
   }),
 }

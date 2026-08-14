@@ -18,7 +18,7 @@ const SHOW_UNOFFICIAL_EXPERIENCES = false;
 const experiences = await getCollection('experiences');
 
 const sortedExperiences = experiences
-  .filter(experience => SHOW_UNOFFICIAL_EXPERIENCES || experience.data.official)
+  .filter(experience => experience.data.enabled && (SHOW_UNOFFICIAL_EXPERIENCES || experience.data.official))
   .filter(experience => experience.slug.startsWith(`${lang}/`))
   .sort((a, b) => {
     const dateA = DateTime.fromFormat(a.data.startDate, 'yyyy-MM');

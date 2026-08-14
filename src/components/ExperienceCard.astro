@@ -7,6 +7,7 @@ import { SquareArrowOutUpRight, Building2, UsersRound, BriefcaseBusiness } from 
 import { formatDateRange } from '../utils/dates';
 import type { CollectionEntry } from 'astro:content';
 import Tooltip from './Tooltip.astro';
+import '../styles/markdown.css';
 
 type Props = CollectionEntry<'experiences'>['data'] & {
   content: string;
@@ -19,6 +20,10 @@ const {
   companyName,
   companyUrl,
   companyLinkedIn,
+  parentCompanyName,
+  parentCompanyLogo,
+  parentCompanyUrl,
+  parentCompanyLinkedIn,
   companyType,
   teamSize,
   contractType,
@@ -32,28 +37,53 @@ const {
   lang = 'en',
 } = Astro.props;
 
-const { formattedStartDate, formattedEndDate, durationStr } = formatDateRange(startDate, endDate, lang);  
+const slug = companyName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+const { formattedStartDate, formattedEndDate, durationStr } = formatDateRange(startDate, endDate, lang);
 const { Content } = await render?.() || { Content: () => content };
 
 const t = translations[lang];
 ---
 
-<div class="p-4 md:p-6 w-full bg-primary-50 dark:bg-primary-900 rounded-lg space-y-4">
-  <div class="flex gap-4">
-    <Squircle width={64} height={64} className="shrink-0">
-      <Image 
-        src={companyLogo} 
-        alt={companyName} 
-        width={64} 
-        height={64}
-        class="w-16 h-16"
-        loading="lazy"
-      />
-    </Squircle>
+<div id={slug} class="p-4 md:p-6 w-full bg-primary-50 dark:bg-primary-900 rounded-lg space-y-4 scroll-mt-20">
+  <div class="flex gap-4 items-start">
+    <div class="relative shrink-0 w-16 h-16 mb-2 mr-2">
+      <Squircle width={64} height={64} className="shrink-0">
+        <Image
+          src={companyLogo}
+          alt={companyName}
+          width={64}
+          height={64}
+          class="w-16 h-16"
+          loading="lazy"
+        />
+      </Squircle>
+      {parentCompanyLogo && (
+        <div class="absolute -bottom-2 -right-2 w-9 h-9 p-[3px] bg-primary-50 dark:bg-primary-900 rounded-xl z-1">
+          <Squircle width={30} height={30} className="w-full h-full">
+            <Image
+              src={parentCompanyLogo}
+              alt={parentCompanyName || 'Parent company'}
+              width={30}
+              height={30}
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </Squircle>
+        </div>
+      )}
+    </div>
     <div class="flex-grow">
       <div class="flex items-center">
-        <div class="font-bold text-xl text-primary-900 dark:text-primary-100">
-          <span class="mr-2">{companyName}</span>
+        <div class="font-bold text-xl text-primary-900 dark:text-primary-100 flex items-center">
+          <a href={`#${slug}`} class="text-primary-900 dark:text-primary-100 hover:text-primary-700 dark:hover:text-primary-300 inline-flex items-center mr-2">
+            <span>
+              {companyName}
+              {parentCompanyName && (
+                <span class="text-primary-700 dark:text-primary-300 font-normal text-lg"> ({parentCompanyName})</span>
+              )}
+            </span>
+          </a>
           {companyType && (
             <Tooltip text={`${translations[lang].sections.experience.companyType}: ${companyType}`} position="top" className="align-sub">
               <span class="text-base text-secondary-700 dark:text-secondary-500 mr-2 inline-flex items-center gap-1 font-normal">
@@ -82,9 +112,9 @@ const t = translations[lang];
         <div class="inline-flex gap-2 ml-auto pl-3">
           {companyUrl && (
             <Tooltip text={t.sections.experience.visitWebsite.replace('{name}', companyName)} position="top-right">
-              <a 
-                href={companyUrl} 
-                target="_blank" 
+              <a
+                href={companyUrl}
+                target="_blank"
                 rel="noopener noreferrer"
                 aria-label={t.sections.experience.visitWebsite.replace('{name}', companyName)}
             >
@@ -94,9 +124,9 @@ const t = translations[lang];
           )}
           {companyLinkedIn && (
             <Tooltip text={t.sections.experience.visitLinkedIn.replace('{name}', companyName)} position="top-right">
-              <a 
-                href={companyLinkedIn} 
-                target="_blank" 
+              <a
+                href={companyLinkedIn}
+                target="_blank"
                 rel="noopener noreferrer"
                 aria-label={t.sections.experience.visitLinkedIn.replace('{name}', companyName)}
               >
@@ -107,7 +137,7 @@ const t = translations[lang];
         </div>
       </div>
       <div class="text-lg font-semibold text-primary-700 dark:text-primary-300">{role}</div>
-      <div 
+      <div
         class="text-sm text-secondary-600 dark:text-secondary-500 experience-date-range"
         data-start-date={startDate}
         data-end-date={endDate || ''}
@@ -119,10 +149,8 @@ const t = translations[lang];
     </div>
   </div>
 
-  <div class="text-primary-900 dark:text-primary-100 font-light experience-content">
-    <div class="[&>ul]:list-disc [&>ul]:ml-4 [&>ul>li]:mb-2 [&>ul>li::marker]:text-secondary-600 [&>ul>li::marker]:dark:text-secondary-500">
-      <Content />
-    </div>
+  <div class="text-primary-900 dark:text-primary-100 font-light markdown-content [&>ul]:list-disc [&>ul]:ml-4 [&>ul>li]:mb-2 [&>ul>li::marker]:text-secondary-600 [&>ul>li::marker]:dark:text-secondary-500">
+    <Content />
   </div>
 
   {technologies.length > 0 && (
@@ -137,15 +165,17 @@ const t = translations[lang];
 
   {subExperiences.length > 0 && (
     <div class="mt-6 space-y-4 pl-4 md:pl-6 border-l-2 border-primary-200 dark:border-primary-700">
-      {subExperiences.map((subExp) => (
-        <div class="space-y-2">
+      {subExperiences.map((subExp) => {
+        const subSlug = subExp.companyName ? subExp.companyName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') : '';
+        return (
+        <div id={subSlug || undefined} class="space-y-2 scroll-mt-20">
           <div class="flex gap-4">
             {subExp.companyLogo && (
               <Squircle width={48} height={48} className="shrink-0 mt-1.5">
-                <Image 
-                  src={subExp.companyLogo} 
-                  alt={subExp.companyName || ''} 
-                  width={48} 
+                <Image
+                  src={subExp.companyLogo}
+                  alt={subExp.companyName || ''}
+                  width={48}
                   height={48}
                   class="w-12 h-12"
                   loading="lazy"
@@ -155,7 +185,13 @@ const t = translations[lang];
             <div class="flex-grow">
               <div class="flex items-center">
                 <div class="font-semibold text-lg text-primary-900 dark:text-primary-100">
-                  {subExp.companyName}
+                  {subSlug ? (
+                    <a href={`#${subSlug}`} class="text-primary-900 dark:text-primary-100 hover:text-primary-700 dark:hover:text-primary-300">
+                      {subExp.companyName}
+                    </a>
+                  ) : (
+                    subExp.companyName
+                  )}
                   {subExp.teamSize && (
                     <Tooltip text={`${t.sections.experience.teamSize.label}: ${subExp.teamSize} ${t.sections.experience.teamSize.unit}`} position="top" className="align-sub">
                       <span class="text-base text-secondary-700 dark:text-secondary-500 pl-2 inline-flex items-center gap-1 align-top font-normal">
@@ -168,9 +204,9 @@ const t = translations[lang];
                 <div class="inline-flex gap-2 ml-auto pl-3">
                   {subExp.companyUrl && (
                     <Tooltip text={t.sections.experience.visitWebsite.replace('{name}', subExp.companyName)} position="top-right" className="align-sub">
-                      <a 
-                        href={subExp.companyUrl} 
-                        target="_blank" 
+                      <a
+                        href={subExp.companyUrl}
+                        target="_blank"
                         rel="noopener noreferrer"
                         aria-label={t.sections.experience.visitWebsite.replace('{name}', subExp.companyName)}
                       >
@@ -180,9 +216,9 @@ const t = translations[lang];
                   )}
                   {subExp.companyLinkedIn && (
                     <Tooltip text={t.sections.experience.visitLinkedIn.replace('{name}', subExp.companyName)} position="top-right" className="align-sub">
-                      <a 
-                        href={subExp.companyLinkedIn} 
-                        target="_blank" 
+                      <a
+                        href={subExp.companyLinkedIn}
+                        target="_blank"
                         rel="noopener noreferrer"
                         aria-label={t.sections.experience.visitLinkedIn.replace('{name}', subExp.companyName)}
                       >
@@ -202,7 +238,7 @@ const t = translations[lang];
                   lang
                 );
                 return (
-                  <div 
+                  <div
                     class="text-sm text-secondary-600 dark:text-secondary-500 experience-date-range"
                     data-start-date={subExp.startDate}
                     data-end-date={subExp.endDate || ''}
@@ -232,7 +268,8 @@ const t = translations[lang];
             </div>
           )}
         </div>
-      ))}
+        );
+      })}
     </div>
   )}
 </div>
@@ -245,11 +282,11 @@ const t = translations[lang];
       const startDate = element.getAttribute('data-start-date');
       const endDate = element.getAttribute('data-end-date') || null;
       const lang = element.getAttribute('data-lang') || 'en';
-      
+
       if (!startDate) return;
-      
+
       const { formattedStartDate, formattedEndDate, durationStr } = formatDateRange(startDate, endDate, lang);
-      
+
       element.textContent = `${formattedStartDate} - ${formattedEndDate} `;
       const durationSpan = document.createElement('span');
       durationSpan.className = 'text-primary-700 dark:text-primary-300 ml-1';

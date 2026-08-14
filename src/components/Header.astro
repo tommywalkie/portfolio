@@ -14,7 +14,7 @@ const { className = '', lang = 'en' } = Astro.props;
 const t = translations[lang];
 ---
 
-<header class={["sticky top-0 z-10 w-full bg-white/90 dark:bg-primary-950/90", className].join(" ")}>
+<header class={["sticky top-0 z-20 w-full bg-white/90 dark:bg-primary-950/90", className].join(" ")}>
   <div class="max-w-7xl mx-auto flex justify-between py-2">
     <a href={`/${lang}`} class="my-auto ml-4" aria-label="Tom Bazarnik - Home">
       <Logo class="w-6 h-6" />

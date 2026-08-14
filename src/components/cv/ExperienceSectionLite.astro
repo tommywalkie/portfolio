@@ -13,7 +13,7 @@ const { lang = 'en' } = Astro.props;
 const t = translations[lang];
 
 const experiences = await getCollection('experiences');
-const sortedExperiences = experiences.filter(experience => experience.data.showInResume && experience.data.official).filter(experience => experience.slug.startsWith(`${lang}/`)).sort((a, b) => {
+const sortedExperiences = experiences.filter(experience => experience.data.enabled && experience.data.showInResume && experience.data.official).filter(experience => experience.slug.startsWith(`${lang}/`)).sort((a, b) => {
   const dateA = DateTime.fromFormat(a.data.startDate, 'yyyy-MM');
   const dateB = DateTime.fromFormat(b.data.startDate, 'yyyy-MM');
   return dateB.diff(dateA).toMillis();

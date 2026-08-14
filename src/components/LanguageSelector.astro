@@ -1,7 +1,7 @@
 ---
 import languagesData from '../i18n/languages.json';
 import Tooltip from './Tooltip.astro';
-import { Globe } from 'lucide-react';
+import { Languages } from 'lucide-react';
 
 interface Props {
   lang: string;
@@ -27,7 +27,7 @@ const LANGUAGES = Object.keys(languagesData).map(language => ({
   flag_svg: icons[language].image
 }));
 
-const SHOW_FLAG_AS_MAIN_ICON = true;
+const SHOW_FLAG_AS_MAIN_ICON = false;
 
 // Get current path to maintain it when switching languages
 const { pathname } = Astro.url;
@@ -49,18 +49,16 @@ const isCurrentLanguage = (code: string) => code === lang;
   >
     <img src={icons[lang].image} alt={currentLanguage.name} class="h-5" />
   </button>}
-  
-  {!SHOW_FLAG_AS_MAIN_ICON && <Tooltip text="Change language" position="bottom-right">
-    <button
-      id="language-selector-button"
-      class="px-2 my-auto h-8 rounded-lg hover:bg-primary-100 dark:hover:text-white dark:hover:bg-primary-700 cursor-pointer ring-none focus:ring-none flex items-center"
-      aria-label="Select language"
-      aria-expanded="false"
-      aria-controls="language-dropdown"
-    >
-      <Globe client:load className="w-5 h-5 stroke-primary-700 dark:stroke-primary-200" />
-    </button>
-  </Tooltip>}
+
+  {!SHOW_FLAG_AS_MAIN_ICON && <button
+    id="language-selector-button"
+    class="px-2 my-auto h-8 rounded-lg hover:bg-primary-100 dark:hover:text-white dark:hover:bg-primary-700 cursor-pointer ring-none focus:ring-none flex items-center"
+    aria-label="Select language"
+    aria-expanded="false"
+    aria-controls="language-dropdown"
+  >
+    <Languages client:load className="w-5 h-5 stroke-primary-700 dark:stroke-primary-200" />
+  </button>}
 
   <div
     id="language-dropdown"
@@ -95,16 +93,16 @@ const isCurrentLanguage = (code: string) => code === lang;
   function setupLanguageSelector() {
     const button = document.getElementById('language-selector-button');
     const dropdown = document.getElementById('language-dropdown');
-    
+
     if (!button || !dropdown) return;
-    
+
     // Toggle dropdown
     button.addEventListener('click', () => {
       const expanded = button.getAttribute('aria-expanded') === 'true';
       button.setAttribute('aria-expanded', (!expanded).toString());
       dropdown.classList.toggle('hidden');
     });
-    
+
     // Close dropdown when clicking outside
     document.addEventListener('click', (event) => {
       if (!button.contains(event.target as Node) && !dropdown.contains(event.target as Node)) {
@@ -113,10 +111,10 @@ const isCurrentLanguage = (code: string) => code === lang;
       }
     });
   }
-  
+
   // Run on initial page load
   setupLanguageSelector();
-  
+
   // Re-run after each page navigation
   document.addEventListener('astro:after-swap', setupLanguageSelector);
-</script> 
+</script>

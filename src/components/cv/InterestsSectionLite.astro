@@ -13,6 +13,7 @@ const t = translations[lang];
 
 const interests = await getCollection('interests');
 const sortedInterests = interests
+  .filter(interest => interest.data.enabled)
   .filter(interest => interest.slug.startsWith(`${lang}/`))
   .sort((a, b) => (a.data.order || 0) - (b.data.order || 0));
 ---

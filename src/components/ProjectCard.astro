@@ -6,6 +6,7 @@ import Squircle from './Squircle.astro';
 import GithubIcon from './icons/GithubIcon.astro';
 import Tooltip from './Tooltip.astro';
 import translations from '../i18n/portfolio.json';
+import '../styles/markdown.css';
 
 interface Props {
   project: CollectionEntry<'projects'>;
@@ -13,9 +14,11 @@ interface Props {
 }
 
 const { project, lang = 'en' } = Astro.props;
+
+const slug = project.data.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
 ---
 
-<div class="p-4 md:p-6 w-full bg-primary-50 dark:bg-primary-900 rounded-lg space-y-4">
+<div id={slug} class="p-4 md:p-6 w-full bg-primary-50 dark:bg-primary-900 rounded-lg space-y-4 scroll-mt-20">
   <div class="flex items-start justify-between gap-4 w-full">
     <div class="flex gap-4 items-start w-full">
       {project.data.logo && (
@@ -32,8 +35,10 @@ const { project, lang = 'en' } = Astro.props;
       )}
       <div class="w-full">
         <div class="flex items-center gap-2 w-full">
-          <div class="flex flex-col md:flex-row gap-0 md:gap-2 font-bold text-xl text-primary-700 dark:text-primary-100 w-full">
-            <span>{project.data.name}</span>
+          <div class="flex flex-col md:flex-row gap-0 md:gap-2 font-bold text-xl text-primary-700 dark:text-primary-100 w-full items-start md:items-center">
+            <a href={`#${slug}`} class="text-primary-700 dark:text-primary-100 hover:text-primary-900 dark:hover:text-primary-300 inline-flex items-center">
+              <span>{project.data.name}</span>
+            </a>
             {project.data.isCurrentSite && (
               <span class="text-sm md:text-xl">
                 <span class="text-sm text-secondary-600 dark:text-secondary-400 font-normal">
@@ -70,11 +75,11 @@ const { project, lang = 'en' } = Astro.props;
             )}
           </div>
         </div>
-        <div class="text-primary-900 dark:text-primary-100 font-light hidden md:block">{project.body}</div>
+        <div class="text-primary-900 dark:text-primary-100 font-light hidden md:block markdown-content">{project.body}</div>
       </div>
     </div>
   </div>
-  <div class="text-primary-900 dark:text-primary-100 font-light block md:hidden">{project.body}</div>
+  <div class="text-primary-900 dark:text-primary-100 font-light block md:hidden markdown-content">{project.body}</div>
   <div class="flex flex-wrap gap-2">
     {project.data.technologies.map((tech) => (
       <span class="px-3 py-1 text-sm bg-primary-100 dark:bg-primary-800 rounded-full">
