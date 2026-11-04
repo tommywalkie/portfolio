@@ -34,6 +34,15 @@ const { formattedStartDate, formattedEndDate } = formatDateRange(startDate, endD
 const { Content } = await render?.() || { Content: () => content };
 
 const t = translations[lang];
+
+// Display toggles (CV lite version)
+const HIDE_TEAM_SIZE = true;
+const HIDE_COMPANY_TYPE = true;
+
+// Consulting entries: client missions are merged into this single entry on the CV
+const mergedTechnologies = [
+  ...new Set([...technologies, ...subExperiences.flatMap((subExp) => subExp.technologies ?? [])]),
+];
 ---
 
 <div class="w-full space-y-4">
@@ -41,10 +50,10 @@ const t = translations[lang];
     <div class="relative shrink-0 w-[40px] h-[40px] mb-1 mr-1">
       <Squircle width={40} height={40} className="shrink-0 bg-primary-100 w-[40px] h-[40px] relative">
         <div class="real-logo absolute inset-0">
-          <Image 
-            src={companyLogo} 
-            alt={companyName} 
-            width={40} 
+          <Image
+            src={companyLogo}
+            alt={companyName}
+            width={40}
             height={40}
             class="w-10 h-10"
             quality="low"
@@ -59,10 +68,10 @@ const t = translations[lang];
       {parentCompanyLogo && (
         <div class="real-logo absolute -bottom-1.5 -right-1.5 w-6 h-6 p-[2px] bg-white rounded-lg z-1">
           <Squircle width={20} height={20} className="w-full h-full bg-primary-100">
-            <Image 
-              src={parentCompanyLogo} 
-              alt={parentCompanyName || 'Parent company'} 
-              width={20} 
+            <Image
+              src={parentCompanyLogo}
+              alt={parentCompanyName || 'Parent company'}
+              width={20}
               height={20}
               class="w-full h-full object-cover"
               quality="low"
@@ -78,17 +87,13 @@ const t = translations[lang];
           {parentCompanyName && (
             <span class="text-secondary-700 font-normal text-sm"> ({parentCompanyName})</span>
           )}
-          {companyType && <span class="text-sm text-secondary-700 pl-2 inline-flex items-center gap-1 align-top font-normal">
+          {!HIDE_COMPANY_TYPE && companyType && <span class="text-sm text-secondary-700 pl-2 inline-flex items-center gap-1 align-top font-normal">
             <Building2 className="w-4 h-4" />
             {companyType}
           </span>}
-          {teamSize && <span class="text-sm text-secondary-700 pl-2 inline-flex items-center gap-1 align-top font-normal">
+          {!HIDE_TEAM_SIZE && teamSize && <span class="text-sm text-secondary-700 pl-2 inline-flex items-center gap-1 align-top font-normal">
             <UsersRound className="w-4 h-4" />
             {teamSize}
-          </span>}
-          {contractType && <span class="text-sm text-secondary-700 pl-2 inline-flex items-center gap-1 align-top font-normal">
-            <BriefcaseBusiness className="w-4 h-4" />
-            {t.sections.experience.contractTypes[contractType]}
           </span>}
         </div>
         <div class="text-sm text-gray-600">
@@ -106,71 +111,16 @@ const t = translations[lang];
   </div>
 
   {subExperiences.length > 0 && (
-    <div class="mt-6 space-y-4 pl-6 border-l-2 border-primary-100">
+    <ul class="list-disc ml-4 text-primary-900 font-light text-sm [&>li]:mb-2 [&>li::marker]:text-secondary-600 dark:[&>li::marker]:text-secondary-500">
       {subExperiences.map((subExp) => (
-        <div class="space-y-2">
-          <div class="flex gap-4">
-            {subExp.companyLogo && (
-              <Squircle width={40} height={40} className="shrink-0 bg-primary-100 w-[40px] h-[40px] relative">
-                <div class="real-logo absolute inset-0">
-                  <Image 
-                    src={subExp.companyLogo} 
-                    alt={subExp.companyName} 
-                    width={40} 
-                    height={40}
-                    class="w-10 h-10"
-                    loading="lazy"
-                  />
-                </div>
-                <div class="placeholder-icon absolute inset-0">
-                  <div class="w-[40px] h-[40px] flex items-center justify-center text-primary-300">
-                    <Building2 className="w-6 h-6" />
-                  </div>
-                </div>
-              </Squircle>
-            )}
-            <div class="flex-grow">
-              <div class="">
-                <div class="flex items-center justify-between">
-                  <div class="font-semibold text-primary-900">
-                  {subExp.companyName}
-                </div>
-                </div>
-                
-                
-                <div class="text-sm text-gray-600">
-                  {subExp.role && (
-                    <div class="text-primary-700">{subExp.role}</div>
-                  )}
-                  
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="text-primary-900 font-light text-sm">
-            {subExp.description.split('\n').map((line: string, index: number, arr: string[]) => (
-              <span class={index < arr.length - 1 ? 'block mb-2' : 'block'}>
-                {line}
-              </span>
-            ))}
-          </div>
-          {subExp.technologies && subExp.technologies.length > 0 && (
-            <div class="flex flex-wrap gap-2">
-              {subExp.technologies.map((tech) => (
-                <span class="px-2 py-0.5 text-xs bg-primary-50 text-primary-900 rounded">
-                  {tech}
-                </span>
-              ))}
-            </div>
-          )}
-        </div>
+        <li>{subExp.description}</li>
       ))}
-    </div>
+    </ul>
   )}
 
-  {technologies.length > 0 && (
+  {mergedTechnologies.length > 0 && (
     <div class="flex flex-wrap gap-2">
-      {technologies.map((tech) => (
+      {mergedTechnologies.map((tech) => (
         <span class="px-2 py-0.5 text-xs bg-primary-50 text-primary-900 rounded">
           {tech}
         </span>
@@ -184,7 +134,7 @@ const t = translations[lang];
   .real-logo {
     display: block;
   }
-  
+
   .placeholder-icon {
     display: none;
   }
@@ -193,8 +143,8 @@ const t = translations[lang];
   :global(.toggle-logos) .real-logo {
     display: none !important;
   }
-  
+
   :global(.toggle-logos) .placeholder-icon {
     display: block !important;
   }
-</style> 
+</style>

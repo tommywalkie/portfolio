@@ -76,6 +76,14 @@
         "ariaLabel": "Distinctions",
         "associatedWith": "Associated with"
       },
+      "languages": {
+        "title": "Languages",
+        "ariaLabel": "Languages",
+        "items": [
+          { "name": "French", "level": "Native" },
+          { "name": "English", "level": "Professional proficiency" }
+        ]
+      },
       "interests": {
         "title": "Interests",
         "ariaLabel": "Interests"
@@ -161,6 +169,14 @@
         "title": "Distinctions",
         "ariaLabel": "Distinctions",
         "associatedWith": "Associé à"
+      },
+      "languages": {
+        "title": "Langues",
+        "ariaLabel": "Langues",
+        "items": [
+          { "name": "Français", "level": "Langue maternelle" },
+          { "name": "Anglais", "level": "Niveau professionnel" }
+        ]
       },
       "interests": {
         "title": "Passions",

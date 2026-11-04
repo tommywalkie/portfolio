@@ -10,6 +10,7 @@ import EducationSectionLite from '../components/cv/EducationSectionLite.astro';
 import ProjectsSectionLite from '../components/cv/ProjectsSectionLite.astro';
 import InterestsSectionLite from '../components/cv/InterestsSectionLite.astro';
 import DistinctionsSectionLite from '../components/cv/DistinctionsSectionLite.astro';
+import LanguagesSectionLite from '../components/cv/LanguagesSectionLite.astro';
 import LinkedInIcon from '../components/icons/LinkedInIcon.astro';
 import translations from '../i18n/portfolio.json';
 
@@ -30,6 +31,7 @@ const telephone = import.meta.env.VITE_PHONE_NUMBER ?? '(+XX) XX XX XX XX';
 const email = import.meta.env.VITE_EMAIL ?? 'xxxxxxxx@xxx.xx';
 
 const linkedin = 'https://www.linkedin.com/in/tom-bazarnik-a4364010b/';
+const linkedinShort = linkedin.replace(/^https:\/\/www\./, '').replace(/\/$/, '');
 ---
 
 <Layout>
@@ -130,17 +132,16 @@ const linkedin = 'https://www.linkedin.com/in/tom-bazarnik-a4364010b/';
                                                     aria-hidden="true"
                                                 />
                                             </Fragment>}
-                                            {isProd && <Fragment>
-                                                <li>
-                                                    <span class="flex items-center gap-2">
-                                                        <LinkedInIcon class="w-4 h-4 fill-primary-600" />
-                                                        <span>{linkedin}</span>
-                                                    </span>
-                                                </li>
-                                                <li class="w-1.5 h-1.5 rounded-full bg-secondary-600"
-                                                    aria-hidden="true"
-                                                />
-                                            </Fragment>}
+                                            <li>
+                                                <span class="flex items-center gap-2">
+                                                    <LinkedInIcon class="w-4 h-4 fill-primary-600" />
+                                                    <span>{linkedinShort}</span>
+                                                </span>
+                                            </li>
+                                            <li class="w-1.5 h-1.5 rounded-full bg-secondary-600"
+                                                aria-hidden="true"
+                                            />
+
                                             <li>
                                                 <span class="flex items-center gap-2">
                                                     <Globe className="w-4 h-4" />
@@ -161,6 +162,7 @@ const linkedin = 'https://www.linkedin.com/in/tom-bazarnik-a4364010b/';
                                             <ExperienceSectionLite lang={lang} />
                                         </div>
                                     </div>
+                                    <LanguagesSectionLite lang={lang} />
                                 </div>
                                 <div class="border-l-3 border-primary-50 pl-8 flex flex-col gap-6 max-w-[420px]">
                                     <EducationSectionLite lang={lang} />

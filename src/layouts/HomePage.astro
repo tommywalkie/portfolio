@@ -9,6 +9,7 @@ import ProjectsSection from '../components/ProjectsSection.astro';
 import EducationSection from '../components/EducationSection.astro';
 import InterestsSection from '../components/InterestsSection.astro';
 import DistinctionsSection from '../components/DistinctionsSection.astro';
+import LanguagesSection from '../components/LanguagesSection.astro';
 
 interface Props {
   lang?: string;
@@ -27,6 +28,7 @@ const { lang = 'en' } = Astro.props;
 			<EducationSection lang={lang} />
 			<ProjectsSection lang={lang} />
 			<DistinctionsSection lang={lang} />
+			<LanguagesSection lang={lang} />
 			<InterestsSection lang={lang} />
 		</main>
 		<Footer lang={lang} />
