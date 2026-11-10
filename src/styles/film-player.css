@@ -56,6 +56,22 @@ video-skin,
   display: none !important;
 }
 
+/*
+ * Video.js moves .video-controls-secondary to the top-right corner only when
+ * the player container is narrower than 32rem (512px):
+ *   @container media-root (width < 32rem) { .video-controls-secondary { position: absolute; ... } }
+ * Above that it is inline in the bottom control bar, so the pill does not collide.
+ */
+#html-player-root {
+  container: film-player / inline-size;
+}
+
+@container film-player (width < 32rem) {
+  #html-player-root .film-player-mute {
+    display: none;
+  }
+}
+
 .film-player-eq {
   display: inline-flex;
   align-items: flex-end;
