@@ -2,8 +2,8 @@
 import Layout from './Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import FilmPlayer from '../components/FilmPlayer';
 import translations from '../i18n/portfolio.json';
+import '../styles/film-player.css';
 
 interface Props {
   lang?: string;
@@ -11,14 +11,215 @@ interface Props {
 
 const { lang = 'en' } = Astro.props;
 const t = translations[lang];
+
+const LINKEDIN_URL = 'https://www.linkedin.com/in/tom-bazarnik-a4364010b/';
 ---
 
 <Layout>
 	<div class="h-dvh flex flex-col w-full overflow-hidden">
 		<Header lang={lang} />
 		<main class="flex-1 min-h-0 w-full bg-white dark:bg-primary-950">
-			<FilmPlayer client:only="react" lang={lang} muteLabel={t.video.mute} unmuteLabel={t.video.unmute} />
+			<div id="html-player-root" class="relative w-full h-full bg-white dark:bg-primary-950" data-lang={lang}>
+				<button
+					id="html-player-mute"
+					type="button"
+					class="film-player-mute"
+					aria-label={t.video.unmute}
+					data-mute-label={t.video.mute}
+					data-unmute-label={t.video.unmute}
+				>
+					<span id="html-player-mute-label">{t.video.unmute}</span>
+					<svg
+						id="html-player-mute-icon"
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
+					>
+						<path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z" />
+						<line x1="22" x2="16" y1="9" y2="15" />
+						<line x1="16" x2="22" y1="9" y2="15" />
+					</svg>
+					<span id="html-player-mute-eq" class="film-player-eq" aria-hidden="true" hidden>
+						<span class="film-player-eq-bar"></span>
+						<span class="film-player-eq-bar"></span>
+						<span class="film-player-eq-bar"></span>
+						<span class="film-player-eq-bar"></span>
+					</span>
+				</button>
+				<div id="html-player-overlay" class="film-player-overlay" hidden>
+					<div class="film-player-card" role="dialog" aria-modal="false" aria-label={t.video.headline}>
+						<p class="film-player-card-title">{t.video.headline}</p>
+						<div class="film-player-actions">
+							<a href={`/${lang}/portfolio`} class="film-player-btn film-player-btn--primary">
+								{t.header.hero.goToPortfolio}
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6" />
+									<path d="m21 3-9 9" />
+									<path d="M15 3h6v6" />
+								</svg>
+							</a>
+							<a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer" class="film-player-btn film-player-btn--linkedin">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" fill="currentColor" aria-hidden="true">
+									<path d="M41,4H9C6.24,4,4,6.24,4,9v32c0,2.76,2.24,5,5,5h32c2.76,0,5-2.24,5-5V9C46,6.24,43.76,4,41,4z M17,20v19h-6V20H17z M11,14.47c0-1.4,1.2-2.47,3-2.47s2.93,1.07,3,2.47c0,1.4-1.12,2.53-3,2.53C12.2,17,11,15.87,11,14.47z M39,39h-6c0,0,0-9.26,0-10 c0-2-1-4-3.5-4.04h-0.08C27,24.96,26,27.02,26,29c0,0.91,0,10,0,10h-6V20h6v2.56c0,0,1.93-2.56,5.81-2.56 c3.97,0,7.19,2.73,7.19,8.26V39z" />
+								</svg>
+								{t.resume.tips.connectWithMeOnLinkedIn}
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
 		</main>
 		<Footer lang={lang} />
 	</div>
 </Layout>
+
+<!-- Video.js 10 HTML (no React) bundles, pinned to the same 10.3.0 as @videojs/react -->
+<script is:inline type="module" src="https://cdn.jsdelivr.net/npm/@videojs/cdn@10.3.0/video.js"></script>
+<script is:inline type="module" src="https://cdn.jsdelivr.net/npm/@videojs/cdn@10.3.0/media/hlsjs-video.js"></script>
+
+<script>
+	import { getFilm } from '../utils/films';
+
+	const PORTRAIT_QUERY = '(orientation: portrait) and (max-width: 767px)';
+	const initialized = new WeakSet<HTMLElement>();
+
+	function init() {
+		const root = document.getElementById('html-player-root');
+		if (!root || initialized.has(root)) return;
+		initialized.add(root);
+
+		const overlay = document.getElementById('html-player-overlay');
+		const muteButton = document.getElementById('html-player-mute');
+		const muteLabel = document.getElementById('html-player-mute-label');
+		const muteIcon = document.getElementById('html-player-mute-icon');
+		const muteEq = document.getElementById('html-player-mute-eq');
+
+		if (!overlay || !muteButton || !muteLabel || !muteIcon || !muteEq) return;
+
+		const MUTE_LABEL = muteButton.dataset.muteLabel;
+		const UNMUTE_LABEL = muteButton.dataset.unmuteLabel;
+		const LANG = root.dataset.lang || 'en';
+
+		const currentMedia = () => root.querySelector('hlsjs-video, video-skin > video');
+
+		let hasPlayed = false;
+		let useMp4 = false;
+
+		function syncMute() {
+			const media = currentMedia();
+			const muted = media ? media.muted : true;
+			muteLabel.textContent = muted ? UNMUTE_LABEL : MUTE_LABEL;
+			const showEq = !muted;
+			muteIcon.toggleAttribute('hidden', showEq);
+			muteEq.toggleAttribute('hidden', !showEq);
+			muteButton.setAttribute('aria-label', muted ? UNMUTE_LABEL : MUTE_LABEL);
+		}
+
+		const isDark = () => document.documentElement.classList.contains('dark');
+		const isPortrait = () => window.matchMedia(PORTRAIT_QUERY).matches;
+
+		function showOverlay() {
+			if (hasPlayed) overlay.hidden = false;
+		}
+
+		function hideOverlay() {
+			overlay.hidden = true;
+		}
+
+		function mount() {
+			hasPlayed = false;
+			hideOverlay();
+
+			const previous = root.querySelector('video-player');
+			if (previous) previous.remove();
+
+			const theme = isDark() ? 'dark' : 'light';
+			const device = isPortrait() ? 'mobile' : 'desktop';
+			const film = getFilm(LANG, theme, device);
+
+			const player = document.createElement('video-player');
+
+			const skin = document.createElement('video-skin');
+
+			// HLS first, MP4 fallback on error — same behaviour as FilmPlayer
+			const media = document.createElement(useMp4 ? 'video' : 'hlsjs-video');
+			media.setAttribute('src', useMp4 ? film.mp4 : film.hls);
+			media.setAttribute('autoplay', '');
+			media.setAttribute('muted', '');
+			media.setAttribute('playsinline', '');
+
+			media.addEventListener('error', () => {
+				if (!useMp4) {
+					useMp4 = true;
+					mount();
+				}
+			});
+
+			skin.append(media);
+			player.append(skin);
+			root.prepend(player);
+			syncMute();
+		}
+
+		// Media events don't bubble: capture them from the player's media element
+		root.addEventListener(
+			'play',
+			() => {
+				hasPlayed = true;
+				hideOverlay();
+			},
+			true,
+		);
+		root.addEventListener(
+			'pause',
+			() => {
+				showOverlay();
+			},
+			true,
+		);
+		root.addEventListener(
+			'ended',
+			() => {
+				showOverlay();
+			},
+			true,
+		);
+		root.addEventListener('volumechange', syncMute, true);
+
+		muteButton.addEventListener('click', () => {
+			const media = currentMedia();
+			if (!media) return;
+			media.muted = !media.muted;
+			syncMute();
+		});
+
+		new MutationObserver(() => {
+			useMp4 = false;
+			mount();
+		}).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+
+		window.matchMedia(PORTRAIT_QUERY).addEventListener('change', () => {
+			useMp4 = false;
+			mount();
+		});
+
+		Promise.all([
+			customElements.whenDefined('video-player'),
+			customElements.whenDefined('video-skin'),
+			customElements.whenDefined('hlsjs-video'),
+		]).then(mount);
+	}
+
+	// Astro's ClientRouter swaps the DOM: (re)initialise on every page load
+	document.addEventListener('astro:page-load', init);
+	if (document.readyState === 'loading') {
+		document.addEventListener('DOMContentLoaded', init, { once: true });
+	} else {
+		init();
+	}
+</script>

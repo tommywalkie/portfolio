@@ -52,5 +52,6 @@ export const FILMS: Record<FilmKey, FilmEntry> = {
 
 export function getFilm(lang: string, theme: FilmTheme, device: FilmDevice): FilmEntry {
   const safeLang: FilmLang = lang === 'fr' ? 'fr' : 'en';
+  console.log({lang}, FILMS[`${safeLang}-${theme}-${device}`])
   return FILMS[`${safeLang}-${theme}-${device}`];
 }

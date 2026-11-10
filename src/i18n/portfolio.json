@@ -18,7 +18,8 @@
     },
     "video": {
       "mute": "Mute",
-      "unmute": "Unmute"
+      "unmute": "Play music",
+      "headline": "Want to see more of my work?"
     },
     "resume": {
       "backToHome": "Back to home",
@@ -116,7 +117,8 @@
     },
     "video": {
       "mute": "Couper le son",
-      "unmute": "Activer le son"
+      "unmute": "Activer le son",
+      "headline": "Envie de voir plus de mon travail ?"
     },
     "resume": {
       "backToHome": "Retour à l'accueil",

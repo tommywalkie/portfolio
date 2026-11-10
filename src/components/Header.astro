@@ -1,5 +1,5 @@
 ---
-import { Moon, Sun, FilePen, LayoutPanelTop } from 'lucide-react'
+import { Moon, Sun, LayoutPanelTop } from 'lucide-react'
 import translations from '../i18n/portfolio.json';
 import Logo from './Logo.astro'
 import Tooltip from './Tooltip.astro';
@@ -22,13 +22,9 @@ const t = translations[lang];
     <nav class="flex gap-2 my-auto"></nav>
     <div class="mr-2 flex items-center gap-2 items-start">
       <Tooltip text={t.header.hero.goToPortfolio} position="bottom-right">
-        <a href={`/${lang}/portfolio`} aria-label={t.header.hero.goToPortfolio} class="my-auto px-2 h-8 rounded-lg hover:bg-primary-100 dark:hover:text-white dark:hover:bg-primary-700 cursor-pointer ring-none focus:ring-none text-center align-middle">
-          <LayoutPanelTop className="stroke-primary-700 dark:stroke-primary-200 fill-primary-200 dark:fill-primary-800 w-5 h-[inherit]" />
-        </a>
-      </Tooltip>
-      <Tooltip text={t.header.hero.goToResumeBuilder} position="bottom-right">
-        <a href={`/${lang}/resume`} aria-label="Navigate to resume builder" class="my-auto px-2 h-8 rounded-lg hover:bg-primary-100 dark:hover:text-white dark:hover:bg-primary-700 cursor-pointer ring-none focus:ring-none text-center align-middle">
-          <FilePen className="stroke-primary-700 dark:stroke-primary-200 fill-primary-200 dark:fill-primary-800 w-5 h-[inherit]" />
+        <a href={`/${lang}/portfolio`} aria-label={t.header.hero.goToPortfolio} class="my-auto inline-flex items-center gap-2 px-2 h-8 rounded-lg hover:bg-primary-100 dark:hover:text-white dark:hover:bg-primary-700 cursor-pointer ring-none focus:ring-none">
+          <LayoutPanelTop className="stroke-primary-700 dark:stroke-primary-200 fill-primary-200 dark:fill-primary-800 w-5 h-5 shrink-0" />
+          <span class="text-sm font-medium leading-none text-primary-700 dark:text-primary-200">Portfolio</span>
         </a>
       </Tooltip>
       <LanguageSelector lang={lang} />
@@ -61,10 +57,10 @@ const t = translations[lang];
     } else {
       document.documentElement.classList.remove('dark')
     }
-  
+
     // Handle dark mode toggle
     const themeToggle = document.getElementById('theme-toggle')
-    
+
     function updateTheme(dark: boolean) {
       if (dark) {
         document.documentElement.classList.add('dark')
@@ -73,12 +69,12 @@ const t = translations[lang];
       }
       localStorage.setItem('color-theme', dark ? 'dark' : 'light')
     }
-  
+
     themeToggle?.addEventListener('click', () => {
       const isDark = document.documentElement.classList.contains('dark')
       updateTheme(!isDark)
     })
-  
+
     // Listen for system preference changes
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
     mediaQuery.addEventListener('change', (e) => {
@@ -88,10 +84,10 @@ const t = translations[lang];
       }
     })
   }
-  
+
   // Run on initial page load
   initTheme();
-  
+
   // Re-run after each page navigation
   document.addEventListener('astro:after-swap', initTheme);
-</script> 
+</script>
