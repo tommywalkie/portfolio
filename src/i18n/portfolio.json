@@ -7,6 +7,7 @@
         "description_2": "who likes",
         "description_3": "building projects with",
         "goToResumeBuilder": "Go to resume builder, print my resume",
+        "goToPortfolio": "Go to the web portfolio",
         "switchLanguage": "Switch language",
         "toggleDarkMode": "Toggle dark mode"
       }
@@ -14,6 +15,10 @@
     "footer": {
       "privacyPolicy": "Privacy Policy",
       "allRightsReserved": "All rights reserved"
+    },
+    "video": {
+      "mute": "Mute",
+      "unmute": "Unmute"
     },
     "resume": {
       "backToHome": "Back to home",
@@ -100,6 +105,7 @@
         "description_2": "qui aime",
         "description_3": "concevoir des projets avec",
         "goToResumeBuilder": "Accéder au générateur de CV, imprimer mon CV",
+        "goToPortfolio": "Accéder au portfolio web",
         "switchLanguage": "Changer de langue",
         "toggleDarkMode": "Changer de thème"
       }
@@ -107,6 +113,10 @@
     "footer": {
       "privacyPolicy": "Politique de confidentialité",
       "allRightsReserved": "Tous droits réservés"
+    },
+    "video": {
+      "mute": "Couper le son",
+      "unmute": "Activer le son"
     },
     "resume": {
       "backToHome": "Retour à l'accueil",

@@ -1,5 +1,5 @@
 ---
-import HomePage from '../../layouts/HomePage.astro';
+import VideoPage from '../../layouts/VideoPage.astro';
 
 export function getStaticPaths() {
   return [
@@ -11,4 +11,4 @@ export function getStaticPaths() {
 const { lang = 'en' } = Astro.params;
 ---
 
-<HomePage lang={lang} />
+<VideoPage lang={lang} />
