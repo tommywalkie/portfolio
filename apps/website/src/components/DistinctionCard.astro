@@ -4,7 +4,7 @@ import translations from '../i18n/portfolio.json';
 import { getCollection } from 'astro:content';
 import Squircle from './Squircle.astro';
 import LinkedInIcon from './icons/LinkedInIcon.astro';
-import { SquareArrowOutUpRight, Trophy } from 'lucide-react';
+import { SquareArrowOutUpRight, Trophy } from '@lucide/astro';
 import { DateTime } from 'luxon';
 import Tooltip from './Tooltip.astro';
 import '../styles/markdown.css';
@@ -39,7 +39,7 @@ const { Content } = await render?.() || { Content: () => null };
         />
       ) : (
         <div class="w-[64px] h-[64px] flex items-center justify-center text-primary-300 dark:text-primary">
-          <Trophy className="w-10 h-10" />
+          <Trophy class="w-10 h-10" />
         </div>
       )}
     </Squircle>
@@ -59,7 +59,7 @@ const { Content } = await render?.() || { Content: () => null };
                 rel="noopener noreferrer"
                 aria-label={`Visit ${organization}'s website`}
               >
-                <SquareArrowOutUpRight client:load className="w-6 h-6 text-primary-300 hover:text-primary dark:text-primary dark:hover:text-primary-300" />
+                <SquareArrowOutUpRight class="w-6 h-6 text-primary-300 hover:text-primary dark:text-primary dark:hover:text-primary-300" />
               </a>
             </Tooltip>
           )}

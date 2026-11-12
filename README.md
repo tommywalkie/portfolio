@@ -1,6 +1,6 @@
 # Portfolio
 
-A personal portfolio website built with **Astro** and **React**, hosted at [tommywalkie.com](https://tommywalkie.com).
+A personal portfolio website built with **Astro**, hosted at [tommywalkie.com](https://tommywalkie.com).
 
 ## Structure
 
@@ -19,7 +19,7 @@ Both projects share a common **pnpm workspace** (`pnpm-workspace.yaml`) and a si
 
 | Layer                     | Technology                                                                                 |
 |---------------------------|--------------------------------------------------------------------------------------------|
-| **Website**               | Astro, React, TypeScript, Tailwind CSS, Vite |
+| **Website**               | Astro, TypeScript, Tailwind CSS, Vite, @lucide/astro |
 | **Film project**          | Cinetic (React), Remotion (video rendering), Earshot (audio & orchestration) |
 
 ---

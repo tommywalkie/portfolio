@@ -42,8 +42,8 @@ const { lang = 'en' } = Astro.props;
 	/** True between astro:before-swap and astro:page-load, while the router rewrites <html class> (not a theme change). */
 	let swapping = false;
 	const wired = new WeakSet<HTMLElement>();
-	/** Expanding-ring hints: 6 s max each, stopped early on click. */
-	const HINT_MS = 6000;
+	/** Expanding-ring hints: 10 s max each, stopped early on click. */
+	const HINT_MS = 10000;
 	const hintTimers = new WeakMap<HTMLElement, number>();
 
 	const getRoot = () => document.getElementById('html-player-root');
@@ -173,6 +173,11 @@ const { lang = 'en' } = Astro.props;
 			syncMute();
 		});
 		headerPortfolio?.addEventListener('click', () => stopHint(headerPortfolio));
+		// opening the language menu steps over the hints: close them
+		document.getElementById('language-selector-button')?.addEventListener('click', () => {
+			stopHint(headerMute);
+			if (headerPortfolio) stopHint(headerPortfolio);
+		});
 		showHint(headerMute);
 	}
 

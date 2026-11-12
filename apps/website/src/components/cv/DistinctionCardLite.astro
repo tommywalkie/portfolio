@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
 import Squircle from '../Squircle.astro';
-import { Trophy } from 'lucide-react';
+import { Trophy } from '@lucide/astro';
 import { DateTime } from 'luxon';
 import translations from '../../i18n/portfolio.json';
 const distinctions = await getCollection('distinctions');
@@ -39,7 +39,7 @@ const t = translations[lang];
       </div>
       <div class="placeholder-icon absolute inset-0">
         <div class="w-[40px] h-[40px] flex items-center justify-center text-primary-300">
-          <Trophy className="w-6 h-6" />
+          <Trophy class="w-6 h-6" />
         </div>
       </div>
     </Squircle>

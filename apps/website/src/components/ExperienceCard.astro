@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import translations from '../i18n/portfolio.json';
 import Squircle from './Squircle.astro';
 import LinkedInIcon from './icons/LinkedInIcon.astro';
-import { SquareArrowOutUpRight, Building2, UsersRound, BriefcaseBusiness } from 'lucide-react';
+import { SquareArrowOutUpRight, Building2, UsersRound, BriefcaseBusiness } from '@lucide/astro';
 import { formatDateRange } from '../utils/dates';
 import type { CollectionEntry } from 'astro:content';
 import Tooltip from './Tooltip.astro';
@@ -91,7 +91,7 @@ const HIDE_COMPANY_TYPE = false;
           {!HIDE_COMPANY_TYPE && companyType && (
             <Tooltip text={`${translations[lang].sections.experience.companyType}: ${companyType}`} position="top" className="align-sub">
               <span class="text-base text-secondary-700 dark:text-secondary-500 mr-2 inline-flex items-center gap-1 font-normal">
-                <Building2 className="w-5 h-5" />
+                <Building2 class="w-5 h-5" />
                 {t.sections.experience.companyTypes[String(companyType).toLowerCase()]}
               </span>
             </Tooltip>
@@ -99,7 +99,7 @@ const HIDE_COMPANY_TYPE = false;
           {!HIDE_TEAM_SIZE && !subExperiences.length && teamSize && (
             <Tooltip text={`${translations[lang].sections.experience.teamSize.label}: ${teamSize} ${translations[lang].sections.experience.teamSize.unit}`} position="top" className="align-sub">
               <span class="text-base text-secondary-700 dark:text-secondary-500 mr-2 inline-flex items-center gap-1 font-normal">
-                <UsersRound className="w-5 h-5" />
+                <UsersRound class="w-5 h-5" />
                 {teamSize}
               </span>
             </Tooltip>
@@ -107,7 +107,7 @@ const HIDE_COMPANY_TYPE = false;
           {contractType && (
             <Tooltip text={`${translations[lang].sections.experience.contractType}: ${translations[lang].sections.experience.contractTypes[contractType]}`} position="top" className="align-sub">
               <span class="text-base text-secondary-700 dark:text-secondary-500 inline-flex items-center gap-1 font-normal">
-                <BriefcaseBusiness className="w-5 h-5" />
+                <BriefcaseBusiness class="w-5 h-5" />
                 {t.sections.experience.contractTypes[contractType]}
               </span>
             </Tooltip>
@@ -122,7 +122,7 @@ const HIDE_COMPANY_TYPE = false;
                 rel="noopener noreferrer"
                 aria-label={t.sections.experience.visitWebsite.replace('{name}', companyName)}
             >
-              <SquareArrowOutUpRight client:load className="w-6 h-6 text-primary-300 hover:text-primary dark:text-primary dark:hover:text-primary-300" />
+              <SquareArrowOutUpRight class="w-6 h-6 text-primary-300 hover:text-primary dark:text-primary dark:hover:text-primary-300" />
               </a>
             </Tooltip>
           )}
@@ -199,7 +199,7 @@ const HIDE_COMPANY_TYPE = false;
                   {!HIDE_TEAM_SIZE && subExp.teamSize && (
                     <Tooltip text={`${t.sections.experience.teamSize.label}: ${subExp.teamSize} ${t.sections.experience.teamSize.unit}`} position="top" className="align-sub">
                       <span class="text-base text-secondary-700 dark:text-secondary-500 pl-2 inline-flex items-center gap-1 align-top font-normal">
-                        <UsersRound className="w-5 h-5" />
+                        <UsersRound class="w-5 h-5" />
                         {subExp.teamSize}
                       </span>
                     </Tooltip>
@@ -214,7 +214,7 @@ const HIDE_COMPANY_TYPE = false;
                         rel="noopener noreferrer"
                         aria-label={t.sections.experience.visitWebsite.replace('{name}', subExp.companyName)}
                       >
-                        <SquareArrowOutUpRight client:load className="w-6 h-6 text-primary-300 hover:text-primary dark:text-primary dark:hover:text-primary-300" />
+                        <SquareArrowOutUpRight class="w-6 h-6 text-primary-300 hover:text-primary dark:text-primary dark:hover:text-primary-300" />
                       </a>
                     </Tooltip>
                   )}

@@ -2,7 +2,7 @@
 import languagesData from '../i18n/languages.json';
 import translations from '../i18n/portfolio.json';
 import Tooltip from './Tooltip.astro';
-import { Languages } from 'lucide-react';
+import { Languages } from '@lucide/astro';
 
 interface Props {
   lang: string;
@@ -60,7 +60,7 @@ const isCurrentLanguage = (code: string) => code === lang;
       aria-expanded="false"
       aria-controls="language-dropdown"
     >
-      <Languages client:load className="w-5 h-5 stroke-primary-700 dark:stroke-primary-200" />
+      <Languages class="w-5 h-5 stroke-primary-700 dark:stroke-primary-200" />
     </button>
   </Tooltip>}
 

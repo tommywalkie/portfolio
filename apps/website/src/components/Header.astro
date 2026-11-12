@@ -1,5 +1,5 @@
 ---
-import { Moon, Sun, LayoutPanelTop } from 'lucide-react'
+import { Moon, Sun, LayoutPanelTop } from '@lucide/astro'
 import translations from '../i18n/portfolio.json';
 import Logo from './Logo.astro'
 import Tooltip from './Tooltip.astro';
@@ -24,7 +24,7 @@ const t = translations[lang];
     <div class="mr-2 flex items-center gap-2 items-start">
       <Tooltip text={t.header.hero.goToPortfolio} position="bottom-right">
         <a id="header-portfolio" href={`/${lang}/portfolio`} aria-label={t.header.hero.goToPortfolio} class="relative my-auto inline-flex items-center gap-2 px-2 h-8 rounded-lg hover:bg-primary-100 dark:hover:text-white dark:hover:bg-primary-700 cursor-pointer ring-none focus:ring-none">
-          <LayoutPanelTop className="stroke-primary-700 dark:stroke-primary-200 fill-primary-200 dark:fill-primary-800 w-5 h-5 shrink-0" />
+          <LayoutPanelTop class="stroke-primary-700 dark:stroke-primary-200 fill-primary-200 dark:fill-primary-800 w-5 h-5 shrink-0" />
           <span class="text-sm font-medium leading-none text-primary-700 dark:text-primary-200">Portfolio</span>
           <span id="header-portfolio-hint" class="film-player-hint-bubble" role="status" hidden>{t.header.hero.portfolioHint}</span>
         </a>
@@ -73,10 +73,10 @@ const t = translations[lang];
           aria-label={t.header.hero.toggleDarkMode}
         >
           <div class="dark:hidden">
-            <Moon client:load className="w-5 h-5 fill-primary-200" />
+            <Moon class="w-5 h-5 fill-primary-200" />
           </div>
           <div class="hidden dark:block">
-            <Sun client:load className="w-5 h-5 fill-primary-800" />
+            <Sun class="w-5 h-5 fill-primary-800" />
           </div>
         </button>
       </Tooltip>

@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import Squircle from '../Squircle.astro';
 import { formatSchoolDateRange } from '../../utils/dates';
 import type { CollectionEntry } from 'astro:content';
-import { GraduationCap } from 'lucide-react';
+import { GraduationCap } from '@lucide/astro';
 
 type Props = CollectionEntry<'education'>['data'] & {
   content?: string;
@@ -39,7 +39,7 @@ const { formattedStartDate, formattedEndDate } = formatSchoolDateRange(startDate
       </div>
       <div class="placeholder-icon absolute inset-0">
         <div class="w-[40px] h-[40px] flex items-center justify-center text-primary-300">
-          <GraduationCap className="w-6 h-6" />
+          <GraduationCap class="w-6 h-6" />
         </div>
       </div>
     </Squircle>

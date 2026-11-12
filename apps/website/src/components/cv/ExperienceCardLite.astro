@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import Squircle from '../Squircle.astro';
 import { formatDateRange } from '../../utils/dates';
 import type { CollectionEntry } from 'astro:content';
-import { Building2, UsersRound, BriefcaseBusiness } from 'lucide-react';
+import { Building2, UsersRound, BriefcaseBusiness } from '@lucide/astro';
 import translations from '../../i18n/portfolio.json';
 
 type Props = CollectionEntry<'experiences'>['data'] & {
@@ -61,7 +61,7 @@ const mergedTechnologies = [
         </div>
         <div class="placeholder-icon absolute inset-0">
           <div class="w-[40px] h-[40px] flex items-center justify-center text-primary-300">
-            <Building2 className="w-6 h-6" />
+            <Building2 class="w-6 h-6" />
           </div>
         </div>
       </Squircle>
@@ -88,11 +88,11 @@ const mergedTechnologies = [
             <span class="text-secondary-700 font-normal text-sm"> ({parentCompanyName})</span>
           )}
           {!HIDE_COMPANY_TYPE && companyType && <span class="text-sm text-secondary-700 pl-2 inline-flex items-center gap-1 align-top font-normal">
-            <Building2 className="w-4 h-4" />
+            <Building2 class="w-4 h-4" />
             {companyType}
           </span>}
           {!HIDE_TEAM_SIZE && teamSize && <span class="text-sm text-secondary-700 pl-2 inline-flex items-center gap-1 align-top font-normal">
-            <UsersRound className="w-4 h-4" />
+            <UsersRound class="w-4 h-4" />
             {teamSize}
           </span>}
         </div>

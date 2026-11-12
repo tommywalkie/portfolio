@@ -2,7 +2,7 @@
 import { Image } from 'astro:assets';
 import Squircle from '../Squircle.astro';
 import type { CollectionEntry } from 'astro:content';
-import { Code2 } from 'lucide-react';
+import { Code2 } from '@lucide/astro';
 
 interface Props {
   project: CollectionEntry<'projects'>;
@@ -26,7 +26,7 @@ const { project } = Astro.props;
       </div>
       <div class="placeholder-icon absolute inset-0">
         <div class="w-[40px] h-[40px] flex items-center justify-center text-primary-300 bg-primary-100">
-          <Code2 className="w-6 h-6" />
+          <Code2 class="w-6 h-6" />
         </div>
       </div>
     </Squircle>

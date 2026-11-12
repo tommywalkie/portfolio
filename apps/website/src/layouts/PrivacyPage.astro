@@ -2,7 +2,7 @@
 import Layout from './Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { ArrowLeftIcon } from 'lucide-react';
+import { ArrowLeftIcon } from '@lucide/astro';
 import translations from '../i18n/privacy.json';
 
 interface Props {
@@ -22,7 +22,7 @@ const t = translations[lang];
           href={`/${lang}/portfolio`}
           class="text-primary-600 dark:text-primary-300 flex items-center gap-2 mb-5 bg-primary-50 dark:bg-primary-900 px-4 py-2 rounded-md hover:bg-primary-100 dark:hover:bg-primary-800 w-fit"
         >
-          <ArrowLeftIcon className="w-4 h-4" />
+          <ArrowLeftIcon class="w-4 h-4" />
           {t.backToHome}
         </a>
       </div>

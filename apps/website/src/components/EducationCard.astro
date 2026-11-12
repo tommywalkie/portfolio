@@ -3,7 +3,7 @@ import { Image } from 'astro:assets';
 import translations from '../i18n/portfolio.json';
 import Squircle from './Squircle.astro';
 import LinkedInIcon from './icons/LinkedInIcon.astro';
-import { SquareArrowOutUpRight } from 'lucide-react';
+import { SquareArrowOutUpRight } from '@lucide/astro';
 import { formatSchoolDateRange } from '../utils/dates';
 import type { CollectionEntry } from 'astro:content';
 import Tooltip from './Tooltip.astro';
@@ -60,7 +60,7 @@ const { formattedStartDate, formattedEndDate } = formatSchoolDateRange(startDate
                 rel="noopener noreferrer"
                 aria-label={translations[lang].sections.education.visitWebsite.replace('{name}', school)}
               >
-                <SquareArrowOutUpRight client:load className="w-6 h-6 text-primary-300 hover:text-primary dark:text-primary dark:hover:text-primary-300" />
+                <SquareArrowOutUpRight class="w-6 h-6 text-primary-300 hover:text-primary dark:text-primary dark:hover:text-primary-300" />
               </a>
             </Tooltip>
           )}

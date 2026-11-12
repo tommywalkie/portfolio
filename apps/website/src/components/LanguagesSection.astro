@@ -1,7 +1,7 @@
 ---
 import SectionTitle from './SectionTitle.astro';
 import translations from '../i18n/portfolio.json';
-import { Languages } from 'lucide-react';
+import { Languages } from '@lucide/astro';
 import '../styles/markdown.css';
 
 interface Props {
@@ -24,7 +24,7 @@ const t = translations[lang].sections.languages;
           <li>
             <div class="flex items-center gap-5">
               <div class="min-w-12 min-h-12 max-w-12 max-h-12 flex items-center justify-center">
-                <Languages className="w-8 h-8 fill-transparent stroke-primary-300 dark:stroke-primary-500" />
+                <Languages class="w-8 h-8 fill-transparent stroke-primary-300 dark:stroke-primary-500" />
               </div>
               <div>
                 <div class="font-semibold text-lg text-primary-900 dark:text-primary-100">

@@ -1,7 +1,7 @@
 ---
 import Layout from './Layout.astro';
 import ExperienceSectionLite from '../components/cv/ExperienceSectionLite.astro';
-import { Mail, Phone, Globe, ArrowLeft, Printer } from 'lucide-react';
+import { Mail, Phone, Globe, ArrowLeft, Printer } from '@lucide/astro';
 import Squircle from '../components/Squircle.astro';
 import { Image } from 'astro:assets'
 import Header from '../components/Header.astro';
@@ -49,7 +49,7 @@ const linkedinShort = linkedin.replace(/^https:\/\/www\./, '').replace(/\/$/, ''
                           href={`/${lang}/portfolio`}
                           class="text-primary-600 dark:text-primary-300 flex items-center gap-2 bg-primary-50 dark:bg-primary-900 px-4 py-2 rounded-md hover:bg-primary-100 dark:hover:bg-primary-800"
                         >
-                          <ArrowLeft className="w-4 h-4" />
+                          <ArrowLeft class="w-4 h-4" />
                           {t.resume.backToHome}
                         </a>
                     </div>
@@ -80,7 +80,7 @@ const linkedinShort = linkedin.replace(/^https:\/\/www\./, '').replace(/\/$/, ''
                     onclick="window.print()"
                     class="mx-auto bg-primary-500 hover:bg-primary-600 dark:bg-primary-500 dark:text-primary-100 dark:hover:bg-primary-600 text-white px-4 py-2 rounded-md cursor-pointer mb-8 flex items-center gap-2 no-print"
                 >
-                    <Printer className="w-4 h-4" />
+                    <Printer class="w-4 h-4" />
                     {t.resume.print}
                 </button>
             </div>
@@ -114,7 +114,7 @@ const linkedinShort = linkedin.replace(/^https:\/\/www\./, '').replace(/\/$/, ''
                                             {!isProd && <Fragment>
                                                 <li>
                                                     <span class="flex items-center gap-2">
-                                                        <Mail className="w-4 h-4" />
+                                                        <Mail class="w-4 h-4" />
                                                         <span>{email}</span>
                                                     </span>
                                                 </li>
@@ -124,7 +124,7 @@ const linkedinShort = linkedin.replace(/^https:\/\/www\./, '').replace(/\/$/, ''
                                                 />
                                                 <li>
                                                     <span class="flex items-center gap-2">
-                                                        <Phone className="w-4 h-4" />
+                                                        <Phone class="w-4 h-4" />
                                                         <span>{telephone}</span>
                                                     </span>
                                                 </li>
@@ -144,7 +144,7 @@ const linkedinShort = linkedin.replace(/^https:\/\/www\./, '').replace(/\/$/, ''
 
                                             <li>
                                                 <span class="flex items-center gap-2">
-                                                    <Globe className="w-4 h-4" />
+                                                    <Globe class="w-4 h-4" />
                                                     https://tommywalkie.com
                                                 </span>
                                             </li>

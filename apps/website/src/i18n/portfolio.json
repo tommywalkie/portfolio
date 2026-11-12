@@ -10,8 +10,8 @@
         "goToPortfolio": "Go to the web portfolio",
         "switchLanguage": "Switch language",
         "toggleDarkMode": "Toggle dark mode",
-        "muteHint": "Click the speaker to turn the sound on",
-        "portfolioHint": "The film is over — explore my portfolio"
+        "muteHint": "The film features sound effects and music — enable them by clicking the speaker",
+        "portfolioHint": "Want to know more about me? Check out my portfolio"
       }
     },
     "footer": {
@@ -111,8 +111,8 @@
         "goToPortfolio": "Accéder au portfolio web",
         "switchLanguage": "Changer de langue",
         "toggleDarkMode": "Changer de thème",
-        "muteHint": "Cliquez sur le haut-parleur pour activer le son",
-        "portfolioHint": "Le film est terminé — découvrez mon portfolio"
+        "muteHint": "Le film est sonorisé : effets sonores et musique — activez-les en cliquant sur le haut-parleur",
+        "portfolioHint": "Envie d'en savoir plus sur moi ? Découvrez mon portfolio"
       }
     },
     "footer": {

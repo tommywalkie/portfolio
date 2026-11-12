@@ -1,14 +1,14 @@
 // @ts-check
 import { defineConfig } from 'astro/config'
-import react from '@astrojs/react'
 import tailwindcss from '@tailwindcss/vite'
 import mdx from '@astrojs/mdx'
 
 // https://astro.build/config
+// no react(): the site is fully static; the icons come from @lucide/astro (build-time SVG)
 export default defineConfig({
   // the build lands in the repo root's dist/, where the root Dockerfile copies it from (/app/dist)
   outDir: '../../dist',
-  integrations: [react(), mdx()],
+  integrations: [mdx()],
   vite: {
     plugins: [tailwindcss()],
   },

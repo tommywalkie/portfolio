@@ -1,6 +1,6 @@
 ---
 import RugbyIcon from './icons/RugbyIcon.astro';
-import { Book, Gamepad2, SquareCode } from 'lucide-react'
+import { Book, Gamepad2, SquareCode } from '@lucide/astro'
 
 interface Props {
   icon: string;
@@ -14,6 +14,6 @@ const defaultClassForLucideIcons = ["w-8 h-8 fill-transparent stroke-primary-300
 ---
 
 {icon === 'rugby' && <RugbyIcon class={[defaultClassForIcons, className].join(' ')} />}
-{icon === 'code' && <SquareCode className={[defaultClassForLucideIcons, className].join(' ')} />}
-{icon === 'book' && <Book className={[defaultClassForLucideIcons, className].join(' ')} />}
-{icon === 'gamepad' && <Gamepad2 className={[defaultClassForLucideIcons, className].join(' ')} />}
+{icon === 'code' && <SquareCode class={[defaultClassForLucideIcons, className].join(' ')} />}
+{icon === 'book' && <Book class={[defaultClassForLucideIcons, className].join(' ')} />}
+{icon === 'gamepad' && <Gamepad2 class={[defaultClassForLucideIcons, className].join(' ')} />}
