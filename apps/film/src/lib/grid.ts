@@ -3,11 +3,12 @@
 // without pulling in the master timeline (which imports the bits: that would be a cycle).
 import { holdFor, PACE, revealFor, wordCount, type PaceName } from './pace';
 import type { Locale } from './locale';
+import { MOBILE } from './device';
 
 export const FPS = 60;
 export const BPM = 100;
-export const W = 1920;
-export const H = 1080;
+export const W = MOBILE ? 1080 : 1920;
+export const H = MOBILE ? 1920 : 1080;
 /** calm: fragments take turns with the picture, held about 1-1.5 s. */
 export const PACE_NAME: PaceName = 'calm';
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Packages the films for the website: copies the mp4s into public/ and builds 3-rendition fMP4 HLS (VOD).
 # Re-runnable; run from apps/film:  node scripts/gitbash.mjs scripts/portfolio-video.sh
-# No arguments: the four films (fr/en x dark/light). Or pairs: scripts/portfolio-video.sh <mp4 name> <hls folder> ...
+# No arguments: the eight films (fr/en x dark/light x desktop/mobile). Or pairs: scripts/portfolio-video.sh <mp4 name> <hls folder> ...
 set -euo pipefail
 
 HERE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -25,8 +25,14 @@ package() {
   rm -rf "$out"
   mkdir -p "$out/1080p" "$out/720p" "$out/480p"
 
+  # rendition names stay 1080p/720p/480p (the short side); a portrait film swaps width and height
+  local w h sizes
+  w=$(ffprobe -v error -select_streams v:0 -show_entries stream=width -of csv=p=0 "$src" | tr -d '\r')
+  h=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of csv=p=0 "$src" | tr -d '\r')
+  if [ "$h" -gt "$w" ]; then sizes=(1080:1920 720:1280 480:854); else sizes=(1920:1080 1280:720 854:480); fi
+
   ffmpeg -hide_banner -loglevel warning -stats -y -i "$src" \
-    -filter_complex "[0:v]split=3[a][b][c];[a]scale=1920:1080[v0];[b]scale=1280:720[v1];[c]scale=854:480[v2]" \
+    -filter_complex "[0:v]split=3[a][b][c];[a]scale=${sizes[0]}[v0];[b]scale=${sizes[1]}[v1];[c]scale=${sizes[2]}[v2]" \
     -map "[v0]" -map "[v1]" -map "[v2]" -map 0:a:0 -map 0:a:0 -map 0:a:0 \
     -c:v libx264 -profile:v high -pix_fmt yuv420p -preset medium -r 60 \
     -g 120 -keyint_min 120 -sc_threshold 0 \
@@ -56,6 +62,11 @@ else
   # the light builds (npm run film:v1.1:light), same 3 renditions
   package "film__version-v1.1__light.mp4"      "film-fr-light-desktop"
   package "film__version-v1.1__light__en.mp4"  "film-en-light-desktop"
+  # the portrait films (src/bits/mobile), same names with __mobile
+  package "film__version-v1.1__mobile.mp4"            "film-fr-dark-mobile"
+  package "film__version-v1.1__mobile__en.mp4"        "film-en-dark-mobile"
+  package "film__version-v1.1__light__mobile.mp4"     "film-fr-light-mobile"
+  package "film__version-v1.1__light__mobile__en.mp4" "film-en-light-mobile"
 fi
 
 echo "done"

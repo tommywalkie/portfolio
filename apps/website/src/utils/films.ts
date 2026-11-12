@@ -43,11 +43,11 @@ export const FILMS: Record<FilmKey, FilmEntry> = {
   'en-light-desktop': EN_LIGHT_DESKTOP,
   'fr-light-desktop': FR_LIGHT_DESKTOP,
 
-  // Fallbacks: reuse the existing video of the same language and theme until the dedicated films are produced
-  'en-dark-mobile': { ...EN_DARK_DESKTOP, fallback: true },
-  'en-light-mobile': { ...EN_LIGHT_DESKTOP, fallback: true },
-  'fr-dark-mobile': { ...FR_DARK_DESKTOP, fallback: true },
-  'fr-light-mobile': { ...FR_LIGHT_DESKTOP, fallback: true },
+  // the portrait films (1080x1920)
+  'en-dark-mobile': { hls: '/videos/film-en-dark-mobile/master.m3u8', mp4: '/film__version-v1.1__mobile__en.mp4', fallback: false },
+  'fr-dark-mobile': { hls: '/videos/film-fr-dark-mobile/master.m3u8', mp4: '/film__version-v1.1__mobile.mp4', fallback: false },
+  'en-light-mobile': { hls: '/videos/film-en-light-mobile/master.m3u8', mp4: '/film__version-v1.1__light__mobile__en.mp4', fallback: false },
+  'fr-light-mobile': { hls: '/videos/film-fr-light-mobile/master.m3u8', mp4: '/film__version-v1.1__light__mobile.mp4', fallback: false },
 };
 
 export function getFilm(lang: string, theme: FilmTheme, device: FilmDevice): FilmEntry {

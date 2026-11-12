@@ -38,6 +38,7 @@
 #                       remotion.config.ts bakes it in (src/brand/theme.ts). One bundle = one theme: a
 #                       light render is a separate run, and the gates (size, fps, frames, BT.709, sync)
 #                       are colour-independent, so the same gates apply to both.
+#   --device desktop|mobile  1920x1080 (default) or 1080x1920 portrait; exports FILM_DEVICE before bundling
 #   --loop              a seamless loop: every pass renders lossless PNG intermediates, because JPEG
 #                       noise is smoothed by x264 between neighbours but not between the last frame
 #                       and the first, which pushes the loop seam over its gate; check the seam with
@@ -89,7 +90,7 @@ step() { echo "[render $(( $(date +%s) - T0 ))s] $*" >&2; }
 
 COMP=""; OUT=""; MODE=master; AUDIO=public/audio/soundtrack.wav; NOAUDIO=0; AOFF=""; BUILD_AUDIO=0
 ENTRY=src/index.ts; SUB=""; FRAMES=""; CRF=""; CONC=""; SAMPLES=out/samples.json; SAMPLES_FROM=""
-SPEC=""; NOCHECK=0; KEEP=0; MS_ARGS=(); EXTRA=(); BUDGET=""; TENBIT=0; LOOP=0; ACCEPT_FAST=""; ACCEPT_CUT=""; THEME=""
+SPEC=""; NOCHECK=0; KEEP=0; MS_ARGS=(); EXTRA=(); BUDGET=""; TENBIT=0; LOOP=0; ACCEPT_FAST=""; ACCEPT_CUT=""; THEME=""; DEVICE=""
 POS=()
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -98,6 +99,7 @@ while [[ $# -gt 0 ]]; do
     --blur) MODE=blur ;;
     --master) MODE=master ;;
     --theme) THEME=${2:?'--theme wants dark or light'}; shift ;;
+    --device) DEVICE=${2:?'--device wants desktop or mobile'}; shift ;;
     --audio) AUDIO=${2:?--audio needs a file}; shift ;;
     --no-audio) NOAUDIO=1 ;;
     --loop) LOOP=1 ;;
@@ -133,6 +135,10 @@ COMP=${POS[0]}; OUT=${POS[1]}
 if [[ -n "$THEME" ]]; then
   [[ "$THEME" == dark || "$THEME" == light ]] || die "--theme must be dark or light, got '$THEME'"
   export FILM_THEME=$THEME
+fi
+if [[ -n "$DEVICE" ]]; then
+  [[ "$DEVICE" == desktop || "$DEVICE" == mobile ]] || die "--device must be desktop or mobile, got '$DEVICE'"
+  export FILM_DEVICE=$DEVICE
 fi
 
 # project root: the current folder if it has the entry, else the folder above this script

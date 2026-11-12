@@ -49,6 +49,7 @@ Config.overrideWebpackConfig((c) => ({
     ...(c.plugins ?? []),
     new webpack.DefinePlugin({
       __FILM_THEME__: JSON.stringify(process.env.FILM_THEME || 'dark'),
+      __FILM_DEVICE__: JSON.stringify(process.env.FILM_DEVICE || 'desktop'),
     }),
   ],
 }));

@@ -16,5 +16,9 @@ import grapheRelationnel from './graphe-relationnel/timeline';
 import iaWorkflow from './ia-workflow/timeline';
 import contact from './contact/timeline';
 import arrivee from './arrivee/timeline';
+import { MOBILE } from '../lib/device';
+import { MOBILE_BITS } from './mobile/timelines';
 
-export const BITS: BitTimeline[] = [casioCourse, titre, olympiades, arepCheckin, sncfCarte, copilotExtension, parisCalifornie, rugby, frontAuCloud, grapheRelationnel, polyvalence, iaWorkflow, contact, arrivee];
+const DESKTOP_BITS: BitTimeline[] = [casioCourse, titre, olympiades, arepCheckin, sncfCarte, copilotExtension, parisCalifornie, rugby, frontAuCloud, grapheRelationnel, polyvalence, iaWorkflow, contact, arrivee];
+
+export const BITS: BitTimeline[] = MOBILE ? MOBILE_BITS : DESKTOP_BITS;

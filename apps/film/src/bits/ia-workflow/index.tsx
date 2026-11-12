@@ -5,8 +5,7 @@ import { Chain } from '../../fx/Chain';
 import { E, mix, prog } from '../../lib/anim';
 import { useStrings } from '../../lib/i18n';
 import { fitSize } from '../../lib/measure';
-import { actOf, CUE, H, W } from '../../timeline';
-import { NativeWindow } from './NativeWindow';
+import { actOf, CUE, W } from '../../timeline';
 import { BrowserWindow } from '../_shared/ui/BrowserWindow';
 
 /** The browser chrome's height above the horse scene (BrowserWindow's default). */
@@ -33,7 +32,7 @@ import type { SoundEvent } from '../../sync';
 import { sfx, type SfxName } from '../_shared/sfx';
 import type { BitModule, BitProps } from '../types';
 import { STR } from './copy';
-import { APP_H, APP_W, CHAT_BOTTOM, CHAT_TOP, CHAT_W, ChatColumn, CHROME, HORSE_H, HORSE_W, HorseScene, Ide, IDE_H, IDE_W, TeamApp, WIN } from './screens';
+import { CHAT_BOTTOM, CHAT_TOP, CHAT_W, ChatColumn, HORSE_H, HORSE_W, HorseScene, Ide, IDE_H, IDE_W } from './screens';
 
 const SLUG = 'ia-workflow';
 const K = (name: string) => {
@@ -42,35 +41,10 @@ const K = (name: string) => {
   return v;
 };
 
-/**
- * The AionUI team window (detail 2) is not rendered: the story now shows the IDE's agent thread only.
- * Its code stays in screens.tsx (TeamApp) and its copy in copy.ts. Set it to true only together with its cues.
- */
-const SHOW_TEAM = false;
-
 // The copy runs across the top on one line (centred, 96 px margins), the illustration below it at full width.
 const MARGIN = 96;
 const LINE_TOP = 72;
 const LINE_W = W - 2 * MARGIN;
-
-/** The team window, drawn over the IDE when SHOW_TEAM is on. Its cues are read only here. */
-const TeamLayer: React.FC<{ F: number }> = ({ F }) => {
-  const { APP } = useStrings(STR);
-  const c = K;
-  const aionIn = prog(F, c('aionIn'), c('aionIn') + 36, E.smooth);
-  const aionLift = (1 - prog(F, c('aionIn'), c('aionIn') + 36, E.out)) * 16;
-  return (
-    <div style={{ position: 'absolute', left: 0, top: 0, width: W, height: H, perspective: TILT_PERSPECTIVE, opacity: aionIn, transform: `translate(0px, ${aionLift}px)` }}>
-      <div style={{ position: 'absolute', left: WIN.x, top: WIN.y, width: WIN.w, height: WIN.h, ...tilt(F, 90) }}>
-        <NativeWindow w={WIN.w} h={WIN.h} title={APP.title}>
-          <div style={{ position: 'absolute', left: 0, top: 0, width: APP_W, height: APP_H, transform: `translate(0px, ${CHROME}px)`, overflow: 'hidden' }}>
-            <TeamApp F={F} c={c} />
-          </div>
-        </NativeWindow>
-      </div>
-    </div>
-  );
-};
 
 // No seed-dependent variation: the same app and the same timing for every seed.
 const Bit: React.FC<BitProps> = () => {
@@ -115,8 +89,6 @@ const Bit: React.FC<BitProps> = () => {
           </div>
         </div>
       )}
-
-      {SHOW_TEAM && <TeamLayer F={F} />}
 
       {/* « Propulsé par l'IA. » on one centred line at the top */}
       <Chain chain={`${SLUG}.line`} frame={f} from={act.from} role="display" size={size} x={W / 2} top={LINE_TOP} align="center" />

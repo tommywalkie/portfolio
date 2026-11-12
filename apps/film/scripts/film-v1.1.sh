@@ -14,11 +14,15 @@
 # --theme dark|light (default dark) is the only addition: it exports FILM_THEME, which remotion.config.ts
 # bakes into the bundle (src/brand/theme.ts), and puts __light in the output names so a light build never
 # overwrites a dark deliverable. Everything else below is the original flow, unchanged.
+# --device desktop|mobile: one device only (FILM_DEVICE); mobile renders 1080x1920 with __mobile names.
+# Without --device, the same build runs for desktop, then for mobile.
 set -euo pipefail
 cd "$(dirname "$0")/.."
+ARGS=("$@")
 WHICH=${1:-all}
 MUSIC=${MUSIC:-warm}
 THEME=dark
+DEVICE=""
 shift $(( $# > 0 ? 1 : 0 )) || true
 # the optional music name comes second, but only if it is not an option (`en --theme light` has no music name:
 # reading `--theme` as the music broke every light build)
@@ -26,14 +30,24 @@ if [[ $# -gt 0 && "$1" != --* ]]; then MUSIC=$1; shift; fi
 while [[ $# -gt 0 ]]; do
   case "$1" in
     --theme) THEME=${2:?--theme wants dark or light}; shift ;;
+    --device) DEVICE=${2:?--device wants desktop or mobile}; shift ;;
     *) echo "film-v1.1: unexpected argument '$1' (see the header)" >&2; exit 2 ;;
   esac
   shift
 done
 [[ "$THEME" == dark || "$THEME" == light ]] || { echo "film-v1.1: --theme must be dark or light, got '$THEME'" >&2; exit 2; }
+# no --device: the desktop build, then the mobile one (each has its own cues and soundtrack)
+if [[ -z "$DEVICE" ]]; then
+  bash "$0" ${ARGS[@]+"${ARGS[@]}"} --device desktop
+  bash "$0" ${ARGS[@]+"${ARGS[@]}"} --device mobile
+  exit 0
+fi
 export FILM_THEME=$THEME
 # light writes __light-suffixed files; dark keeps the original names exactly
 if [[ "$THEME" == light ]]; then SFX=__light; else SFX=; fi
+[[ "$DEVICE" == desktop || "$DEVICE" == mobile ]] || { echo "film-v1.1: --device must be desktop or mobile, got '$DEVICE'" >&2; exit 2; }
+export FILM_DEVICE=$DEVICE
+[[ "$DEVICE" == mobile ]] && SFX=${SFX}__mobile
 command -v uv >/dev/null || { echo "film-v1.1: uv not found (https://docs.astral.sh/uv/)" >&2; exit 1; }
 # Python is the film's uv project (pyproject.toml + uv.lock): every call is `uv run python`. earshot, the sound-kit
 # engine, is a uv tool in its own environment (uv tool install earshot); kit.py finds its interpreter here.

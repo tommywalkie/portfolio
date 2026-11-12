@@ -15,10 +15,14 @@ import iaWorkflow from './ia-workflow';
 import contact from './contact';
 import arrivee from './arrivee';
 import type { BitModule } from './types';
+import { MOBILE } from '../lib/device';
+import { MOBILE_BIT_MODULES, MOBILE_FILM_SEED } from './mobile/registry';
 
-export const BIT_MODULES: BitModule[] = [casioCourse, titre, olympiades, arepCheckin, sncfCarte, copilotExtension, parisCalifornie, rugby, frontAuCloud, grapheRelationnel, polyvalence, iaWorkflow, contact, arrivee];
+const DESKTOP_BIT_MODULES: BitModule[] = [casioCourse, titre, olympiades, arepCheckin, sncfCarte, copilotExtension, parisCalifornie, rugby, frontAuCloud, grapheRelationnel, polyvalence, iaWorkflow, contact, arrivee];
 
-export const FILM_SEED: Record<string, number> = {
+export const BIT_MODULES: BitModule[] = MOBILE ? MOBILE_BIT_MODULES : DESKTOP_BIT_MODULES;
+
+const DESKTOP_FILM_SEED: Record<string, number> = {
   'casio-course': 1,
   titre: 1,
   olympiades: 1,
@@ -34,3 +38,5 @@ export const FILM_SEED: Record<string, number> = {
   contact: 1,
   arrivee: 1,
 };
+
+export const FILM_SEED: Record<string, number> = MOBILE ? MOBILE_FILM_SEED : DESKTOP_FILM_SEED;

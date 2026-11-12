@@ -1,7 +1,7 @@
 name: Film render
 
 # Renders the film(s) on GitHub's runners and cuts them into HLS for the website. Manual only (about 10-15 minutes
-# per film). One job per language x theme; add the portrait mobile films to the matrix when they exist.
+# per film). One job per language x theme x device (desktop 1920x1080, mobile 1080x1920 portrait).
 # Result: the artifact `website-videos`, laid out like apps/website/public (film__*.mp4 and videos/<film>/...):
 #   gh run download <run-id> -n website-videos -D apps/website/public
 on:
@@ -30,9 +30,7 @@ jobs:
       matrix:
         lang: [fr, en]
         theme: [dark, light]
-        # Only `desktop` renders today: the film has no portrait format yet, so adding `mobile` here would just
-        # render the desktop film under a mobile name. Add it together with the film app's portrait support.
-        device: [desktop]
+        device: [desktop, mobile]
     defaults:
       run:
         working-directory: apps/film
@@ -71,15 +69,16 @@ jobs:
           MUSIC: ${{ inputs.music }}
           TEXT_GATE: '0'
         run: |
-          args=("${{ matrix.lang }}")
+          args=("${{ matrix.lang }}" --device "${{ matrix.device }}")
           if [ "${{ matrix.theme }}" = light ]; then args+=(--theme light); fi
           bash scripts/film-v1.1.sh "${args[@]}"
 
-      # the file names film-v1.1.sh writes: __light for the light theme, __en for English
+      # the file names film-v1.1.sh writes: __light for the light theme, __mobile for portrait, __en for English
       - name: Cut into HLS
         run: |
           suffix=""
           if [ "${{ matrix.theme }}" = light ]; then suffix="__light"; fi
+          if [ "${{ matrix.device }}" = mobile ]; then suffix="${suffix}__mobile"; fi
           if [ "${{ matrix.lang }}" = en ]; then suffix="${suffix}__en"; fi
           bash scripts/portfolio-video.sh "film__version-v1.1${suffix}.mp4" "film-${{ matrix.lang }}-${{ matrix.theme }}-${{ matrix.device }}"
           ls -la ../website/public ../website/public/videos/*

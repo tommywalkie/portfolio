@@ -67,3 +67,12 @@ jobs:
         run: |
           set -o pipefail # so the step shows red when the check fails, not just the last command of the pipe
           pnpm exec tsx scripts/grid-check.ts src/timeline.ts | tail -n 5 | tee -a "$GITHUB_STEP_SUMMARY"
+
+      # the portrait film has its own timelines (src/bits/mobile)
+      - name: Timeline grid check, mobile (informational)
+        continue-on-error: true
+        env:
+          FILM_DEVICE: mobile
+        run: |
+          set -o pipefail
+          pnpm exec tsx scripts/grid-check.ts src/timeline.ts | tail -n 5 | tee -a "$GITHUB_STEP_SUMMARY"

@@ -22,6 +22,12 @@
     "film:v1.1:light": "node scripts/gitbash.mjs scripts/film-v1.1.sh all --theme light",
     "film:v1.1:light:fr": "node scripts/gitbash.mjs scripts/film-v1.1.sh fr --theme light",
     "film:v1.1:light:en": "node scripts/gitbash.mjs scripts/film-v1.1.sh en --theme light",
+    "film:v1.1:mobile": "node scripts/gitbash.mjs scripts/film-v1.1.sh all --device mobile",
+    "film:v1.1:mobile:fr": "node scripts/gitbash.mjs scripts/film-v1.1.sh fr --device mobile",
+    "film:v1.1:mobile:en": "node scripts/gitbash.mjs scripts/film-v1.1.sh en --device mobile",
+    "film:v1.1:mobile:light": "node scripts/gitbash.mjs scripts/film-v1.1.sh all --theme light --device mobile",
+    "film:v1.1:mobile:light:fr": "node scripts/gitbash.mjs scripts/film-v1.1.sh fr --theme light --device mobile",
+    "film:v1.1:mobile:light:en": "node scripts/gitbash.mjs scripts/film-v1.1.sh en --theme light --device mobile",
     "film:v1.1:web": "node scripts/gitbash.mjs scripts/portfolio-video.sh",
     "qa": "mkdir -p out/qa && uv run python scripts/probe.py out/film.mp4 --spec 1920x1080@60 && uv run python scripts/forensics.py out/film.mp4 --cues out/cues.json --json out/qa/forensics.json && uv run python scripts/av-audit.py out/film.mp4 --cues out/cues.json --stems out/stems --json out/qa/av.json && uv run python scripts/sheet.py out/film.mp4 --out out/qa/sheet.png"
   },

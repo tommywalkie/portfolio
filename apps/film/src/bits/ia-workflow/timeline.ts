@@ -23,8 +23,6 @@ import { DEFAULT_LOCALE } from '../../lib/locale';
 import { STR } from './copy';
 
 const SLUG = 'ia-workflow';
-/** Typed characters per second (read by the team window's code, which is off). */
-export const CPS = 30;
 /** The 16th grid of a 100 BPM / 60 fps bit (9 f). */
 const S16 = 9;
 /** One duck stride, in frames (two steps). */

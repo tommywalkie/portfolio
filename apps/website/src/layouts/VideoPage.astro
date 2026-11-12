@@ -67,7 +67,8 @@ const LINKEDIN_URL = 'https://www.linkedin.com/in/tom-bazarnik-a4364010b/';
 	// One controller for the whole session. This module runs ONCE (Astro's ClientRouter does not re-run bundled
 	// scripts on navigation), so everything below is registered once and always works on the CURRENT page:
 	// the root, the language and the theme are read at the moment a film is mounted, never captured per page.
-	const PORTRAIT_QUERY = '(orientation: portrait) and (max-width: 767px)';
+	// below Tailwind's lg breakpoint, held in portrait: the 1080x1920 film
+	const PORTRAIT_QUERY = '(orientation: portrait) and (max-width: 1023px)';
 	const portrait = window.matchMedia(PORTRAIT_QUERY);
 
 	/** The film on screen ("fr-dark-desktop"), so a theme/orientation event only remounts when the film changes. */
