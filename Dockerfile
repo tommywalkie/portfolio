@@ -6,7 +6,8 @@ RUN npm install -g pnpm
 
 COPY . .
 
-RUN pnpm install
+# website only: apps/film (Remotion, Blender, heavy deps) is not needed for the published site.
+RUN pnpm install --filter website --filter ...apps/website
 
 RUN pnpm run build
 
