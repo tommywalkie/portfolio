@@ -1,0 +1,46 @@
+name: Docker
+
+# Builds the production image the way deployment does: node:22-alpine builds the static site,
+# nginx:alpine serves it. No videos are needed: the image ships the static shell only.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'Dockerfile'
+      - 'nginx.conf'
+      - 'apps/website/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - '.github/workflows/docker.yml'
+  pull_request:
+    paths:
+      - 'Dockerfile'
+      - 'nginx.conf'
+      - 'apps/website/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - '.github/workflows/docker.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: docker-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+
+      # build only, no registry push (deployment pulls by hand or by tag)
+      - uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: false
+          tags: portfolio:ci
