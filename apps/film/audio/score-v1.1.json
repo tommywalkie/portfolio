@@ -1,0 +1,25 @@
+{
+  "key": "G major",
+  "bpm": 100,
+  "music": "none",
+  "sfx": { "engine": "auto", "kit": "audio/kit.json", "python": null },
+  "chords": [
+    "Gmaj9", "Em9", "Cmaj9", "D6", "Gmaj9", "Em9", "Cmaj9", "D6",
+    "Gmaj9", "Em9", "Cmaj9", "D6", "Gmaj9", "Em9", "Cmaj9", "D6",
+    "Gmaj9", "Em9", "Cmaj9", "D6", "Gmaj9", "Em9", "Cmaj9", "D6",
+    "Gmaj9", "Em9", "Cmaj9", "D6", "Gmaj9", "Em9", "Cmaj9", "D6",
+    "Gmaj9", "Em9", "Cmaj9", "D6", "Gmaj9", "Em9", "Cmaj9", "D6",
+    "Gmaj9", "Em9", "Cmaj9", "D6", "Gmaj9", "Em9", "Gadd9", "-"
+  ],
+  "sections": [
+    { "bars": [1, 2], "style": "intro" },
+    { "bars": [3, 46], "style": "breakdown" },
+    { "bars": [47, 47], "style": "resolve" },
+    { "bars": [48, 48], "style": "hold" }
+  ],
+  "signature": { "tick": "G6", "tock": "D6", "motif": [0, 7, 14], "rhythm": [0, 0.5, 1.5] },
+  "typing": "soft",
+  "payoff": 6570,
+  "mix": { "music": 0.55, "sfx": 1.0, "reverb": 1.0, "sidechain": 0.55, "duck_db": 3 },
+  "master": { "ceiling": 0.77, "fade": 1.3, "lufs": -25 }
+}

@@ -1,5 +1,28 @@
-node_modules
+# Docker matches a bare name only at the context root: every pattern for nested folders needs **/.
+# Dependencies are installed inside the image (node:20-alpine, musl): host node_modules (glibc binaries) must never get in.
+**/node_modules
+**/.venv
+**/.astro
+**/__pycache__
 dist
 .git
+.github
 .gitignore
-README.md 
+README.md
+.env
+.env.*
+
+# The film app: only its package.json is needed (the pnpm workspace install reads it); never its renders or caches.
+apps/film/out
+apps/film/audio/music
+apps/film/audio/kit
+apps/film/public/audio
+
+# Scratch, references and agent tooling: not part of the site.
+tmp
+refs
+films
+.agents
+.claude
+.vscode
+.idea

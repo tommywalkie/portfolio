@@ -1,0 +1,69 @@
+name: Film checks
+
+# Static checks of apps/film (no rendering): uv only, TypeScript, the film lint, and the timeline grid check.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/film/**'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - '.github/workflows/film-checks.yml'
+  pull_request:
+    paths:
+      - 'apps/film/**'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - '.github/workflows/film-checks.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: film-checks-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: apps/film
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6 # the version comes from package.json "packageManager"
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile --filter cinetic-resume...
+        working-directory: .
+
+      - uses: astral-sh/setup-uv@v7
+        with:
+          enable-cache: true
+          cache-dependency-glob: apps/film/uv.lock
+
+      # the lockfile must be up to date with pyproject.toml, and the environment must build from it
+      - run: uv sync --frozen
+
+      - name: Python is uv only
+        run: node scripts/check-uv.mjs
+
+      - name: TypeScript
+        run: pnpm exec tsc --noEmit
+
+      - name: Film lint
+        run: node scripts/lint-film.mjs src
+
+      # Known errors today (the timeline fails some rules): reported, not blocking. Remove continue-on-error once clean.
+      - name: Timeline grid check (informational)
+        continue-on-error: true
+        run: |
+          set -o pipefail # so the step shows red when the check fails, not just the last command of the pipe
+          pnpm exec tsx scripts/grid-check.ts src/timeline.ts | tail -n 5 | tee -a "$GITHUB_STEP_SUMMARY"

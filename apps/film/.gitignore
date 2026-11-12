@@ -1,0 +1,13 @@
+node_modules/
+.venv/
+# generated music beds (scripts/audio/ambient.py): movie output, never committed
+audio/music/
+# the earshot sound kit's rendered takes (pnpm run kit): rebuilt from audio/kit.json, deterministic. Keep kit.json
+# and score*.json (the source) tracked.
+audio/kit/
+out/*
+out/cues.json
+public/audio/*.wav
+.DS_Store
+*.log
+__pycache__/

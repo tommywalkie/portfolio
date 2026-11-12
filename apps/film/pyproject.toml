@@ -1,0 +1,21 @@
+[project]
+name = "film-tools"
+version = "0.1.0"
+description = "Python tooling of apps/film: the sound pipeline (synth, score, music beds), render checks and video analysis."
+requires-python = ">=3.12"
+dependencies = [
+  "numpy",
+  "scipy",
+  "soundfile",
+  "pyloudnorm",   # loudness (score, music beds, check-sync)
+  "librosa",      # av-audit
+  "opencv-python",# forensics, sheet
+]
+
+# A set of scripts, not a package: nothing to build or install, only the environment.
+[tool.uv]
+package = false
+
+# Not here: earshot, the sound-kit engine, stays a uv tool in its own environment (cinetic's own advice):
+#   uv tool install "earshot[mcp] @ git+https://github.com/Leonxlnx/earshot"
+# scripts/audio/kit.py finds it through $EARSHOT_PYTHON or `uv tool dir`.

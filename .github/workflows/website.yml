@@ -1,0 +1,55 @@
+name: Website
+
+# Builds apps/website (the Astro site) the way the Dockerfile does: pnpm install, then the root `pnpm run build`, which
+# writes the site to dist/. The films are not needed to build it (they are fetched by the browser at runtime).
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/website/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - '.github/workflows/website.yml'
+  pull_request:
+    paths:
+      - 'apps/website/**'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - '.github/workflows/website.yml'
+  workflow_dispatch:
+
+concurrency:
+  group: website-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6 # the version comes from package.json "packageManager"
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 20 # the Dockerfile builds on node:20
+          cache: pnpm
+
+      # only the website and what it depends on, not the film's Remotion/Chrome toolchain
+      - run: pnpm install --frozen-lockfile --filter website...
+
+      - run: pnpm run build
+
+      # the built site, to download and deploy by hand: `gh run download <run-id> -n website-dist -D dist`
+      - uses: actions/upload-artifact@v7
+        with:
+          name: website-dist
+          path: dist
+          retention-days: 14
+          if-no-files-found: error

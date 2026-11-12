@@ -1,0 +1,192 @@
+---
+import Layout from './Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import translations from '../i18n/portfolio.json';
+import '../styles/film-player.css';
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = translations[lang];
+
+const LINKEDIN_URL = 'https://www.linkedin.com/in/tom-bazarnik-a4364010b/';
+---
+
+<Layout>
+	<div class="h-dvh flex flex-col w-full overflow-hidden">
+		<Header lang={lang} />
+		<main class="flex-1 min-h-0 w-full bg-white dark:bg-primary-950">
+			<div id="html-player-root" class="relative w-full h-full bg-white dark:bg-primary-950" data-lang={lang}>
+				<button
+					id="html-player-mute"
+					type="button"
+					class="film-player-mute"
+					aria-label={t.video.unmute}
+					data-mute-label={t.video.mute}
+					data-unmute-label={t.video.unmute}
+				>
+					<span id="html-player-mute-label">{t.video.unmute}</span>
+					<svg
+						id="html-player-mute-icon"
+						xmlns="http://www.w3.org/2000/svg"
+						viewBox="0 0 24 24"
+						fill="none"
+						stroke="currentColor"
+						stroke-width="2"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						aria-hidden="true"
+					>
+						<path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z" />
+						<line x1="22" x2="16" y1="9" y2="15" />
+						<line x1="16" x2="22" y1="9" y2="15" />
+					</svg>
+					<span id="html-player-mute-eq" class="film-player-eq" aria-hidden="true" hidden>
+						<span class="film-player-eq-bar"></span>
+						<span class="film-player-eq-bar"></span>
+						<span class="film-player-eq-bar"></span>
+						<span class="film-player-eq-bar"></span>
+					</span>
+				</button>
+			</div>
+		</main>
+		<Footer lang={lang} />
+	</div>
+</Layout>
+
+<!-- Video.js 10 HTML (no React) bundles, pinned to the same 10.3.0 as @videojs/react -->
+<script is:inline type="module" src="https://cdn.jsdelivr.net/npm/@videojs/cdn@10.3.0/video.js"></script>
+<script is:inline type="module" src="https://cdn.jsdelivr.net/npm/@videojs/cdn@10.3.0/media/hlsjs-video.js"></script>
+
+<script>
+	import { getFilm } from '../utils/films';
+
+	// One controller for the whole session. This module runs ONCE (Astro's ClientRouter does not re-run bundled
+	// scripts on navigation), so everything below is registered once and always works on the CURRENT page:
+	// the root, the language and the theme are read at the moment a film is mounted, never captured per page.
+	const PORTRAIT_QUERY = '(orientation: portrait) and (max-width: 767px)';
+	const portrait = window.matchMedia(PORTRAIT_QUERY);
+
+	/** The film on screen ("fr-dark-desktop"), so a theme/orientation event only remounts when the film changes. */
+	let mountedKey = '';
+	/** Bumped by every mount and every navigation: a mount still waiting for the player elements gives up if stale. */
+	let generation = 0;
+	/** True between astro:before-swap and astro:page-load, while the router rewrites <html class> (not a theme change). */
+	let swapping = false;
+	const wired = new WeakSet<HTMLElement>();
+
+	const getRoot = () => document.getElementById('html-player-root');
+	const currentMedia = (root: HTMLElement) => root.querySelector<HTMLMediaElement>('hlsjs-video, video-skin > video');
+
+	function syncMute() {
+		const root = getRoot();
+		const muteButton = document.getElementById('html-player-mute');
+		const muteLabel = document.getElementById('html-player-mute-label');
+		const muteIcon = document.getElementById('html-player-mute-icon');
+		const muteEq = document.getElementById('html-player-mute-eq');
+		if (!root || !muteButton || !muteLabel || !muteIcon || !muteEq) return;
+		const media = currentMedia(root);
+		const muted = media ? media.muted : true;
+		const label = (muted ? muteButton.dataset.unmuteLabel : muteButton.dataset.muteLabel) ?? '';
+		muteLabel.textContent = label;
+		muteIcon.toggleAttribute('hidden', !muted);
+		muteEq.toggleAttribute('hidden', muted);
+		muteButton.setAttribute('aria-label', label);
+	}
+
+	/** Stops and removes the player on screen (its hls.js engine is destroyed when the element leaves the DOM). */
+	function teardown() {
+		generation++;
+		const root = getRoot();
+		const player = root?.querySelector('video-player');
+		if (player) {
+			const media = root ? currentMedia(root) : null;
+			media?.pause();
+			player.remove();
+		}
+		mountedKey = '';
+	}
+
+	async function mount({ force = false, mp4 = false } = {}) {
+		const root = getRoot();
+		if (!root) return; // not a video page
+		const lang = root.dataset.lang === 'fr' ? 'fr' : 'en';
+		const theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+		const device = portrait.matches ? 'mobile' : 'desktop';
+		const key = `${lang}-${theme}-${device}${mp4 ? '-mp4' : ''}`;
+		if (!force && key === mountedKey && root.querySelector('video-player')) return; // already showing this film
+
+		const mine = ++generation;
+		await Promise.all([
+			customElements.whenDefined('video-player'),
+			customElements.whenDefined('video-skin'),
+			customElements.whenDefined('hlsjs-video'),
+		]);
+		// a newer mount, a navigation, or another page took over while we waited: do nothing
+		if (mine !== generation || root !== getRoot() || !root.isConnected) return;
+
+		root.querySelector('video-player')?.remove();
+		const film = getFilm(lang, theme, device);
+		const player = document.createElement('video-player');
+		const skin = document.createElement('video-skin');
+		// HLS first, the MP4 of the same film if HLS fails
+		const media = document.createElement(mp4 ? 'video' : 'hlsjs-video');
+		media.setAttribute('src', mp4 ? film.mp4 : film.hls);
+		media.setAttribute('autoplay', '');
+		media.setAttribute('muted', '');
+		media.setAttribute('playsinline', '');
+		if (!mp4) {
+			media.addEventListener(
+				'error',
+				() => {
+					// only the player still on screen may fall back (an old one being torn down must not)
+					if (mine === generation && media.isConnected) mount({ force: true, mp4: true });
+				},
+				{ once: true },
+			);
+		}
+		skin.append(media);
+		player.append(skin);
+		root.prepend(player);
+		mountedKey = key;
+		syncMute();
+	}
+
+	/** Per page: the mute button and the volume events of this page's root (a new root after every navigation). */
+	function wirePage() {
+		const root = getRoot();
+		const muteButton = document.getElementById('html-player-mute');
+		if (!root || !muteButton || wired.has(root)) return;
+		wired.add(root);
+		// media events don't bubble: capture them on the root
+		root.addEventListener('volumechange', syncMute, true);
+		muteButton.addEventListener('click', () => {
+			const media = currentMedia(root);
+			if (!media) return;
+			media.muted = !media.muted;
+			syncMute();
+		});
+	}
+
+	function onPageLoad() {
+		swapping = false;
+		wirePage();
+		mount({ force: true });
+	}
+
+	// registered once for the session
+	new MutationObserver(() => {
+		if (!swapping) mount(); // a real theme toggle (remounts only if the film changes)
+	}).observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+	portrait.addEventListener('change', () => mount());
+	document.addEventListener('astro:before-swap', () => {
+		swapping = true;
+		teardown(); // the leaving page's player stops now, and any mount still pending is cancelled
+	});
+	document.addEventListener('astro:page-load', onPageLoad);
+	// first load: astro:page-load also fires, but this module can run after it
+	if (document.readyState !== 'loading') onPageLoad();
+</script>

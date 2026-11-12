@@ -1,0 +1,11 @@
+packages:
+  - 'apps/*'
+  - 'packages/*'
+
+# remotion's type declarations import 'zod/v3' and 'zod/v4/core' without declaring zod; under pnpm they would resolve
+# to the hoisted zod 3.24 (Astro's), which has neither entry point, and Composition props fall back to `any`.
+# Declaring zod as a peer of remotion links it to the zod 4 that apps/film provides.
+packageExtensions:
+  remotion:
+    peerDependencies:
+      zod: '*'

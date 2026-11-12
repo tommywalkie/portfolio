@@ -1,0 +1,47 @@
+{
+  "name": "cinetic-resume",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A film built from code: one beat-locked timeline drives picture and sound.",
+  "scripts": {
+    "studio": "remotion studio",
+    "stills": "remotion still Mark16 out/stills/mark-16.png --log=error && remotion still MarkSizes out/stills/mark-sizes.png --log=error && remotion still MarkLarge out/stills/mark-large.png --log=error",
+    "check": "node scripts/check-uv.mjs && tsc --noEmit && node scripts/lint-film.mjs src && tsx scripts/grid-check.ts src/timeline.ts",
+    "cues": "tsx scripts/export-cues.ts",
+    "kit": "uv run python scripts/audio/kit.py render",
+    "audio": "uv run python scripts/audio/score.py --cues out/cues.json --score audio/score.json --out public/audio/soundtrack.wav --stems out/stems --json out/qa/score.json",
+    "listen": "uv run python scripts/audio/listen.py",
+    "render": "bash scripts/render.sh Film out/film.mp4 --blur --audio public/audio/soundtrack.wav",
+    "render:preview": "bash scripts/render.sh Film out/preview.mp4 --preview --audio public/audio/soundtrack.wav",
+    "bit": "node scripts/gitbash.mjs scripts/render-bit.sh",
+    "film:v1.1": "node scripts/gitbash.mjs scripts/film-v1.1.sh all",
+    "film:v1.1:fr": "node scripts/gitbash.mjs scripts/film-v1.1.sh fr",
+    "film:v1.1:en": "node scripts/gitbash.mjs scripts/film-v1.1.sh en",
+    "film:v1.1:sound": "node scripts/gitbash.mjs scripts/film-v1.1.sh sound",
+    "film:v1.1:music": "node scripts/gitbash.mjs scripts/film-v1.1.sh music",
+    "film:v1.1:light": "node scripts/gitbash.mjs scripts/film-v1.1.sh all --theme light",
+    "film:v1.1:light:fr": "node scripts/gitbash.mjs scripts/film-v1.1.sh fr --theme light",
+    "film:v1.1:light:en": "node scripts/gitbash.mjs scripts/film-v1.1.sh en --theme light",
+    "film:v1.1:web": "node scripts/gitbash.mjs scripts/portfolio-video.sh",
+    "qa": "mkdir -p out/qa && uv run python scripts/probe.py out/film.mp4 --spec 1920x1080@60 && uv run python scripts/forensics.py out/film.mp4 --cues out/cues.json --json out/qa/forensics.json && uv run python scripts/av-audit.py out/film.mp4 --cues out/cues.json --stems out/stems --json out/qa/av.json && uv run python scripts/sheet.py out/film.mp4 --out out/qa/sheet.png"
+  },
+  "dependencies": {
+    "@fontsource-variable/geist-mono": "^5.3.0",
+    "@remotion/bundler": "4.0.529",
+    "@remotion/cli": "4.0.529",
+    "@remotion/layout-utils": "4.0.529",
+    "@remotion/noise": "4.0.529",
+    "@remotion/paths": "4.0.529",
+    "@remotion/shapes": "4.0.529",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "remotion": "4.0.529"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^7.0.0",
+    "zod": "4.5.4"
+  }
+}

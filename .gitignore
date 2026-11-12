@@ -25,3 +25,13 @@ tmp/
 
 # jetbrains setting folder
 .idea/
+
+# Movie output: rendered and chunked by apps/film on the VPS / CI, never committed
+apps/website/public/videos/
+apps/website/public/film__*.mp4
+
+# WIP: Cinetic-based work for motion design video.
+refs/
+films/
+.agents/
+.claude/
