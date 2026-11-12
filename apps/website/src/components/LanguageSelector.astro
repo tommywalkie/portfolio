@@ -1,5 +1,6 @@
 ---
 import languagesData from '../i18n/languages.json';
+import translations from '../i18n/portfolio.json';
 import Tooltip from './Tooltip.astro';
 import { Languages } from 'lucide-react';
 
@@ -9,6 +10,7 @@ interface Props {
 }
 
 const { lang = 'en', className = '' } = Astro.props;
+const t = translations[lang];
 const icons = {
   en: {
     emoji: '🇬🇧',
@@ -50,15 +52,17 @@ const isCurrentLanguage = (code: string) => code === lang;
     <img src={icons[lang].image} alt={currentLanguage.name} class="h-5" />
   </button>}
 
-  {!SHOW_FLAG_AS_MAIN_ICON && <button
-    id="language-selector-button"
-    class="px-2 my-auto h-8 rounded-lg hover:bg-primary-100 dark:hover:text-white dark:hover:bg-primary-700 cursor-pointer ring-none focus:ring-none flex items-center"
-    aria-label="Select language"
-    aria-expanded="false"
-    aria-controls="language-dropdown"
-  >
-    <Languages client:load className="w-5 h-5 stroke-primary-700 dark:stroke-primary-200" />
-  </button>}
+  {!SHOW_FLAG_AS_MAIN_ICON && <Tooltip text={t.header.hero.switchLanguage} position="bottom-right">
+    <button
+      id="language-selector-button"
+      class="px-2 my-auto h-8 rounded-lg hover:bg-primary-100 dark:hover:text-white dark:hover:bg-primary-700 cursor-pointer ring-none focus:ring-none flex items-center"
+      aria-label="Select language"
+      aria-expanded="false"
+      aria-controls="language-dropdown"
+    >
+      <Languages client:load className="w-5 h-5 stroke-primary-700 dark:stroke-primary-200" />
+    </button>
+  </Tooltip>}
 
   <div
     id="language-dropdown"
@@ -96,11 +100,16 @@ const isCurrentLanguage = (code: string) => code === lang;
 
     if (!button || !dropdown) return;
 
+    // Tooltip wrapper (see Tooltip.astro): hidden while the menu is open.
+    const wrapper = button.parentElement;
+
     // Toggle dropdown
     button.addEventListener('click', () => {
       const expanded = button.getAttribute('aria-expanded') === 'true';
-      button.setAttribute('aria-expanded', (!expanded).toString());
+      const open = !expanded;
+      button.setAttribute('aria-expanded', open.toString());
       dropdown.classList.toggle('hidden');
+      wrapper?.toggleAttribute('data-tooltip-off', open);
     });
 
     // Close dropdown when clicking outside
@@ -108,6 +117,7 @@ const isCurrentLanguage = (code: string) => code === lang;
       if (!button.contains(event.target as Node) && !dropdown.contains(event.target as Node)) {
         button.setAttribute('aria-expanded', 'false');
         dropdown.classList.add('hidden');
+        wrapper?.removeAttribute('data-tooltip-off');
       }
     });
   }

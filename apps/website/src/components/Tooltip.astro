@@ -6,9 +6,10 @@ interface Props {
   className?: string;
   position?: Position;
   arrow?: boolean;
+  textId?: string;
 }
 
-const { text, className = '', position = 'bottom' } = Astro.props;
+const { text, className = '', position = 'bottom', textId } = Astro.props;
 
 const positionClasses: Record<Position, string> = {
   'top': 'bottom-full left-1/2 -translate-x-1/2 mb-1.5',
@@ -24,8 +25,8 @@ const positionClasses: Record<Position, string> = {
 
 <div class={`group relative inline-flex ${className}`}>
   <slot />
-  <div class={`invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-300 absolute ${positionClasses[position]} z-[100]`}>
-    <div class="relative bg-primary-700 dark:bg-primary-600 text-white text-sm py-1.5 px-3 rounded whitespace-nowrap shadow-lg">
+  <div class={`invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all duration-300 absolute ${positionClasses[position]} z-[100]`} data-tooltip-popup>
+    <div class="relative bg-primary-700 dark:bg-primary-600 text-white text-sm py-1.5 px-3 rounded whitespace-nowrap shadow-lg" id={textId}>
       {text}
     </div>
   </div>

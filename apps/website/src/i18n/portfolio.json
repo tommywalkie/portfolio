@@ -9,7 +9,9 @@
         "goToResumeBuilder": "Go to resume builder, print my resume",
         "goToPortfolio": "Go to the web portfolio",
         "switchLanguage": "Switch language",
-        "toggleDarkMode": "Toggle dark mode"
+        "toggleDarkMode": "Toggle dark mode",
+        "muteHint": "Click the speaker to turn the sound on",
+        "portfolioHint": "The film is over — explore my portfolio"
       }
     },
     "footer": {
@@ -108,7 +110,9 @@
         "goToResumeBuilder": "Accéder au générateur de CV, imprimer mon CV",
         "goToPortfolio": "Accéder au portfolio web",
         "switchLanguage": "Changer de langue",
-        "toggleDarkMode": "Changer de thème"
+        "toggleDarkMode": "Changer de thème",
+        "muteHint": "Cliquez sur le haut-parleur pour activer le son",
+        "portfolioHint": "Le film est terminé — découvrez mon portfolio"
       }
     },
     "footer": {

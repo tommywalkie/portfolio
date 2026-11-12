@@ -2,7 +2,6 @@
 import Layout from './Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import translations from '../i18n/portfolio.json';
 import '../styles/film-player.css';
 
 interface Props {
@@ -10,48 +9,13 @@ interface Props {
 }
 
 const { lang = 'en' } = Astro.props;
-const t = translations[lang];
-
-const LINKEDIN_URL = 'https://www.linkedin.com/in/tom-bazarnik-a4364010b/';
 ---
 
 <Layout>
 	<div class="h-dvh flex flex-col w-full overflow-hidden">
-		<Header lang={lang} />
+		<Header lang={lang} showMute />
 		<main class="flex-1 min-h-0 w-full bg-white dark:bg-primary-950">
-			<div id="html-player-root" class="relative w-full h-full bg-white dark:bg-primary-950" data-lang={lang}>
-				<button
-					id="html-player-mute"
-					type="button"
-					class="film-player-mute"
-					aria-label={t.video.unmute}
-					data-mute-label={t.video.mute}
-					data-unmute-label={t.video.unmute}
-				>
-					<span id="html-player-mute-label">{t.video.unmute}</span>
-					<svg
-						id="html-player-mute-icon"
-						xmlns="http://www.w3.org/2000/svg"
-						viewBox="0 0 24 24"
-						fill="none"
-						stroke="currentColor"
-						stroke-width="2"
-						stroke-linecap="round"
-						stroke-linejoin="round"
-						aria-hidden="true"
-					>
-						<path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z" />
-						<line x1="22" x2="16" y1="9" y2="15" />
-						<line x1="16" x2="22" y1="9" y2="15" />
-					</svg>
-					<span id="html-player-mute-eq" class="film-player-eq" aria-hidden="true" hidden>
-						<span class="film-player-eq-bar"></span>
-						<span class="film-player-eq-bar"></span>
-						<span class="film-player-eq-bar"></span>
-						<span class="film-player-eq-bar"></span>
-					</span>
-				</button>
-			</div>
+			<div id="html-player-root" class="relative w-full h-full bg-white dark:bg-primary-950" data-lang={lang}></div>
 		</main>
 		<Footer lang={lang} />
 	</div>
@@ -78,24 +42,52 @@ const LINKEDIN_URL = 'https://www.linkedin.com/in/tom-bazarnik-a4364010b/';
 	/** True between astro:before-swap and astro:page-load, while the router rewrites <html class> (not a theme change). */
 	let swapping = false;
 	const wired = new WeakSet<HTMLElement>();
+	/** Expanding-ring hints: 6 s max each, stopped early on click. */
+	const HINT_MS = 6000;
+	const hintTimers = new WeakMap<HTMLElement, number>();
 
 	const getRoot = () => document.getElementById('html-player-root');
 	const currentMedia = (root: HTMLElement) => root.querySelector<HTMLMediaElement>('hlsjs-video, video-skin > video');
 
+	function hintBubble(button: HTMLElement) {
+		return button.querySelector<HTMLElement>('.film-player-hint-bubble');
+	}
+
+	function stopHint(button: HTMLElement) {
+		button.classList.remove('film-player-hint');
+		button.parentElement?.removeAttribute('data-hint-active');
+		const bubble = hintBubble(button);
+		if (bubble) bubble.hidden = true;
+		const timer = hintTimers.get(button);
+		if (timer) {
+			window.clearTimeout(timer);
+			hintTimers.delete(button);
+		}
+	}
+
+	function showHint(button: HTMLElement) {
+		stopHint(button);
+		button.classList.add('film-player-hint');
+		button.parentElement?.setAttribute('data-hint-active', '');
+		const bubble = hintBubble(button);
+		if (bubble) bubble.hidden = false;
+		hintTimers.set(button, window.setTimeout(() => stopHint(button), HINT_MS));
+	}
+
 	function syncMute() {
+		const button = document.getElementById('header-mute');
+		const icon = document.getElementById('header-mute-icon');
+		const eq = document.getElementById('header-mute-eq');
+		if (!button || !icon || !eq) return;
 		const root = getRoot();
-		const muteButton = document.getElementById('html-player-mute');
-		const muteLabel = document.getElementById('html-player-mute-label');
-		const muteIcon = document.getElementById('html-player-mute-icon');
-		const muteEq = document.getElementById('html-player-mute-eq');
-		if (!root || !muteButton || !muteLabel || !muteIcon || !muteEq) return;
-		const media = currentMedia(root);
+		const media = root ? currentMedia(root) : null;
 		const muted = media ? media.muted : true;
-		const label = (muted ? muteButton.dataset.unmuteLabel : muteButton.dataset.muteLabel) ?? '';
-		muteLabel.textContent = label;
-		muteIcon.toggleAttribute('hidden', !muted);
-		muteEq.toggleAttribute('hidden', muted);
-		muteButton.setAttribute('aria-label', label);
+		const text = (muted ? button.dataset.unmuteLabel : button.dataset.muteLabel) ?? '';
+		const tooltip = document.getElementById('header-mute-tooltip');
+		if (tooltip) tooltip.textContent = text;
+		icon.toggleAttribute('hidden', !muted);
+		eq.toggleAttribute('hidden', muted);
+		if (text) button.setAttribute('aria-label', text);
 	}
 
 	/** Stops and removes the player on screen (its hls.js engine is destroyed when the element leaves the DOM). */
@@ -156,20 +148,32 @@ const LINKEDIN_URL = 'https://www.linkedin.com/in/tom-bazarnik-a4364010b/';
 		syncMute();
 	}
 
-	/** Per page: the mute button and the volume events of this page's root (a new root after every navigation). */
+	/** Per page: the header mute button and the volume events of this page's root (a new root after every navigation). */
 	function wirePage() {
 		const root = getRoot();
-		const muteButton = document.getElementById('html-player-mute');
-		if (!root || !muteButton || wired.has(root)) return;
+		const headerMute = document.getElementById('header-mute');
+		const headerPortfolio = document.getElementById('header-portfolio');
+		if (!root || !headerMute || wired.has(root)) return;
 		wired.add(root);
 		// media events don't bubble: capture them on the root
 		root.addEventListener('volumechange', syncMute, true);
-		muteButton.addEventListener('click', () => {
+		// the film reached its last frame: ring the portfolio link
+		root.addEventListener(
+			'ended',
+			() => {
+				if (headerPortfolio) showHint(headerPortfolio);
+			},
+			true,
+		);
+		headerMute.addEventListener('click', () => {
+			stopHint(headerMute);
 			const media = currentMedia(root);
 			if (!media) return;
 			media.muted = !media.muted;
 			syncMute();
 		});
+		headerPortfolio?.addEventListener('click', () => stopHint(headerPortfolio));
+		showHint(headerMute);
 	}
 
 	function onPageLoad() {
