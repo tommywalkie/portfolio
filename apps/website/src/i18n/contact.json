@@ -1,0 +1,51 @@
+{
+  "en": {
+    "pageTitle": "Contact — Tom Bazarnik",
+    "title": "Contact me",
+    "subtitle": "A question, a project idea, or just want to say hi? Drop me a message and I'll get back to you as soon as I can.",
+    "backToHome": "Back to home",
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "Your name",
+      "email": "Email",
+      "emailPlaceholder": "you@example.com",
+      "message": "Message",
+      "messagePlaceholder": "Tell me everything!",
+      "submit": "Send message",
+      "sending": "Sending…",
+      "error": "Something went wrong while sending your message — please check your connection and try again."
+    },
+    "thanks": {
+      "title": "Thanks for contacting me!",
+      "subtitle": "Your message has been sent. I'll get back to you as soon as possible.",
+      "newMessage": "Send a new message",
+      "backToHome": "Back to home"
+    }
+  },
+  "fr": {
+    "pageTitle": "Contact — Tom Bazarnik",
+    "title": "Me contacter",
+    "subtitle": "Une question, une idée de projet, ou juste envie de dire bonjour ? Laissez-moi un message et je vous répondrai dès que possible.",
+    "backToHome": "Retour à l'accueil",
+    "form": {
+      "name": "Nom",
+      "namePlaceholder": "Votre nom",
+      "company": "Entreprise",
+      "companyOptional": "facultatif",
+      "companyPlaceholder": "Nom de votre entreprise",
+      "email": "Email",
+      "emailPlaceholder": "vous@exemple.com",
+      "message": "Message",
+      "messagePlaceholder": "Dites-moi tout !",
+      "submit": "Envoyer le message",
+      "sending": "Envoi en cours…",
+      "error": "Une erreur s'est produite lors de l'envoi de votre message — vérifiez votre connexion puis réessayez."
+    },
+    "thanks": {
+      "title": "Merci de m'avoir contacté !",
+      "subtitle": "Votre message a bien été envoyé. Je vous répondrai dès que possible.",
+      "newMessage": "Envoyer un nouveau message",
+      "backToHome": "Retour à l'accueil"
+    }
+  }
+}

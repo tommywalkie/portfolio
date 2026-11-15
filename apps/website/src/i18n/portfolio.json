@@ -16,6 +16,7 @@
     },
     "footer": {
       "privacyPolicy": "Privacy Policy",
+      "contact": "Contact",
       "allRightsReserved": "All rights reserved"
     },
     "video": {
@@ -117,6 +118,7 @@
     },
     "footer": {
       "privacyPolicy": "Politique de confidentialité",
+      "contact": "Contact",
       "allRightsReserved": "Tous droits réservés"
     },
     "video": {

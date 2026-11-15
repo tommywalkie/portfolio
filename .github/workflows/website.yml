@@ -45,6 +45,9 @@ jobs:
       - run: pnpm install --frozen-lockfile --filter website...
 
       - run: pnpm run build
+        env:
+          # Placeholder URL for CI builds
+          FORM_TARGET_URL: https://forms.example.org/path/to/some-form-id
 
       # the built site, to download and deploy by hand: `gh run download <run-id> -n website-dist -D dist`
       - uses: actions/upload-artifact@v7

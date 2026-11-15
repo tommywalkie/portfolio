@@ -1,0 +1,203 @@
+---
+import Layout from './Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { ArrowLeftIcon, SendIcon, CircleCheckIcon } from '@lucide/astro';
+import translations from '../i18n/contact.json';
+import { FORM_TARGET_URL } from 'astro:env/server';
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = 'en' } = Astro.props;
+const t = translations[lang];
+
+const FORM_URL = FORM_TARGET_URL;
+---
+
+<Layout title={t.pageTitle}>
+  <div class="min-h-screen flex flex-col w-full">
+    <Header lang={lang} />
+    <main class="max-w-3xl mx-auto px-4 py-8 w-full text-primary-900 dark:text-primary-100">
+      <div>
+        <a
+          href={`/${lang}`}
+          class="text-primary-600 dark:text-primary-300 flex items-center gap-2 mb-5 bg-primary-50 dark:bg-primary-900 px-4 py-2 rounded-md hover:bg-primary-100 dark:hover:bg-primary-800 w-fit"
+        >
+          <ArrowLeftIcon class="w-4 h-4" />
+          {t.backToHome}
+        </a>
+      </div>
+
+      <h1 class="text-2xl font-bold mb-2 mt-4">{t.title}</h1>
+      <p class="text-primary-700 dark:text-primary-300 mb-6">{t.subtitle}</p>
+
+      <form
+        id="contact-form"
+        method="POST"
+        action={FORM_URL}
+        data-dev={import.meta.env.DEV ? 'true' : 'false'}
+        class="bg-gradient-to-br from-primary-50 to-primary-100 dark:from-primary-900 dark:to-primary-950 rounded-2xl p-8 shadow-lg border border-primary-200 dark:border-primary-800 space-y-6"
+      >
+        <div>
+          <label for="contact-name" class="block text-sm font-semibold text-primary-700 dark:text-primary-300 mb-2">{t.form.name} <span class="text-secondary-600 dark:text-secondary-500">*</span></label>
+          <input
+            type="text"
+            id="contact-name"
+            name="name"
+            required
+            autocomplete="name"
+            placeholder={t.form.namePlaceholder}
+            class="w-full rounded-lg border border-primary-300 dark:border-primary-700 bg-white dark:bg-primary-950 px-4 py-3 text-primary-900 dark:text-primary-100 placeholder:text-primary-400 dark:placeholder:text-primary-600 focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:border-secondary-500 transition-shadow"
+          />
+        </div>
+
+        <div>
+          <label for="contact-email" class="block text-sm font-semibold text-primary-700 dark:text-primary-300 mb-2">{t.form.email} <span class="text-secondary-600 dark:text-secondary-500">*</span></label>
+          <input
+            type="email"
+            id="contact-email"
+            name="email"
+            required
+            autocomplete="email"
+            placeholder={t.form.emailPlaceholder}
+            class="w-full rounded-lg border border-primary-300 dark:border-primary-700 bg-white dark:bg-primary-950 px-4 py-3 text-primary-900 dark:text-primary-100 placeholder:text-primary-400 dark:placeholder:text-primary-600 focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:border-secondary-500 transition-shadow"
+          />
+        </div>
+
+        <div>
+          <label for="contact-message" class="block text-sm font-semibold text-primary-700 dark:text-primary-300 mb-2">{t.form.message} <span class="text-secondary-600 dark:text-secondary-500">*</span></label>
+          <textarea
+            id="contact-message"
+            name="message"
+            required
+            rows="6"
+            placeholder={t.form.messagePlaceholder}
+            class="w-full rounded-lg border border-primary-300 dark:border-primary-700 bg-white dark:bg-primary-950 px-4 py-3 text-primary-900 dark:text-primary-100 placeholder:text-primary-400 dark:placeholder:text-primary-600 focus:outline-none focus:ring-2 focus:ring-secondary-500 focus:border-secondary-500 transition-shadow resize-y"
+          ></textarea>
+        </div>
+
+        <input type="text" name="_honeypot" class="hidden" tabindex="-1" aria-hidden="true" autocomplete="off" />
+
+        <p id="contact-error" class="hidden text-red-600 dark:text-red-400 text-sm">{t.form.error}</p>
+
+        <div class="flex items-center justify-center">
+          <button
+            id="contact-submit"
+            type="submit"
+            data-default-label={t.form.submit}
+            data-sending-label={t.form.sending}
+            class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 rounded-lg bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 dark:from-primary-500 dark:to-primary-600 dark:hover:from-primary-600 dark:hover:to-primary-700 text-white font-semibold text-lg shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer focus:outline-none focus:ring-4 focus:ring-secondary-500/30 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:shadow-md"
+          >
+            <SendIcon class="w-5 h-5" />
+            <span>{t.form.submit}</span>
+          </button>
+        </div>
+      </form>
+
+      <section
+        id="contact-thanks"
+        role="status"
+        tabindex="-1"
+        class="hidden bg-gradient-to-br from-secondary-50 to-primary-100 dark:from-primary-900 dark:to-primary-950 rounded-2xl p-10 text-center shadow-lg border border-secondary-200 dark:border-primary-800"
+      >
+        <div class="flex justify-center mb-6">
+          <CircleCheckIcon class="w-20 h-20 text-secondary-600 dark:text-secondary-500" />
+        </div>
+        <h2 class="text-3xl font-bold text-primary-900 dark:text-primary-100 mb-4">{t.thanks.title}</h2>
+        <p class="text-lg text-primary-700 dark:text-primary-300 mb-8">{t.thanks.subtitle}</p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <button
+            id="contact-new-message"
+            type="button"
+            class="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-lg bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 dark:from-primary-500 dark:to-primary-600 text-white font-semibold shadow-md hover:shadow-lg transition-all duration-200 cursor-pointer focus:outline-none focus:ring-4 focus:ring-secondary-500/30"
+          >
+            <SendIcon class="w-5 h-5" />
+            {t.thanks.newMessage}
+          </button>
+          <a
+            href={`/${lang}`}
+            class="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-lg bg-white dark:bg-primary-950 border border-primary-300 dark:border-primary-700 text-primary-700 dark:text-primary-300 font-semibold hover:bg-primary-50 dark:hover:bg-primary-900 shadow-sm hover:shadow transition-all duration-200 focus:outline-none focus:ring-4 focus:ring-secondary-500/30"
+          >
+            <ArrowLeftIcon class="w-5 h-5" />
+            {t.thanks.backToHome}
+          </a>
+        </div>
+      </section>
+    </main>
+    <Footer lang={lang} />
+  </div>
+</Layout>
+
+<script>
+  function setupContactForm() {
+    const form = document.getElementById('contact-form');
+    const thanks = document.getElementById('contact-thanks');
+    const error = document.getElementById('contact-error');
+    const submitButton = document.getElementById('contact-submit');
+    const submitLabel = submitButton?.querySelector('span');
+    const newMessageButton = document.getElementById('contact-new-message');
+
+    if (!form || !thanks || !error || !submitButton || !submitLabel || !newMessageButton) return;
+
+    const resetSubmitButton = () => {
+      submitButton.disabled = false;
+      submitLabel.textContent = submitButton.dataset.defaultLabel || '';
+    };
+
+    const showThanks = () => {
+      form.reset();
+      form.classList.add('hidden');
+      thanks.classList.remove('hidden');
+      thanks.focus();
+    };
+
+    const showForm = () => {
+      thanks.classList.add('hidden');
+      form.classList.remove('hidden');
+      error.classList.add('hidden');
+      form.reset();
+      form.querySelector('input[name="name"]')?.focus();
+    };
+
+    newMessageButton.addEventListener('click', showForm);
+
+    const isDev = form.dataset.dev === 'true';
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+
+      error.classList.add('hidden');
+      submitButton.disabled = true;
+      submitLabel.textContent = submitButton.dataset.sendingLabel || '';
+
+      if (isDev) {
+        // In dev mode, mock the submission — skip the network request entirely
+        setTimeout(() => showThanks(), 500);
+        return;
+      }
+
+      try {
+        const formData = new FormData(form);
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (!response.ok) {
+          throw new Error(`Request failed with status ${response.status}`);
+        }
+
+        showThanks();
+      } catch (err) {
+        error.classList.remove('hidden');
+        resetSubmitButton();
+      }
+    });
+  }
+
+  setupContactForm();
+  document.addEventListener('astro:after-swap', setupContactForm);
+</script>
