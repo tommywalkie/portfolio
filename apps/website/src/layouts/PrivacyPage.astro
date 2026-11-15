@@ -2,7 +2,15 @@
 import Layout from './Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { ArrowLeftIcon } from '@lucide/astro';
+import {
+  ArrowLeftIcon,
+  ShieldCheckIcon,
+  ChartColumnIcon,
+  CheckIcon,
+  XIcon,
+  SendIcon,
+  ExternalLinkIcon,
+} from '@lucide/astro';
 import translations from '../i18n/privacy.json';
 
 interface Props {
@@ -11,15 +19,20 @@ interface Props {
 
 const { lang = 'en' } = Astro.props;
 const t = translations[lang];
+
+const card = 'bg-gradient-to-br from-primary-50 to-primary-100 dark:from-primary-900 dark:to-primary-950 rounded-2xl p-8 shadow-lg border border-primary-200 dark:border-primary-800';
+const iconBadge = 'flex items-center justify-center w-10 h-10 rounded-xl bg-primary-500/10 dark:bg-primary-100/10 text-primary-600 dark:text-primary-300 shrink-0';
+const link = 'text-primary-600 dark:text-primary-300 hover:underline';
+const externalLink = `${link} inline-flex items-center gap-1`;
 ---
 
-<Layout>
+<Layout title={t.pageTitle}>
   <div class="min-h-screen flex flex-col w-full">
     <Header lang={lang} />
-    <main class="max-w-3xl mx-auto px-4 py-8 text-left text-primary-900 dark:text-primary-100">
+    <main class="max-w-3xl mx-auto px-4 py-8 w-full text-primary-900 dark:text-primary-100">
       <div>
         <a
-          href={`/${lang}/portfolio`}
+          href={`/${lang}`}
           class="text-primary-600 dark:text-primary-300 flex items-center gap-2 mb-5 bg-primary-50 dark:bg-primary-900 px-4 py-2 rounded-md hover:bg-primary-100 dark:hover:bg-primary-800 w-fit"
         >
           <ArrowLeftIcon class="w-4 h-4" />
@@ -27,64 +40,91 @@ const t = translations[lang];
         </a>
       </div>
 
-      <h1 class="text-2xl font-bold mb-6 mt-4">{t.title}</h1>
+      <h1 class="text-2xl font-bold mb-2 mt-4">{t.title}</h1>
+      <p class="text-primary-700 dark:text-primary-300 mb-4">{t.subtitle}</p>
+      <span class="inline-flex items-center gap-2 mb-8 px-3 py-1 rounded-full text-xs font-medium bg-primary-50 dark:bg-primary-900 text-primary-600 dark:text-primary-300 border border-primary-200 dark:border-primary-800">
+        {t.lastUpdated}: {t.lastUpdatedDate}
+      </span>
 
-      <section class="mb-8">
-        <h2 class="text-xl font-semibold mb-4">{t.sections.overview.title}</h2>
-        <p class="mb-4">
-          {t.sections.overview.content}{' '}
-          <a href="https://tommywalkie.com" class="text-primary-600 dark:text-primary-300 hover:underline">
-            tommywalkie.com
-          </a>
-          .
+      <section class={`${card} mb-6`}>
+        <div class="flex items-center gap-3 mb-4">
+          <span class={iconBadge}>
+            <ShieldCheckIcon class="w-5 h-5" />
+          </span>
+          <h2 class="text-xl font-semibold">{t.sections.overview.title}</h2>
+        </div>
+        <p class="text-primary-700 dark:text-primary-300">
+          {t.sections.overview.content}{' '}<a href="https://tommywalkie.com" class={externalLink}>tommywalkie.com<ExternalLinkIcon class="w-3.5 h-3.5 shrink-0" aria-hidden="true" /></a>.
         </p>
       </section>
 
-      <section class="mb-8">
-        <h2 class="text-xl font-semibold mb-4">{t.sections.analytics.title}</h2>
-        <p class="mb-4">
-          {t.sections.analytics.content}
+      <section class={`${card} mb-6`}>
+        <div class="flex items-center gap-3 mb-4">
+          <span class={iconBadge}>
+            <ChartColumnIcon class="w-5 h-5" />
+          </span>
+          <h2 class="text-xl font-semibold">{t.sections.analytics.title}</h2>
+        </div>
+        <p class="text-primary-700 dark:text-primary-300 mb-6">
+          {t.sections.analytics.content.before}<a href="https://umami.is/" target="_blank" rel="noopener noreferrer" class={externalLink}>{t.sections.analytics.content.link}<ExternalLinkIcon class="w-3.5 h-3.5 shrink-0" aria-hidden="true" /></a>{t.sections.analytics.content.after}
         </p>
-        <h3 class="text-lg font-semibold mb-2">{t.sections.analytics.whatWeCollect.title}</h3>
-        <ul class="list-disc pl-6 mb-4">
+
+        <h3 class="text-base font-semibold mb-3 text-primary-800 dark:text-primary-200">{t.sections.analytics.whatWeCollect.title}</h3>
+        <ul class="space-y-2 mb-6">
           {t.sections.analytics.whatWeCollect.items.map((item) => (
-            <li>{item}</li>
+            <li class="flex items-start gap-3">
+              <CheckIcon class="w-4 h-4 mt-1 shrink-0 text-secondary-600 dark:text-secondary-500" />
+              <span class="text-primary-700 dark:text-primary-300">{item}</span>
+            </li>
           ))}
         </ul>
-        <h3 class="text-lg font-semibold mb-2">{t.sections.analytics.whatWeDontCollect.title}</h3>
-        <ul class="list-disc pl-6 mb-4">
+
+        <h3 class="text-base font-semibold mb-3 text-primary-800 dark:text-primary-200">{t.sections.analytics.whatWeDontCollect.title}</h3>
+        <ul class="space-y-2">
           {t.sections.analytics.whatWeDontCollect.items.map((item) => (
-            <li>{item}</li>
+            <li class="flex items-start gap-3">
+              <XIcon class="w-4 h-4 mt-1 shrink-0 text-primary-400 dark:text-primary-500" />
+              <span class="text-primary-700 dark:text-primary-300">{item}</span>
+            </li>
           ))}
         </ul>
       </section>
 
-      <section class="mb-8">
-        <h2 class="text-xl font-semibold mb-4">{t.sections.contact.title}</h2>
-        <p>
-          {t.sections.contact.content}{' '}
-          <a
-            href="https://github.com/tommywalkie"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="text-primary-600 dark:text-primary-300 hover:underline"
-          >
-            GitHub
-          </a>
-          .
+      <section class={`${card} mb-6`}>
+        <div class="flex items-center gap-3 mb-4">
+          <span class={iconBadge}>
+            <SendIcon class="w-5 h-5" />
+          </span>
+          <h2 class="text-xl font-semibold">{t.sections.contactForm.title}</h2>
+        </div>
+        <p class="text-primary-700 dark:text-primary-300 mb-4">
+          {t.sections.contactForm.content.before}<a href={`/${lang}/contact`} class={externalLink}>{t.sections.contactForm.content.link}<ExternalLinkIcon class="w-3.5 h-3.5 shrink-0" aria-hidden="true" /></a>{t.sections.contactForm.content.after}
         </p>
+        <p class="text-primary-700 dark:text-primary-300 mb-6">
+          {t.sections.contactForm.tool.before}<a href="https://barancezayirli.github.io/dsforms/" target="_blank" rel="noopener noreferrer" class={externalLink}>{t.sections.contactForm.tool.link}<ExternalLinkIcon class="w-3.5 h-3.5 shrink-0" aria-hidden="true" /></a>{t.sections.contactForm.tool.after}
+        </p>
+
+        <h3 class="text-base font-semibold mb-3 text-primary-800 dark:text-primary-200">{t.sections.contactForm.whatWeCollect.title}</h3>
+        <ul class="space-y-2 mb-6">
+          {t.sections.contactForm.whatWeCollect.items.map((item) => (
+            <li class="flex items-start gap-3">
+              <CheckIcon class="w-4 h-4 mt-1 shrink-0 text-secondary-600 dark:text-secondary-500" />
+              <span class="text-primary-700 dark:text-primary-300">{item}</span>
+            </li>
+          ))}
+        </ul>
+
+        <h3 class="text-base font-semibold mb-3 text-primary-800 dark:text-primary-200">{t.sections.contactForm.whatWeDontCollect.title}</h3>
+        <ul class="space-y-2">
+          {t.sections.contactForm.whatWeDontCollect.items.map((item) => (
+            <li class="flex items-start gap-3">
+              <XIcon class="w-4 h-4 mt-1 shrink-0 text-primary-400 dark:text-primary-500" />
+              <span class="text-primary-700 dark:text-primary-300">{item}</span>
+            </li>
+          ))}
+        </ul>
       </section>
     </main>
-    <Footer />
+    <Footer lang={lang} />
   </div>
 </Layout>
-
-<style>
-  .prose {
-    max-width: none;
-  }
-  .prose a {
-    color: var(--tw-prose-links);
-    text-decoration: underline;
-  }
-</style> 
