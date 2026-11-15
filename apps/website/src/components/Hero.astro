@@ -5,6 +5,7 @@ import TextSlider from './TextSlider.astro'
 import Squircle from './Squircle.astro'
 import LinkedInIcon from './icons/LinkedInIcon.astro'
 import GithubIcon from './icons/GithubIcon.astro'
+import MailIcon from './icons/MailIcon.astro'
 
 interface Props {
   lang?: string;
@@ -69,6 +70,12 @@ const sections = [
           aria-label="Visit Tom Bazarnik's GitHub profile"
         >
           <GithubIcon class="w-8 h-8 fill-primary-300 hover:fill-primary dark:fill-primary dark:hover:fill-primary-300" />
+        </a>
+        <a
+          href={`/${lang}/contact`}
+          aria-label="Contact Tom Bazarnik"
+        >
+          <MailIcon class="w-8 h-8 fill-primary-300 hover:fill-primary dark:fill-primary dark:hover:fill-primary-300" />
         </a>
       </div>
       

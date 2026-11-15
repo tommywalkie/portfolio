@@ -12,6 +12,8 @@
 }
 
 @theme {
+  --breakpoint-xs: 30rem;
+
   --color-hunter-green-50: #f2f7f2;
   --color-hunter-green-100: #e1ebe0;
   --color-hunter-green-200: #c2d8c2;
