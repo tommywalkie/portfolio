@@ -126,7 +126,7 @@
         },
         "tool": {
           "before": "Les messages envoyés depuis cette page sont traités par ",
-          "link": "DSForms",
+          "link": "dsforms",
           "after": ", un service de formulaires auto-hébergé qui tourne sur mon propre serveur — il ne passe jamais par un tiers."
         },
         "whatWeCollect": {
