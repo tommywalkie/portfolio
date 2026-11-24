@@ -4,6 +4,10 @@ WORKDIR /app
 
 RUN npm install -g pnpm
 
+ARG FORM_TARGET_URL
+
+ENV FORM_TARGET_URL=$FORM_TARGET_URL
+
 COPY . .
 
 # website only: apps/film (Remotion, Blender, heavy deps) is not needed for the published site.

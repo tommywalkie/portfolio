@@ -44,3 +44,5 @@ jobs:
           context: .
           push: false
           tags: portfolio:ci
+          build-args: |
+            FORM_TARGET_URL=https://forms.example.org/path/to/some-form-id
