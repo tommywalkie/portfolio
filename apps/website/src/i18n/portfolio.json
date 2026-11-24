@@ -3,9 +3,9 @@
     "header": {
       "hero": {
         "title": "Hello there! 👋",
-        "description": "I'm Tom Bazarnik, a fullstack engineer based in",
-        "description_2": "who likes",
-        "description_3": "building projects with",
+        "description": "I'm Tom Bazarnik, a Senior Fullstack Engineer based in",
+        "description_2": "who builds",
+        "description_3": "projects with",
         "goToResumeBuilder": "Go to resume builder, print my resume",
         "goToPortfolio": "Go to the web portfolio",
         "switchLanguage": "Switch language",
@@ -33,7 +33,7 @@
         "connectWithMeOnLinkedIn": "Connect with me on LinkedIn"
       },
       "print": "Print resume",
-      "role": "Fullstack engineer",
+      "role": "Senior Fullstack Engineer",
       "basedIn": "based in",
       "seekingHybridWork": "seeking a permanent position with hybrid work arrangement"
     },
@@ -76,7 +76,7 @@
       "projects": {
         "title": "Projects",
         "ariaLabel": "Projects",
-        "youAreLookingAtSaidPortfolio": "psst, you're looking at it",
+        "youAreLookingAtSaidPortfolio": "You're looking at it",
         "visitGitHub": "Visit {name}'s GitHub repository",
         "visitWebsite": "Visit {name} website"
       },
@@ -105,9 +105,9 @@
     "header": {
       "hero": {
         "title": "Bienvenue! 👋",
-        "description": "Je suis Tom Bazarnik, un ingénieur fullstack basé à",
-        "description_2": "qui aime",
-        "description_3": "concevoir des projets avec",
+        "description": "Je suis Tom Bazarnik, un Ingénieur Fullstack Sénior basé à",
+        "description_2": "qui conçoit",
+        "description_3": "des projets avec",
         "goToResumeBuilder": "Accéder au générateur de CV, imprimer mon CV",
         "goToPortfolio": "Accéder au portfolio web",
         "switchLanguage": "Changer de langue",
@@ -135,7 +135,7 @@
         "connectWithMeOnLinkedIn": "Ajoutez moi sur LinkedIn"
       },
       "print": "Imprimer le CV",
-      "role": "Ingénieur fullstack",
+      "role": "Ingénieur Fullstack Sénior",
       "basedIn": "basé à",
       "seekingHybridWork": "recherche un poste en CDI avec un rythme hybride"
     },
@@ -155,7 +155,7 @@
         "visitLinkedIn": "Visiter le profil LinkedIn de {name}",
         "visitWebsite": "Visiter le site web de {name}",
         "companyTypes": {
-          "startup": "Startup",
+          "startup": "Start-up",
           "consulting": "Consulting"
         },
         "contractTypes": {
@@ -179,7 +179,7 @@
       "projects": {
         "title": "Projets",
         "ariaLabel": "Projets",
-        "youAreLookingAtSaidPortfolio": "psst, vous êtes en train de le consulter",
+        "youAreLookingAtSaidPortfolio": "Vous êtes en train de le consulter",
         "visitGitHub": "Visiter le dépôt GitHub de {name}",
         "visitWebsite": "Visiter le site web de {name}"
       },

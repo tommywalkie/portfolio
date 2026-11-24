@@ -32,6 +32,7 @@ const email = import.meta.env.VITE_EMAIL ?? 'xxxxxxxx@xxx.xx';
 
 const linkedin = 'https://www.linkedin.com/in/tom-bazarnik-a4364010b/';
 const linkedinShort = linkedin.replace(/^https:\/\/www\./, '').replace(/\/$/, '');
+
 ---
 
 <Layout>
@@ -86,99 +87,102 @@ const linkedinShort = linkedin.replace(/^https:\/\/www\./, '').replace(/\/$/, ''
             </div>
 
             <div class="max-w-full overflow-x-auto xl:overflow-auto h-[calc(100vh-300px)] my-4 xl:my-0 xl:h-auto cv-container bg-primary-50 dark:bg-gray-950 xl:bg-transparent dark:xl:bg-transparent">
-                <div class="w-fit mx-auto px-4 xl:px-0">
-                    <div class="cv-paper max-w-[1152px] min-w-[1152px] h-[1629px] bg-white p-12 shadow-md mb-4">
-                        <div class="">
-                            <div class="mb-6">
-                                <div class="flex items-center gap-4">
-                                    <Squircle width={100} height={100} className="w-25 h-25 min-w-max bg-primary-50 relative">
-                                        <Image
-                                            src="/profiles/tom-bazarnik-transparent.png"
-                                            alt="Tom Bazarnik"
-                                            width={100}
-                                            height={100}
-                                            loading="eager"
-                                            class="relative z-10"
-                                            quality="low"
-                                        />
-                                    </Squircle>
-                                    <div>
-                                        <div class="text-3xl font-bold mb-1 text-primary-700">Tom Bazarnik</div>
-                                        <p class="text-primary-900 mb-1">
-                                            <span class="font-semibold">
-                                                {t.resume.role}
+              <div class="w-fit mx-auto px-4 xl:px-0">
+                <div class="cv-paper max-w-[1152px] min-w-[1152px] h-[1629px] bg-white p-12 shadow-md mb-4">
+                    <div class="">
+                        <div class="mb-6">
+                            <div class="flex items-center gap-4">
+                                <Squircle width={100} height={100} className="w-25 h-25 min-w-max bg-primary-50 relative">
+                                    <Image
+                                        src="/profiles/tom-bazarnik-transparent.png"
+                                        alt="Tom Bazarnik"
+                                        width={100}
+                                        height={100}
+                                        loading="eager"
+                                        class="relative z-10"
+                                        quality="low"
+                                    />
+                                </Squircle>
+                                <div>
+                                    <div class="text-3xl font-bold mb-1 text-primary-700">Tom Bazarnik</div>
+                                    <p class="text-primary-900 mb-1">
+                                        <span class="font-semibold">
+                                            {t.resume.role}
+                                        </span>
+                                        <span>{t.resume.basedIn} <span class="text-primary-500">Paris, France</span></span>
+                                    </p>
+                                    <ul class="flex items-center gap-4 text-sm list-none text-primary-600 mt-1" aria-label="Main navigation">
+                                      {!isProd && (
+                                          <>
+                                          <li>
+                                              <span class="flex items-center gap-2">
+                                                  <Mail class="w-4 h-4" />
+                                                  <span>{email}</span>
+                                              </span>
+                                          </li>
+                                          <li
+                                              class="w-1.5 h-1.5 rounded-full bg-secondary-600"
+                                              aria-hidden="true"
+                                          />
+                                          <li>
+                                              <span class="flex items-center gap-2">
+                                                  <Phone class="w-4 h-4" />
+                                                  <span>{telephone}</span>
+                                              </span>
+                                          </li>
+                                          <li class="w-1.5 h-1.5 rounded-full bg-secondary-600"
+                                              aria-hidden="true"
+                                          />
+                                          </>
+                                      )}
+                                        <li>
+                                            <span class="flex items-center gap-2">
+                                                <LinkedInIcon class="w-4 h-4 fill-primary-600" />
+                                                <span>{linkedinShort}</span>
                                             </span>
-                                            <span>{t.resume.basedIn} <span class="text-primary-500">Paris, France</span> {LOOKING_FOR_NEW_JOB ? 'seeking a permanent position with hybrid work arrangement' : ''}</span>
-                                        </p>
-                                        <ul class="flex items-center gap-4 text-sm list-none text-primary-600 mt-1" aria-label="Main navigation">
-                                            {!isProd && <Fragment>
-                                                <li>
-                                                    <span class="flex items-center gap-2">
-                                                        <Mail class="w-4 h-4" />
-                                                        <span>{email}</span>
-                                                    </span>
-                                                </li>
-                                                <li
-                                                    class="w-1.5 h-1.5 rounded-full bg-secondary-600"
-                                                    aria-hidden="true"
-                                                />
-                                                <li>
-                                                    <span class="flex items-center gap-2">
-                                                        <Phone class="w-4 h-4" />
-                                                        <span>{telephone}</span>
-                                                    </span>
-                                                </li>
-                                                <li class="w-1.5 h-1.5 rounded-full bg-secondary-600"
-                                                    aria-hidden="true"
-                                                />
-                                            </Fragment>}
-                                            <li>
-                                                <span class="flex items-center gap-2">
-                                                    <LinkedInIcon class="w-4 h-4 fill-primary-600" />
-                                                    <span>{linkedinShort}</span>
-                                                </span>
-                                            </li>
-                                            <li class="w-1.5 h-1.5 rounded-full bg-secondary-600"
-                                                aria-hidden="true"
-                                            />
+                                        </li>
+                                        <li class="w-1.5 h-1.5 rounded-full bg-secondary-600"
+                                            aria-hidden="true"
+                                        />
 
-                                            <li>
-                                                <span class="flex items-center gap-2">
-                                                    <Globe class="w-4 h-4" />
-                                                    https://tommywalkie.com
-                                                </span>
-                                            </li>
-
-                                        </ul>
-                                        </div>
-                                    </div>
+                                        <li>
+                                            <span class="flex items-center gap-2">
+                                                <Globe class="w-4 h-4" />
+                                                https://tommywalkie.com
+                                            </span>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
-
-                            <div class="flex flex-row gap-8">
-                                <div class="max-w-[620px]">
-                                    <div class="mb-6">
-                                        <div class="text-sm">
-                                            <ExperienceSectionLite lang={lang} />
-                                        </div>
-                                    </div>
-                                    <LanguagesSectionLite lang={lang} />
-                                </div>
-                                <div class="border-l-3 border-primary-50 pl-8 flex flex-col gap-6 max-w-[420px]">
-                                    <EducationSectionLite lang={lang} />
-                                    <ProjectsSectionLite lang={lang} />
-                                    <DistinctionsSectionLite lang={lang} />
-                                    <InterestsSectionLite lang={lang} />
-                                </div>
-                            </div>
-
                         </div>
+
+                        <div class="flex flex-row gap-8">
+
+                            <div class="max-w-[620px]">
+                                <div class="mb-6">
+                                    <div class="text-sm">
+                                        <ExperienceSectionLite lang={lang} />
+                                    </div>
+                                </div>
+
+                                {lang === 'fr' ? <LanguagesSectionLite lang={lang} /> : <InterestsSectionLite lang={lang} />}
+                            </div>
+
+                            <div class="border-l-3 border-primary-50 pl-8 flex flex-col gap-6 max-w-[420px]">
+                                <EducationSectionLite lang={lang} />
+                                <ProjectsSectionLite lang={lang} />
+                                <DistinctionsSectionLite lang={lang} />
+
+                                {lang === "fr" ? <InterestsSectionLite lang={lang} /> : <LanguagesSectionLite lang={lang} />}
+                            </div>
+                        </div>
+
                     </div>
                 </div>
+              </div>
             </div>
-
-        </main>
-	</div>
+      </main>
+	  </div>
     <div class="no-print">
         <Footer />
     </div>

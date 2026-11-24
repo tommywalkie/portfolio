@@ -90,6 +90,7 @@ export const collections = {
       isCurrentSite: z.boolean().optional(),
       logo: z.string(),
       order: z.number(),
+      showInResume: z.boolean().optional().default(true),
       enabled: z.boolean().optional().default(true),
     }),
   }),

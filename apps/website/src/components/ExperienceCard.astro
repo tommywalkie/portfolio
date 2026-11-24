@@ -89,7 +89,7 @@ const HIDE_COMPANY_TYPE = false;
             </span>
           </a>
           {!HIDE_COMPANY_TYPE && companyType && (
-            <Tooltip text={`${translations[lang].sections.experience.companyType}: ${companyType}`} position="top" className="align-sub max-sm:hidden">
+            <Tooltip text={`${t.sections.experience.companyType}: ${t.sections.experience.companyTypes[String(companyType).toLowerCase()]}`} position="top" className="align-sub max-sm:hidden">
               <span class="text-base text-secondary-700 dark:text-secondary-500 mr-2 inline-flex items-center gap-1 font-normal">
                 <Building2 class="w-5 h-5" />
                 {t.sections.experience.companyTypes[String(companyType).toLowerCase()]}
@@ -144,7 +144,7 @@ const HIDE_COMPANY_TYPE = false;
       <div class="sm:hidden space-y-1 mt-1">
         {!HIDE_COMPANY_TYPE && companyType && (
           <div class="flex">
-            <Tooltip text={`${translations[lang].sections.experience.companyType}: ${companyType}`} position="top" className="align-sub">
+            <Tooltip text={`${t.sections.experience.companyType}: ${t.sections.experience.companyTypes[String(companyType).toLowerCase()]}`} position="top" className="align-sub">
               <span class="text-base text-secondary-700 dark:text-secondary-500 inline-flex items-center gap-1 font-normal">
                 <Building2 class="w-5 h-5" />
                 {t.sections.experience.companyTypes[String(companyType).toLowerCase()]}
