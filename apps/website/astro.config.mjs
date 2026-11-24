@@ -14,6 +14,7 @@ export default defineConfig({
       FORM_TARGET_URL: envField.string({
         context: 'server',
         access: 'public',
+        optional: true
       })
     }
   },
